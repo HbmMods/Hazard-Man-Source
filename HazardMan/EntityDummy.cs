@@ -15,6 +15,8 @@ namespace HazardMan
             posY = y;
         }
 
+        //This is a test
+
         public override void Update()
         {
             if(World.input != ConsoleKey.Delete)
