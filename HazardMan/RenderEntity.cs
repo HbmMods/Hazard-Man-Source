@@ -11,7 +11,7 @@ namespace HazardMan
         public int renderPosX;
         public int renderPosY;
         public char renderIcon = '?';
-        public ConsoleColor bg = ConsoleColor.DarkRed;
+        public ConsoleColor fg = ConsoleColor.DarkRed;
 
         public void renderEntityAt(Entity entity)
         {
@@ -19,8 +19,17 @@ namespace HazardMan
             renderPosY = (int)entity.posY;
 
             ConsoleColor c1 = Console.ForegroundColor;
+            ConsoleColor c2 = Console.BackgroundColor;
 
-            Console.ForegroundColor = bg;
+            Console.ForegroundColor = fg;
+            if (World.terrain[renderPosX, renderPosY] != null)
+            {
+                Console.BackgroundColor = World.terrain[renderPosX, renderPosY].bg;
+            }
+            else
+            {
+                Console.BackgroundColor = ConsoleColor.Blue;
+            }
 
             if (entity.posX > -1 && entity.posX < 120 && entity.posY > -1 && entity.posY < 30)
             {
@@ -46,6 +55,7 @@ namespace HazardMan
             }
 
             Console.ForegroundColor = c1;
+            Console.BackgroundColor = c2;
         }
 
         public void delRenderEntity()

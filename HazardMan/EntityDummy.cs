@@ -47,7 +47,7 @@ namespace HazardMan
             lastPosX = posX;
             lastPosY = posY;
 
-            if (!(World.terrain[(int)(posX -= motionX), (int)(posY -= motionY)] != null))
+            if (!(World.terrain[(int)(posX - motionX), (int)(posY - motionY)] != null))
             {
                 posX -= motionX;
                 posY -= motionY;
@@ -58,9 +58,6 @@ namespace HazardMan
                 motionY *= 0.5F;
                 onGround = true;
             }
-
-            posX += motionX;
-            posY += motionY;
 
             if (!(posX > -1 && posX < 120 && posY > -1 && posY < 30))
             {
