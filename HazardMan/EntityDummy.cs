@@ -19,15 +19,15 @@ namespace HazardMan
         {
             if(World.input != ConsoleKey.Delete)
             {
-                if(World.input == ConsoleKey.W && onGround)
+                if((World.input == ConsoleKey.W || World.input == ConsoleKey.UpArrow) && onGround)
                 {
                     motionY += 1;
                 }
-                if (World.input == ConsoleKey.A)
+                if ((World.input == ConsoleKey.A || World.input == ConsoleKey.LeftArrow))
                 {
                     motionX += 1;
                 }
-                if (World.input == ConsoleKey.D)
+                if ((World.input == ConsoleKey.D || World.input == ConsoleKey.RightArrow))
                 {
                     motionX -= 1;
                 }

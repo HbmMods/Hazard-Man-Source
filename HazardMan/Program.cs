@@ -63,14 +63,14 @@ namespace HazardMan
                 DrawText("Quit", Console.WindowWidth / 2 - "Quit".Length / 2, yOffset + 22);
                 Console.ForegroundColor = ConsoleColor.Gray;
 
-                input = Console.ReadKey().Key;
+                input = Console.ReadKey(true).Key;
 
-                if (input == ConsoleKey.UpArrow)
+                if (input == ConsoleKey.UpArrow || input == ConsoleKey.W)
                 {
                     selection -= 1;
                 }
 
-                if (input == ConsoleKey.DownArrow)
+                if (input == ConsoleKey.DownArrow || input == ConsoleKey.S)
                 {
                     selection += 1;
                 }
