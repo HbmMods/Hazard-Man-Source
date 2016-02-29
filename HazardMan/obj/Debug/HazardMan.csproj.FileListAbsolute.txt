@@ -5,3 +5,9 @@ c:\users\gregor\documents\visual studio 2015\Projects\HazardMan\HazardMan\obj\De
 c:\users\gregor\documents\visual studio 2015\Projects\HazardMan\HazardMan\obj\Debug\HazardMan.pdb
 c:\users\gregor\documents\visual studio 2015\Projects\HazardMan\HazardMan\obj\Debug\HazardMan.csprojResolveAssemblyReference.cache
 G:\Dateien\Progammieren\github_together\HazardMan\bin\Debug\HazardMan.exe.config
+G:\Dateien\Progammieren\github_together\HazardMan\HazardMan\bin\Debug\HazardMan.exe.config
+G:\Dateien\Progammieren\github_together\HazardMan\HazardMan\bin\Debug\HazardMan.exe
+G:\Dateien\Progammieren\github_together\HazardMan\HazardMan\bin\Debug\HazardMan.pdb
+G:\Dateien\Progammieren\github_together\HazardMan\HazardMan\obj\Debug\HazardMan.csprojResolveAssemblyReference.cache
+G:\Dateien\Progammieren\github_together\HazardMan\HazardMan\obj\Debug\HazardMan.exe
+G:\Dateien\Progammieren\github_together\HazardMan\HazardMan\obj\Debug\HazardMan.pdb
