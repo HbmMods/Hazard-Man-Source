@@ -8,9 +8,7 @@ namespace HazardMan
 {
     class EntityDummy : Entity
     {
-       
-
-        public EntityDummy(float x, float y, ConsoleKey up, ConsoleKey left, ConsoleKey right) : base (up, left, right)
+        public EntityDummy(float x, float y)
         {
             posX = x;
             posY = y;

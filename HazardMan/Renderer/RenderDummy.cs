@@ -10,7 +10,7 @@ namespace HazardMan
     {
         public RenderDummy()
         {
-            renderIcon = '☻';
+            renderIcon = 'X';
         }
     }
 }

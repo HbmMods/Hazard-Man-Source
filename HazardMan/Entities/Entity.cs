@@ -23,36 +23,8 @@ namespace HazardMan
 
         public RenderEntity renderer;
 
-        private ConsoleKey up;
-        private ConsoleKey left;
-        private ConsoleKey right;
-
-        public Entity(ConsoleKey up, ConsoleKey left, ConsoleKey right)
-        {
-            this.up = up;
-            this.left = left;
-            this.right = right;
-        }
-
         public virtual void Update()
         {
-            if (World.input != ConsoleKey.Delete)
-            {
-                if ((World.input == up) && onGround)
-                {
-                    motionY += 1;
-                }
-                if (World.input == left)
-                {
-                    motionX += 1;
-                }
-                if (World.input == right)
-                {
-                    motionX -= 1;
-                }
-                World.input = ConsoleKey.Delete;
-            }
-
             if (health > maxHealth)
             {
                 health = maxHealth;
