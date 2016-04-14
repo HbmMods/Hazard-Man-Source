@@ -8,8 +8,9 @@ namespace HazardMan
 {
     class EntityDummy : Entity
     {
-        public bool onGround;
-        public EntityDummy(float x, float y)
+       
+
+        public EntityDummy(float x, float y, ConsoleKey up, ConsoleKey left, ConsoleKey right) : base (up, left, right)
         {
             posX = x;
             posY = y;
@@ -19,66 +20,12 @@ namespace HazardMan
 
         public override void Update()
         {
-            if(World.input != ConsoleKey.Delete)
-            {
-                if((World.input == ConsoleKey.W || World.input == ConsoleKey.UpArrow) && onGround)
-                {
-                    motionY += 1;
-                }
-                if ((World.input == ConsoleKey.A || World.input == ConsoleKey.LeftArrow))
-                {
-                    motionX += 1;
-                }
-                if ((World.input == ConsoleKey.D || World.input == ConsoleKey.RightArrow))
-                {
-                    motionX -= 1;
-                }
-                World.input = ConsoleKey.Delete;
-            }
-
-            if (health > maxHealth)
-            {
-                health = maxHealth;
-            }
-
-            if (health <= 0)
-            {
-                KillEntity();
-            }
-
-            lastPosX = posX;
-            lastPosY = posY;
-
-            if (!(World.terrain[(int)(posX - motionX), (int)(posY - motionY)] != null))
-            {
-                posX -= motionX;
-                posY -= motionY;
-                onGround = false;
-            }
-            else
-            {
-                motionY *= 0.5F;
-                onGround = true;
-            }
-
-            if (!(posX > -1 && posX < 120 && posY > -1 && posY < 30))
-            {
-                KillEntity();
-            }
-
             if (renderer == null)
             {
                 renderer = new RenderDummy();
             }
 
-            renderer.renderEntityAt(this);
-            
-            motionX *= 0.5F;
-
-            if(!onGround)
-            {
-                motionY -= 0.1F;
-            }
+            base.Update();       
         }
     }
 }
