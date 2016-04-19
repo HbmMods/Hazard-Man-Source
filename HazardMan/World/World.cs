@@ -23,8 +23,8 @@ namespace HazardMan
             //entities.Add(new EntityDummy(Console.WindowWidth / 2, Console.WindowHeight / 2));
             //entities.Add(new EntityDummy(0, Console.WindowHeight / 2 - 5));
             entities.Add(new EntityPlayer(Console.WindowWidth / 3, 2, ConsoleKey.W, ConsoleKey.A, ConsoleKey.D));
-            entities.Add(new EntityDummy(Console.WindowWidth / 2, 2));
-            
+            entities.Add(new EntityPlayer(Console.WindowWidth / 3, 2, ConsoleKey.UpArrow, ConsoleKey.LeftArrow, ConsoleKey.RightArrow));
+
             tickWorld = true;
             Console.Clear();
             WorldGenerator.createNewWorld();
@@ -67,6 +67,8 @@ namespace HazardMan
             while(true)
             {
                 input = Console.ReadKey(true).Key;
+
+                Thread.Sleep(25);
             }
         }
 
