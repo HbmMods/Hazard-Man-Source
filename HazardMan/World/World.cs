@@ -14,6 +14,7 @@ namespace HazardMan
         public static List<Entity> kill = new List<Entity>();
         public static Thread updateTicks = new Thread(UpdateWorld);
         public static Thread keyInput = new Thread(Input);
+        public static Thread mobAI = new Thread(AI);
         public static TerrainElement[,] terrain = new TerrainElement[Console.WindowWidth, Console.WindowHeight];
         public volatile static bool tickWorld = false;
         public static ConsoleKey input;
@@ -23,7 +24,7 @@ namespace HazardMan
             //entities.Add(new EntityDummy(Console.WindowWidth / 2, Console.WindowHeight / 2));
             //entities.Add(new EntityDummy(0, Console.WindowHeight / 2 - 5));
             entities.Add(new EntityPlayer(Console.WindowWidth / 3, 2, ConsoleKey.W, ConsoleKey.A, ConsoleKey.D));
-            entities.Add(new EntityPlayer(Console.WindowWidth / 3, 2, ConsoleKey.UpArrow, ConsoleKey.LeftArrow, ConsoleKey.RightArrow));
+            entities.Add(new EntityPlayer(Console.WindowWidth / 3 + 3, 2, ConsoleKey.UpArrow, ConsoleKey.LeftArrow, ConsoleKey.RightArrow));
 
             tickWorld = true;
             Console.Clear();
@@ -69,6 +70,25 @@ namespace HazardMan
                 input = Console.ReadKey(true).Key;
 
                 Thread.Sleep(25);
+            }
+        }
+
+        public static void AI()
+        {
+            while (true)
+            {
+                foreach (Entity e in entities)
+                {
+                    if(e is EntityAI)
+                    {
+                        if(((EntityAI)e).executeAICheck())
+                        {
+                            ((EntityAI)e).executeAITask();
+                        }
+                    }
+                }
+
+                Thread.Sleep(200);
             }
         }
 

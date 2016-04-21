@@ -10,6 +10,7 @@ namespace HazardMan
     {
         public RenderPlayer()
         {
+            fg = ConsoleColor.Black;
             renderIcon = '☻';
         }
     }

@@ -29,16 +29,18 @@ namespace HazardMan
                 if ((World.input == up) && onGround)
                 {
                     motionY += 1;
+                    World.input = ConsoleKey.Delete;
                 }
                 if (World.input == left)
                 {
                     motionX += 1;
+                    World.input = ConsoleKey.Delete;
                 }
                 if (World.input == right)
                 {
                     motionX -= 1;
+                    World.input = ConsoleKey.Delete;
                 }
-                World.input = ConsoleKey.Delete;
             }
 
             if (renderer == null)

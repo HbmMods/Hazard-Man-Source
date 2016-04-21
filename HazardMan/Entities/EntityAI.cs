@@ -6,12 +6,10 @@ using System.Threading.Tasks;
 
 namespace HazardMan
 {
-    class RenderDummy : RenderEntity
+    abstract class EntityAI : Entity
     {
-        public RenderDummy()
-        {
-            fg = ConsoleColor.Black;
-            renderIcon = 'X';
-        }
+        public abstract bool executeAICheck();
+
+        public abstract void executeAITask();
     }
 }
