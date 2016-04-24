@@ -4,7 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace HazardMan.Renderer
+namespace HazardMan
 {
     class RenderEnemy : RenderEntity
     {

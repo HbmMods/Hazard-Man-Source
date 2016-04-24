@@ -11,8 +11,9 @@ namespace HazardMan
         private ConsoleKey up;
         private ConsoleKey left;
         private ConsoleKey right;
+        public uint id;
 
-        public EntityPlayer(float x, float y, ConsoleKey up, ConsoleKey left, ConsoleKey right)
+        public EntityPlayer(float x, float y, ConsoleKey up, ConsoleKey left, ConsoleKey right, uint id)
         {
             posX = x;
             posY = y;
@@ -20,6 +21,7 @@ namespace HazardMan
             this.up = up;
             this.left = left;
             this.right = right;
+            this.id = id;
         }
 
         public override void Update()

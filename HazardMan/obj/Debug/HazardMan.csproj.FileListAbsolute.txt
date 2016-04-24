@@ -10,3 +10,4 @@ G:\Dateien\Progammieren\github_together\HazardMan\HazardMan\bin\Debug\HazardMan.
 G:\Dateien\Progammieren\github_together\HazardMan\HazardMan\obj\Debug\HazardMan.csprojResolveAssemblyReference.cache
 G:\Dateien\Progammieren\github_together\HazardMan\HazardMan\obj\Debug\HazardMan.exe
 G:\Dateien\Progammieren\github_together\HazardMan\HazardMan\obj\Debug\HazardMan.pdb
+C:\Users\Gregor\documents\visual studio 2015\Projects\HazardMan\HazardMan\obj\Debug\HazardMan.csprojResolveAssemblyReference.cache

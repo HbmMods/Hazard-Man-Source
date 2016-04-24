@@ -19,7 +19,19 @@ namespace HazardMan
             ConsoleKey input;
             Console.CursorVisible = false;
 
+        start:
+            Console.Clear();
+            Console.BackgroundColor = ConsoleColor.Black;
             Console.ForegroundColor = ConsoleColor.Red;
+
+            for (int i = 0; i < Console.WindowHeight; i++)
+            {
+                for (int j = 0; j < Console.WindowWidth; j++)
+                {
+                    Console.Write(" ");
+                }
+            }
+
             DrawText(Library.s1, Console.WindowWidth / 2 - Library.s1.Length / 2, yOffset + 0);
             DrawText(Library.s2, Console.WindowWidth / 2 - Library.s2.Length / 2, yOffset + 1);
             DrawText(Library.s3, Console.WindowWidth / 2 - Library.s3.Length / 2, yOffset + 2);
@@ -92,9 +104,9 @@ namespace HazardMan
                         case 0:
                             {
                                 World.StartWorld();
-                                while(World.tickWorld)
+                                while (World.tickWorld)
                                 { }
-                                break;
+                                goto start;
                             }
                         case 1:
                             {

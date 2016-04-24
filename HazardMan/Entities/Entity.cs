@@ -38,6 +38,18 @@ namespace HazardMan
             lastPosX = posX;
             lastPosY = posY;
 
+            if (posX <= 0)
+            {
+                health = 0;
+                return;
+            }
+
+            if (posX >= World.terrain.GetLength(0) - 1)
+            {
+                health = 0;
+                return;
+            }
+
             if (!(World.terrain[(int)(posX - motionX), (int)(posY - motionY)] != null))
             {
                 posX -= motionX;
@@ -46,7 +58,8 @@ namespace HazardMan
             }
             else
             {
-                motionY *= 0.5F;
+                motionX = 0;
+                motionY = 0;
                 onGround = true;
             }
 
