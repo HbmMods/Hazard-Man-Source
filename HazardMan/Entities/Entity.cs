@@ -18,7 +18,7 @@ namespace HazardMan
         public float lastPosX;
         public float lastPosY;
 
-        public int health = 10;
+        private int health = 10;
         public int maxHealth = 10;
 
         public RenderEntity renderer;
@@ -32,7 +32,7 @@ namespace HazardMan
 
             if (health <= 0)
             {
-                KillEntity();
+                setDeath();
             }
 
             lastPosX = posX;
@@ -65,7 +65,7 @@ namespace HazardMan
 
             if (!(posX > -1 && posX < 120 && posY > -1 && posY < 30))
             {
-                KillEntity();
+                setDeath();
             }
 
             renderer.renderEntityAt(this);
@@ -78,9 +78,25 @@ namespace HazardMan
             }
         }
 
-        public virtual void KillEntity()
+        public void setHealth(int health)
+        {
+            this.health = health;
+        }
+
+        public int getHealth()
+        {
+            return this.health;
+        }
+
+        public void damage(int damage)
+        {
+            this.health =- damage;
+        }
+
+        public void setDeath()
         {
             World.kill.Add(this);
+            this.health = 0;
         }
     }
 }
