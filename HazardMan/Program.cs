@@ -3,6 +3,8 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using System.Threading;
+using System.IO;
 
 namespace HazardMan
 {
@@ -108,10 +110,18 @@ namespace HazardMan
                         {
                             case 0:
                                 {
-                                    World.StartWorld();
-                                    while (World.tickWorld)
-                                    { }
-                                    loop = false;
+                                    if (Library.players.Count == 0)
+                                    {
+                                        Console.SetCursorPosition(1, 28);
+                                        Console.WriteLine("Please create a player at first");
+                                    }
+                                    else
+                                    {
+                                        World.StartWorld();
+                                        while (World.tickWorld)
+                                        { }
+                                        loop = false;
+                                    }   
                                     break;
                                 }
                             case 1:

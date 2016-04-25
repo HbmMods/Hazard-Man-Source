@@ -63,7 +63,7 @@ namespace HazardMan
                 onGround = true;
             }
 
-            if (!(posX > -1 && posX < 120 && posY > -1 && posY < 30))
+            if (!(posX > -1 && posX < 119 && posY > -1 && posY < 30))
             {
                 setDeath();
             }

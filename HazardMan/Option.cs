@@ -8,8 +8,6 @@ namespace HazardMan
 {
     class Option
     {
-        public static List<Option_Player> players = new List<Option_Player>();
-
         public static void createOptionMenu()
         {
             Console.Clear();
@@ -18,8 +16,8 @@ namespace HazardMan
 
             while (running)
             {
-                if(!(players.Count == 0)) Console.WriteLine("All players: ");
-                foreach (Option_Player player in players)
+                if(!(Library.players.Count == 0)) Console.WriteLine("All players: ");
+                foreach (Option_Player player in Library.players)
                 {
                     Console.WriteLine("Name: " + player.getName() + " | Jump Key: " + player.getUpKey() + " | Left Key: " + player.getLeftKey() + " | Right Key: " + player.getRightKey());
                 }
@@ -37,7 +35,7 @@ namespace HazardMan
                         Console.Write("Enter player name: ");
                         string name = Console.ReadLine();
                         bool wanttobreak = false;
-                        foreach(Option_Player player in players)
+                        foreach(Option_Player player in Library.players)
                         {
                             if(name.ToUpper().Contains(player.getUUID())) {
                                 Console.Clear();
@@ -57,7 +55,7 @@ namespace HazardMan
                         ConsoleKey right = Console.ReadKey(true).Key;
                         Console.WriteLine(right.ToString());
 
-                        players.Add(new Option_Player(name, jump, left, right));
+                        Library.players.Add(new Option_Player(name, jump, left, right));
                         Console.Clear();
                         Console.WriteLine("Player succsessfully created!");
                         break;
@@ -68,7 +66,7 @@ namespace HazardMan
 
                         Option_Player playerfordelete = null;
 
-                        foreach(Option_Player player in players) {
+                        foreach(Option_Player player in Library.players) {
                             if(uuid.Contains(player.getUUID()))
                             {
                                 playerfordelete = player;
@@ -79,7 +77,7 @@ namespace HazardMan
                         Console.Clear();
                         if (playerfordelete != null)
                         {
-                            players.Remove(playerfordelete);
+                            Library.players.Remove(playerfordelete);
                             Console.WriteLine("Succsessfully deleted player!");
                         }
                         else
@@ -90,6 +88,7 @@ namespace HazardMan
                         break;
 
                     case ConsoleKey.S:
+                        Console.Clear();
                         if (Library.isSoundActivated)
                         {
                             Library.isSoundActivated = false;
@@ -103,6 +102,10 @@ namespace HazardMan
                         break;
 
                     case ConsoleKey.X:
+                        running = false;
+                        break;
+
+                    case ConsoleKey.Escape:
                         running = false;
                         break;
 

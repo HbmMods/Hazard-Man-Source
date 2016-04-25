@@ -10,6 +10,8 @@ namespace HazardMan
     {
         public static bool isSoundActivated = false;
 
+        public static List<Option_Player> players = new List<Option_Player>();
+
         public static string s1 = "_//     _//      _/       _/////// _//      _/       _///////    _/////    ";
         public static string s2 = "_//     _//     _/ //            _//       _/ //     _//    _//  _//   _// ";
         public static string s3 = "_//     _//    _/  _//          _//       _/  _//    _//    _//  _//    _//";

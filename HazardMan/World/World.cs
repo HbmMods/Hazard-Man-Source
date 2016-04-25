@@ -33,7 +33,7 @@ namespace HazardMan
             mobAI = new Thread(AI);
 
             uint id = 0;
-            foreach(Option_Player player in Option.players) {
+            foreach(Option_Player player in Library.players) {
                 entities.Add(new EntityPlayer(Console.WindowWidth / 3, 2, player.getUpKey(), player.getLeftKey(), player.getRightKey(), id++));
             }
             entities.Add(new EntityEnemy(Console.WindowWidth / 3 + 10, 2));
