@@ -8,7 +8,7 @@ namespace HazardMan
 {
     class Library
     {
-        public static bool isSoundActivated = false;
+        public static bool isSoundActivated = true;
 
         public static List<Option_Player> players = new List<Option_Player>();
 

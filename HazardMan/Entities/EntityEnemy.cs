@@ -20,14 +20,15 @@ namespace HazardMan
             {
                 if(entity is EntityPlayer)
                 {
-
                     if(entity.posX < posX + 1 && entity.posX > posX - 1 && entity.posY < posY + 1 && entity.posY > posY - 1)
                     {
-                        entity.setDeath();
+                        if (Library.isSoundActivated) Console.Beep();
+                        entity.setDead();
                     }
 
                     if(entity.posY <= posY && entity.posX < posX + 2 && entity.posX > posX - 2 && onGround)
                     {
+                        if (Library.isSoundActivated) Console.Beep(200, 200);
                         return true;
                     }
                 }

@@ -99,7 +99,7 @@ namespace HazardMan
                 {
                     foreach (Entity entity in World.entities)
                     {
-                        entity.setDeath();
+                        entity.setDead();
                     }
 
                     tickWorld = false;

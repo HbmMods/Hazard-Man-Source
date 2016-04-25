@@ -24,6 +24,8 @@ namespace HazardMan
             Console.BufferHeight = Console.WindowHeight;
             Console.BufferWidth = Console.WindowWidth;
 
+            Library.players.Add(new Option_Player("Gregoll", ConsoleKey.W, ConsoleKey.A, ConsoleKey.D));
+
             while (masterloop)
             {
                 loop = true;

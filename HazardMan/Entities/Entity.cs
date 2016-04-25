@@ -32,7 +32,7 @@ namespace HazardMan
 
             if (health <= 0)
             {
-                setDeath();
+                setDead();
             }
 
             lastPosX = posX;
@@ -63,9 +63,9 @@ namespace HazardMan
                 onGround = true;
             }
 
-            if (!(posX > -1 && posX < 119 && posY > -1 && posY < 30))
+            if (!(posX > 1 && posX < 119 && posY > -1 && posY < 30))
             {
-                setDeath();
+                setDead();
             }
 
             renderer.renderEntityAt(this);
@@ -93,7 +93,7 @@ namespace HazardMan
             this.health =- damage;
         }
 
-        public void setDeath()
+        public void setDead()
         {
             World.kill.Add(this);
             this.health = 0;
