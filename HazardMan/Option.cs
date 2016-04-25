@@ -13,61 +13,57 @@ namespace HazardMan
         public static void createOptionMenu()
         {
             Console.Clear();
-            char input;
+            ConsoleKey input;
             bool running = true;
 
             while (running)
             {
-                if(!(players.Count == 0)) Console.WriteLine("[HazardMan]All players: ");
+                if(!(players.Count == 0)) Console.WriteLine("All players: ");
                 foreach (Option_Player player in players)
                 {
-                    Console.WriteLine("[HazardMan]Name: " + player.getName() + " | Jump key: " + player.getUpKey() + " | Left key: " + player.getLeftKey() + " | Right key: " + player.getRightKey());
+                    Console.WriteLine("Name: " + player.getName() + " | Jump Key: " + player.getUpKey() + " | Left Key: " + player.getLeftKey() + " | Right Key: " + player.getRightKey());
                 }
                 Console.WriteLine("");
-                Console.WriteLine("[HazardMan]Add player: [A]");
-                Console.WriteLine("[HazardMan]Remove player: [R]");
-                Console.WriteLine("[HazardMan]Activate sounds: [S]");
-                Console.WriteLine("[HazardMan]Exit to start menu: [X]");
-                Console.Write("[HazardMan]Your input: ");
-                try
-                {
-                    input = Convert.ToChar(Console.ReadLine().ToUpper());
-                }
-                catch (Exception)
-                {
-                    input = 'Z';
-                }
+                Console.WriteLine("Add player: [A]");
+                Console.WriteLine("Remove player: [R]");
+                Console.WriteLine("Toggle sounds: [S]");
+                Console.WriteLine("Exit to main menu: [X]");
+
+                input = Console.ReadKey(true).Key;
 
                 switch(input)
                 {
-                    case 'A':
-                        Console.Write("[HazardMan]Enter name: ");
+                    case ConsoleKey.A:
+                        Console.Write("Enter player name: ");
                         string name = Console.ReadLine();
                         bool wanttobreak = false;
                         foreach(Option_Player player in players)
                         {
                             if(name.ToUpper().Contains(player.getUUID())) {
                                 Console.Clear();
-                                Console.WriteLine("[HazardMan]This player already exists!");
+                                Console.WriteLine("This player already exists!");
                                 wanttobreak = true;
                                 break;
                             }
                         }
                         if (wanttobreak) break;
-                        Console.WriteLine("[HazardMan]Enter jump key: ");
+                        Console.Write("Bind jump key: ");
                         ConsoleKey jump = Console.ReadKey(true).Key;
-                        Console.WriteLine("[HazardMan]Enter left key: ");
+                        Console.WriteLine(jump.ToString());
+                        Console.Write("Bind left key: ");
                         ConsoleKey left = Console.ReadKey(true).Key;
-                        Console.WriteLine("[HazardMan]Enter rigth key: ");
-                        ConsoleKey rigth = Console.ReadKey(true).Key;
+                        Console.WriteLine(left.ToString());
+                        Console.Write("Bind right key: ");
+                        ConsoleKey right = Console.ReadKey(true).Key;
+                        Console.WriteLine(right.ToString());
 
-                        players.Add(new Option_Player(name, jump, left, rigth));
+                        players.Add(new Option_Player(name, jump, left, right));
                         Console.Clear();
-                        Console.WriteLine("[HazardMan]Created player successful!");
+                        Console.WriteLine("Player succsessfully created!");
                         break;
 
-                    case 'R':
-                        Console.Write("[HazardMan]Enter name: ");
+                    case ConsoleKey.R:
+                        Console.Write("Enter player name: ");
                         string uuid = Console.ReadLine().ToUpper();
 
                         Option_Player playerfordelete = null;
@@ -84,34 +80,34 @@ namespace HazardMan
                         if (playerfordelete != null)
                         {
                             players.Remove(playerfordelete);
-                            Console.WriteLine("[HazardMan]Deleted player successful");
+                            Console.WriteLine("Succsessfully deleted player!");
                         }
                         else
                         {
-                            Console.WriteLine("[HazardMan]There is no player with this name");
+                            Console.WriteLine("There is no player with this name");
                         }
 
                         break;
 
-                    case 'S':
+                    case ConsoleKey.S:
                         if (Library.isSoundActivated)
                         {
                             Library.isSoundActivated = false;
-                            Console.WriteLine("[HazardMan]Deactivated sounds");
+                            Console.WriteLine("Sounds deactivated");
                         }
                         else
                         {
                             Library.isSoundActivated = true;
-                            Console.WriteLine("[HazardMan]Activated sounds");
+                            Console.WriteLine("Sounds activated");
                         }
                         break;
 
-                    case 'X':
+                    case ConsoleKey.X:
                         running = false;
                         break;
 
                     default:
-                        Console.WriteLine("[HazardMan]False input");
+                        Console.WriteLine("Invalid input!");
                         break;
                 }
             }

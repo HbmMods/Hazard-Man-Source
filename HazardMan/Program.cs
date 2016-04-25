@@ -123,6 +123,7 @@ namespace HazardMan
                             case 2:
                                 {
                                     masterloop = false;
+                                    loop = false;
                                     break;
                                 }
                         }
