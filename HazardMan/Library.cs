@@ -8,6 +8,8 @@ namespace HazardMan
 {
     class Library
     {
+        public static bool isSoundActivated = false;
+
         public static string s1 = "_//     _//      _/       _/////// _//      _/       _///////    _/////    ";
         public static string s2 = "_//     _//     _/ //            _//       _/ //     _//    _//  _//   _// ";
         public static string s3 = "_//     _//    _/  _//          _//       _/  _//    _//    _//  _//    _//";
@@ -23,5 +25,11 @@ namespace HazardMan
         public static string s13 = "_//   _/  _//  _////// _//  _//   _/ _//";
         public static string s14 = "_//       _// _//       _// _//    _/ //";
         public static string s15 = "_//       _//_//         _//_//      _//";
+
+        public static string option_name_00 = "    //   ) ) //   ) ) /__  ___/ / /    //   ) ) /|    / / //   ) ) ";
+        public static string option_name_01 = "   //   / / //___/ /    / /    / /    //   / / //|   / / ((        ";
+        public static string option_name_02 = "  //   / / / ____ /    / /    / /    //   / / // |  / /    \\      ";
+        public static string option_name_03 = " //   / / //          / /    / /    //   / / //  | / /       ) )   ";
+        public static string option_name_04 = "((___/ / //          / /  __/ /___ ((___/ / //   |/ / ((___ / /    ";
     }
 }

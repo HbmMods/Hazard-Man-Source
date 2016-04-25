@@ -16,17 +16,17 @@ namespace HazardMan
 
         public override bool executeAICheck()
         {
-            foreach(Entity p in World.entities)
+            foreach(Entity entity in World.entities)
             {
-                if(p is EntityPlayer)
+                if(entity is EntityPlayer)
                 {
 
-                    if(p.posX < posX + 1 && p.posX > posX - 1 && p.posY < posY + 1 && p.posY > posY - 1)
+                    if(entity.posX < posX + 1 && entity.posX > posX - 1 && entity.posY < posY + 1 && entity.posY > posY - 1)
                     {
-                        p.health = 0;
+                        entity.setDeath();
                     }
 
-                    if(p.posY <= posY && p.posX < posX + 2 && p.posX > posX - 2 && onGround)
+                    if(entity.posY <= posY && entity.posX < posX + 2 && entity.posX > posX - 2 && onGround)
                     {
                         return true;
                     }

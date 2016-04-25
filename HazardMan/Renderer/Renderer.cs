@@ -10,7 +10,7 @@ namespace HazardMan
     {
         public static void RenderWorld()
         {
-            for (int j = 0; j < Console.WindowHeight; j++)
+            for (int j = 0; j < Console.WindowHeight - 1; j++)
             {
                 for (int i = 0; i < Console.WindowWidth; i++)
                 {

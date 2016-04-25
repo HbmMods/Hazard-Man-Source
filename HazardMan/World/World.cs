@@ -14,9 +14,9 @@ namespace HazardMan
         public static List<Entity> entities = new List<Entity>();
         public static List<Entity> kill = new List<Entity>();
 
-        public static Thread updateTicks = new Thread(UpdateWorld);
-        public static Thread keyInput = new Thread(Input);
-        public static Thread mobAI = new Thread(AI);
+        public static Thread updateTicks;
+        public static Thread keyInput;
+        public static Thread mobAI;
 
         public static Dictionary<uint, uint> score;
 
@@ -28,20 +28,26 @@ namespace HazardMan
 
         public static void StartWorld()
         {
+            updateTicks = new Thread(UpdateWorld);
+            keyInput = new Thread(Input);
+            mobAI = new Thread(AI);
+
             uint id = 0;
-            entities.Add(new EntityPlayer(Console.WindowWidth / 3, 2, ConsoleKey.W, ConsoleKey.A, ConsoleKey.D, id++));
-            entities.Add(new EntityPlayer(Console.WindowWidth / 3 + 3, 2, ConsoleKey.UpArrow, ConsoleKey.LeftArrow, ConsoleKey.RightArrow, id++));
+            foreach(Option_Player player in Option.players) {
+                entities.Add(new EntityPlayer(Console.WindowWidth / 3, 2, player.getUpKey(), player.getLeftKey(), player.getRightKey(), id++));
+            }
             entities.Add(new EntityEnemy(Console.WindowWidth / 3 + 10, 2));
 
             score = new Dictionary<uint, uint>();
             score.Clear();
 
-            foreach(Entity p in entities)
+            foreach(Entity entity in entities)
             {
-                if (p is EntityPlayer)
+                if (entity is EntityPlayer)
                 {
-                    if(!score.ContainsKey(((EntityPlayer)p).id))
-                        score.Add(((EntityPlayer)p).id, 0);
+                    EntityPlayer player = (EntityPlayer)entity;
+                    if(!score.ContainsKey(player.id))
+                        score.Add(player.id, 0);
                 }
             }
 
@@ -66,17 +72,17 @@ namespace HazardMan
                     return;
                 }
 
-                foreach (Entity e in kill)
+                foreach (Entity entity in kill)
                 {
-                    e.renderer.delRenderEntity();
-                    entities.Remove(e);
+                    entity.renderer.delRenderEntity();
+                    entities.Remove(entity);
                 }
                 
                 kill = new List<Entity>();
 
-                foreach (Entity e in entities)
+                foreach (Entity entity in entities)
                 {
-                    e.Update();
+                    entity.Update();
                 }
 
                 Thread.Sleep(50);
@@ -91,6 +97,11 @@ namespace HazardMan
 
                 if(input == ConsoleKey.Escape)
                 {
+                    foreach (Entity entity in World.entities)
+                    {
+                        entity.setDeath();
+                    }
+
                     tickWorld = false;
                 }
 
@@ -102,13 +113,15 @@ namespace HazardMan
         {
             while (tickWorld)
             {
-                foreach (Entity e in entities)
+                foreach (Entity entity in entities)
                 {
-                    if(e is EntityAI)
+                    if(entity is EntityAI)
                     {
-                        if(((EntityAI)e).executeAICheck())
+                        EntityAI entitiyAI = (EntityAI)entity;
+
+                        if(entitiyAI.executeAICheck())
                         {
-                            ((EntityAI)e).executeAITask();
+                            entitiyAI.executeAITask();
                         }
                     }
                 }
