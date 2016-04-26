@@ -125,7 +125,6 @@ namespace HazardMan
 
                             if (entitiyAI.executeAICheck())
                             {
-                                if (Library.isSoundActivated) Console.Beep(200, 200);
                                 entitiyAI.executeAITask();
                             }
                         }
