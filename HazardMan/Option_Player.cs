@@ -13,15 +13,22 @@ namespace HazardMan
         public ConsoleKey right;
         private string name;
         private string UUID;
+        private ConsoleColor color;
 
-        public Option_Player(string name, ConsoleKey up, ConsoleKey left, ConsoleKey right)
+        public Option_Player(string name, ConsoleKey up, ConsoleKey left, ConsoleKey right, ConsoleColor color)
         {
             this.name = name;
             this.UUID = name.ToUpper();
+            this.color = color;
 
             this.up = up;
             this.left = left;
             this.right = right;
+        }
+
+        public ConsoleColor getColor()
+        {
+            return color;
         }
 
         public string getUUID()

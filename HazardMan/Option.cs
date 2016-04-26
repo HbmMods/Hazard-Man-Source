@@ -19,7 +19,7 @@ namespace HazardMan
                 if(!(Library.players.Count == 0)) Console.WriteLine("All players: ");
                 foreach (Option_Player player in Library.players)
                 {
-                    Console.WriteLine("Name: " + player.getName() + " | Jump Key: " + player.getUpKey() + " | Left Key: " + player.getLeftKey() + " | Right Key: " + player.getRightKey());
+                    Console.WriteLine("Name: " + player.getName() + " | Jump Key: " + player.getUpKey() + " | Left Key: " + player.getLeftKey() + " | Right Key: " + player.getRightKey() + " | Color: " + player.getColor().ToString());
                 }
                 Console.WriteLine("");
                 Console.WriteLine("Add player: [A]");
@@ -54,10 +54,74 @@ namespace HazardMan
                         Console.Write("Bind right key: ");
                         ConsoleKey right = Console.ReadKey(true).Key;
                         Console.WriteLine(right.ToString());
+                        Console.WriteLine("Choose a color:");
+                        List<ConsoleColor> colors = new List<ConsoleColor>();
+                        colors.Add(ConsoleColor.Red);
+                        colors.Add(ConsoleColor.Blue);
+                        colors.Add(ConsoleColor.Green);
+                        colors.Add(ConsoleColor.Yellow);
+                        foreach (ConsoleColor forcolor in colors)
+                        {
+                            bool iscolor = false;
+                            foreach(Option_Player player in Library.players)
+                            {
+                                if(player.getColor() == forcolor)
+                                {
+                                    iscolor = true;
+                                    break;
+                                }
+                            }
 
-                        Library.players.Add(new Option_Player(name, jump, left, right));
-                        Console.Clear();
-                        Console.WriteLine("Player succsessfully created!");
+                            if (!iscolor) Console.WriteLine(" - " + forcolor.ToString());
+                        }
+                        ConsoleColor color = ConsoleColor.DarkGray;
+                        switch(Console.ReadLine().ToUpper())
+                        {
+                            case "RED":
+                                color = ConsoleColor.Red;
+                                break;
+
+                            case "BLUE":
+                                color = ConsoleColor.Blue;
+                                break;
+
+                            case "GREEN":
+                                color = ConsoleColor.Green;
+                                break;
+
+                            case "YELLOW":
+                                color = ConsoleColor.Yellow;
+                                break;
+
+                            default:
+                                Console.Clear();
+                                Console.WriteLine("This isn't an available color!");
+                                wanttobreak = true;
+                                break;
+                        }
+
+                        if (color != ConsoleColor.DarkGray)
+                        {
+                            bool inwantbreak = false;
+                            foreach(Option_Player player in Library.players)
+                            {
+                                if(player.getColor() == color)
+                                {
+                                    Console.Clear();
+                                    Console.WriteLine("This color is already choosen!");
+                                    wanttobreak = true;
+                                    inwantbreak = true;
+                                    break;
+                                }
+                            }
+
+                            if (inwantbreak) break;
+
+                            Library.players.Add(new Option_Player(name, jump, left, right, color));
+                            Console.Clear();
+                            Console.WriteLine("Player succsessfully created!");
+                        }
+
                         break;
 
                     case ConsoleKey.R:

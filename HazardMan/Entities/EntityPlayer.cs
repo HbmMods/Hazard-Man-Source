@@ -12,8 +12,9 @@ namespace HazardMan
         private ConsoleKey left;
         private ConsoleKey right;
         public uint id;
+        private ConsoleColor color;
 
-        public EntityPlayer(float x, float y, ConsoleKey up, ConsoleKey left, ConsoleKey right, uint id)
+        public EntityPlayer(float x, float y, ConsoleKey up, ConsoleKey left, ConsoleKey right, uint id, ConsoleColor color)
         {
             posX = x;
             posY = y;
@@ -22,6 +23,12 @@ namespace HazardMan
             this.left = left;
             this.right = right;
             this.id = id;
+            this.color = color;
+        }
+
+        public ConsoleColor getColor()
+        {
+            return this.color;
         }
 
         public override void Update()
@@ -47,7 +54,7 @@ namespace HazardMan
 
             if (renderer == null)
             {
-                renderer = new RenderPlayer();
+                renderer = new RenderPlayer(this);
             }
 
             base.Update();

@@ -8,9 +8,9 @@ namespace HazardMan
 {
     class RenderPlayer : RenderEntity
     {
-        public RenderPlayer()
+        public RenderPlayer(EntityPlayer player)
         {
-            fg = ConsoleColor.Black;
+            fg = player.getColor();
             renderIcon = '☻';
         }
     }

@@ -34,7 +34,7 @@ namespace HazardMan
 
             uint id = 0;
             foreach(Option_Player player in Library.players) {
-                entities.Add(new EntityPlayer(Console.WindowWidth / 3, 2, player.getUpKey(), player.getLeftKey(), player.getRightKey(), id++));
+                entities.Add(new EntityPlayer(Console.WindowWidth / 3, 2, player.getUpKey(), player.getLeftKey(), player.getRightKey(), id++, player.getColor()));
             }
             entities.Add(new EntityEnemy(Console.WindowWidth / 3 + 10, 2));
 
