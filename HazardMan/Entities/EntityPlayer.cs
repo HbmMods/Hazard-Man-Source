@@ -11,10 +11,11 @@ namespace HazardMan
         private ConsoleKey up;
         private ConsoleKey left;
         private ConsoleKey right;
-        public uint id;
+        private int id;
         private ConsoleColor color;
+        private string name;
 
-        public EntityPlayer(float x, float y, ConsoleKey up, ConsoleKey left, ConsoleKey right, uint id, ConsoleColor color)
+        public EntityPlayer(float x, float y, ConsoleKey up, ConsoleKey left, ConsoleKey right, int id, ConsoleColor color, string name)
         {
             posX = x;
             posY = y;
@@ -24,11 +25,22 @@ namespace HazardMan
             this.right = right;
             this.id = id;
             this.color = color;
+            this.name = name;
         }
 
         public ConsoleColor getColor()
         {
             return this.color;
+        }
+
+        public string getName()
+        {
+            return this.name;
+        }
+
+        public int getUUID()
+        {
+            return this.id;
         }
 
         public override void Update()

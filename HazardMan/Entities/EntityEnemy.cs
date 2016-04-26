@@ -28,7 +28,6 @@ namespace HazardMan
 
                     if(entity.posY <= posY && entity.posX < posX + 2 && entity.posX > posX - 2 && onGround)
                     {
-                        if (Library.isSoundActivated) Console.Beep(200, 200);
                         return true;
                     }
                 }

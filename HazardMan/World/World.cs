@@ -17,8 +17,9 @@ namespace HazardMan
         public static Thread updateTicks;
         public static Thread keyInput;
         public static Thread mobAI;
+        public static Thread scoreUpdate;
 
-        public static Dictionary<uint, uint> score;
+        public static Dictionary<EntityPlayer, int> score;
 
         public static TerrainElement[,] terrain = new TerrainElement[Console.WindowWidth, Console.WindowHeight];
 
@@ -31,14 +32,15 @@ namespace HazardMan
             updateTicks = new Thread(UpdateWorld);
             keyInput = new Thread(Input);
             mobAI = new Thread(AI);
+            scoreUpdate = new Thread(scoreUpdater);
 
-            uint id = 0;
+            int id = 0;
             foreach(Option_Player player in Library.players) {
-                entities.Add(new EntityPlayer(Console.WindowWidth / 3, 2, player.getUpKey(), player.getLeftKey(), player.getRightKey(), id++, player.getColor()));
+                entities.Add(new EntityPlayer(Console.WindowWidth / 3, 2, player.getUpKey(), player.getLeftKey(), player.getRightKey(), id++, player.getColor(), player.getName()));
             }
             entities.Add(new EntityEnemy(Console.WindowWidth / 3 + 10, 2));
 
-            score = new Dictionary<uint, uint>();
+            score = new Dictionary<EntityPlayer, int>();
             score.Clear();
 
             foreach(Entity entity in entities)
@@ -46,8 +48,8 @@ namespace HazardMan
                 if (entity is EntityPlayer)
                 {
                     EntityPlayer player = (EntityPlayer)entity;
-                    if(!score.ContainsKey(player.id))
-                        score.Add(player.id, 0);
+                    if(!score.ContainsKey(player))
+                        score.Add(player, 0);
                 }
             }
 
@@ -60,6 +62,7 @@ namespace HazardMan
             updateTicks.Start();
             keyInput.Start();
             mobAI.Start();
+            scoreUpdate.Start();
         }
 
         public static void UpdateWorld()
@@ -113,21 +116,48 @@ namespace HazardMan
         {
             while (tickWorld)
             {
-                foreach (Entity entity in entities)
-                {
-                    if(entity is EntityAI)
+                try {
+                    foreach (Entity entity in entities)
                     {
-                        EntityAI entitiyAI = (EntityAI)entity;
-
-                        if(entitiyAI.executeAICheck())
+                        if (entity is EntityAI)
                         {
-                            entitiyAI.executeAITask();
+                            EntityAI entitiyAI = (EntityAI)entity;
+
+                            if (entitiyAI.executeAICheck())
+                            {
+                                if (Library.isSoundActivated) Console.Beep(200, 200);
+                                entitiyAI.executeAITask();
+                            }
                         }
+                    }
+                } catch 
+                {
+
+                }
+
+                Thread.Sleep(50);
+            }
+        }
+
+        public static void scoreUpdater()
+        {
+            /*while(tickWorld)
+            {
+                int space = 0;
+
+                foreach (Entity entity in World.entities)
+                {
+                    if(entity is EntityPlayer)
+                    {
+                        EntityPlayer player = (EntityPlayer)entity;
+
+                        Console.SetCursorPosition(space, 29);
+                        Console.WriteLine(player.getName() + "Score: " + score[player]);
                     }
                 }
 
-                Thread.Sleep(100);
-            }
+                Thread.Sleep(1000);
+            }*/
         }
 
         public static void StopWorld()
@@ -135,6 +165,7 @@ namespace HazardMan
             updateTicks.Interrupt();
             keyInput.Interrupt();
             mobAI.Interrupt();
+            scoreUpdate.Interrupt();
             entities.Clear();
             score.Clear();
             kill.Clear();
