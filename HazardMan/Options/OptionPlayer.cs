@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace HazardMan
 {
-    class Option_Player
+    class OptionPlayer
     {
         public ConsoleKey up;
         public ConsoleKey left;
@@ -15,7 +15,7 @@ namespace HazardMan
         private string UUID;
         private ConsoleColor color;
 
-        public Option_Player(string name, ConsoleKey up, ConsoleKey left, ConsoleKey right, ConsoleColor color)
+        public OptionPlayer(string name, ConsoleKey up, ConsoleKey left, ConsoleKey right, ConsoleColor color)
         {
             this.name = name;
             this.UUID = name.ToUpper();

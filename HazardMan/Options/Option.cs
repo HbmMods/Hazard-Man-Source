@@ -17,9 +17,9 @@ namespace HazardMan
             while (running)
             {
                 if(!(Library.players.Count == 0)) Console.WriteLine("All players: ");
-                foreach (Option_Player player in Library.players)
-                {
-                    int i = 1;
+                int i = 1;
+                foreach (OptionPlayer player in Library.players)
+                {       
                     Console.WriteLine(i + ": Name: " + player.getName() + " | Jump Key: " + player.getUpKey() + " | Left Key: " + player.getLeftKey() + " | Right Key: " + player.getRightKey() + " | Color: " + player.getColor().ToString());
                     i++;
                 }
@@ -42,9 +42,9 @@ namespace HazardMan
                         Console.Write("Enter player name: ");
                         string uuid = Console.ReadLine().ToUpper();
 
-                        Option_Player playerfordelete = null;
+                        OptionPlayer playerfordelete = null;
 
-                        foreach(Option_Player player in Library.players) {
+                        foreach(OptionPlayer player in Library.players) {
                             if(uuid.Contains(player.getUUID()))
                             {
                                 playerfordelete = player;
@@ -96,7 +96,7 @@ namespace HazardMan
 
         private static void createPlayer()
         {
-            if (Library.players.Count > 4)
+            if (Library.players.Count > 3)
             {
                 Console.Clear();
                 Console.WriteLine("There are already 4 players!");
@@ -105,7 +105,7 @@ namespace HazardMan
 
             Console.Write("Enter player name: ");
             string name = Console.ReadLine();
-            foreach (Option_Player player in Library.players)
+            foreach (OptionPlayer player in Library.players)
             {
                 if (name.ToUpper().Contains(player.getUUID()))
                 {
@@ -133,7 +133,7 @@ namespace HazardMan
             foreach (ConsoleColor forcolor in colors)
             {
                 bool iscolor = false;
-                foreach (Option_Player player in Library.players)
+                foreach (OptionPlayer player in Library.players)
                 {
                     if (player.getColor() == forcolor)
                     {
@@ -171,7 +171,7 @@ namespace HazardMan
 
             if (color != ConsoleColor.DarkGray)
             {
-                foreach (Option_Player player in Library.players)
+                foreach (OptionPlayer player in Library.players)
                 {
                     if (player.getColor() == color)
                     {
@@ -181,7 +181,7 @@ namespace HazardMan
                     }
                 }
 
-                Library.players.Add(new Option_Player(name, jump, left, right, color));
+                Library.players.Add(new OptionPlayer(name, jump, left, right, color));
                 Console.Clear();
                 Console.WriteLine("Player succsessfully created!");
             }

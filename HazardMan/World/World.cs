@@ -17,9 +17,6 @@ namespace HazardMan
         public static Thread updateTicks;
         public static Thread keyInput;
         public static Thread mobAI;
-        public static Thread scoreUpdate;
-
-        public static Dictionary<EntityPlayer, int> score;
 
         public static TerrainElement[,] terrain = new TerrainElement[Console.WindowWidth, Console.WindowHeight];
 
@@ -32,24 +29,23 @@ namespace HazardMan
             updateTicks = new Thread(UpdateWorld);
             keyInput = new Thread(Input);
             mobAI = new Thread(AI);
-            scoreUpdate = new Thread(scoreUpdater);
 
             int id = 0;
-            foreach(Option_Player player in Library.players) {
+            foreach(OptionPlayer player in Library.players) {
                 entities.Add(new EntityPlayer(Console.WindowWidth / 3, 2, player.getUpKey(), player.getLeftKey(), player.getRightKey(), id++, player.getColor(), player.getName()));
             }
             entities.Add(new EntityEnemy(Console.WindowWidth / 3 + 10, 2));
 
-            score = new Dictionary<EntityPlayer, int>();
-            score.Clear();
+            Library.score = new Dictionary<EntityPlayer, int>();
+            Library.score.Clear();
 
             foreach(Entity entity in entities)
             {
                 if (entity is EntityPlayer)
                 {
                     EntityPlayer player = (EntityPlayer)entity;
-                    if(!score.ContainsKey(player))
-                        score.Add(player, 0);
+                    if(!Library.score.ContainsKey(player))
+                        Library.score.Add(player, 0);
                 }
             }
 
@@ -62,7 +58,6 @@ namespace HazardMan
             updateTicks.Start();
             keyInput.Start();
             mobAI.Start();
-            scoreUpdate.Start();
         }
 
         public static void UpdateWorld()
@@ -87,6 +82,8 @@ namespace HazardMan
                 {
                     entity.Update();
                 }
+
+                scoreUpdate();
 
                 Thread.Sleep(50);
             }
@@ -138,25 +135,28 @@ namespace HazardMan
             }
         }
 
-        public static void scoreUpdater()
+        public static void scoreUpdate()
         {
-            /*while(tickWorld)
+            int i = 0;
+            try
             {
-                int space = 0;
-
                 foreach (Entity entity in World.entities)
                 {
-                    if(entity is EntityPlayer)
+                    if (entity is EntityPlayer)
                     {
                         EntityPlayer player = (EntityPlayer)entity;
 
-                        Console.SetCursorPosition(space, 29);
-                        Console.WriteLine(player.getName() + "Score: " + score[player]);
+                        Console.BackgroundColor = ConsoleColor.Black;
+                        if (i == 0) Console.SetCursorPosition(0, 29);
+                        else if (i == 1) Console.SetCursorPosition(20, 29);
+                        else if (i == 2) Console.SetCursorPosition(40, 29);
+                        else if (i == 3) Console.SetCursorPosition(60, 29);
+                        Console.Write(player.getName() + " - " + Library.score[player]);
+                        i++;
                     }
                 }
-
-                Thread.Sleep(1000);
-            }*/
+            }
+            catch { }
         }
 
         public static void StopWorld()
@@ -164,9 +164,9 @@ namespace HazardMan
             updateTicks.Interrupt();
             keyInput.Interrupt();
             mobAI.Interrupt();
-            scoreUpdate.Interrupt();
+
             entities.Clear();
-            score.Clear();
+            Library.score.Clear();
             kill.Clear();
         }
     }
