@@ -70,16 +70,6 @@ namespace HazardMan
                 setDead();
             }
 
-            if (!(posX < 119))
-            {
-                if(this is EntityPlayer)
-                {
-                    /////////////////////////
-                }
-
-                setDead();
-            }
-
             renderer.renderEntityAt(this);
 
             motionX *= 0.5F;

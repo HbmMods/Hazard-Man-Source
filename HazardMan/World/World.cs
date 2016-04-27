@@ -31,9 +31,8 @@ namespace HazardMan
             keyInput = new Thread(Input);
             mobAI = new Thread(AI);
 
-            int id = 0;
             foreach(OptionPlayer player in Library.players) {
-                entities.Add(new EntityPlayer(Console.WindowWidth / 3, 2, player.getUpKey(), player.getLeftKey(), player.getRightKey(), id++, player.getColor(), player.getName()));
+                entities.Add(new EntityPlayer(Console.WindowWidth / 3, 2, player.getUpKey(), player.getLeftKey(), player.getRightKey(), player.getColor(), player.getName()));
             }
             entities.Add(new EntityEnemy(Console.WindowWidth / 3 + 10, 2));
             entities.Add(new EntityShooter(Console.WindowWidth / 3 + 15, 2));

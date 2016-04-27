@@ -11,11 +11,10 @@ namespace HazardMan
         private ConsoleKey up;
         private ConsoleKey left;
         private ConsoleKey right;
-        private int id;
         private ConsoleColor color;
         private string name;
 
-        public EntityPlayer(float x, float y, ConsoleKey up, ConsoleKey left, ConsoleKey right, int id, ConsoleColor color, string name)
+        public EntityPlayer(float x, float y, ConsoleKey up, ConsoleKey left, ConsoleKey right, ConsoleColor color, string name)
         {
             posX = x;
             posY = y;
@@ -23,7 +22,6 @@ namespace HazardMan
             this.up = up;
             this.left = left;
             this.right = right;
-            this.id = id;
             this.color = color;
             this.name = name;
         }
@@ -36,11 +34,6 @@ namespace HazardMan
         public string getName()
         {
             return this.name;
-        }
-
-        public int getUUID()
-        {
-            return this.id;
         }
 
         public override void Update()
@@ -62,6 +55,20 @@ namespace HazardMan
                     motionX -= 1;
                     World.input = ConsoleKey.Delete;
                 }
+            }
+
+            if (!(posX < 119))
+            {
+                foreach(OptionPlayer player in Library.players)
+                {
+                    if(this.getName() == player.getName())
+                    {
+                        Library.score[player] += 1;
+                        break;
+                    }
+                }
+
+                setDead();
             }
 
             if (renderer == null)
