@@ -17,6 +17,7 @@ namespace HazardMan
         public static Thread updateTicks;
         public static Thread keyInput;
         public static Thread mobAI;
+        public static bool blockThread = false;
 
         public static TerrainElement[,] terrain = new TerrainElement[Console.WindowWidth, Console.WindowHeight];
 
@@ -35,6 +36,7 @@ namespace HazardMan
                 entities.Add(new EntityPlayer(Console.WindowWidth / 3, 2, player.getUpKey(), player.getLeftKey(), player.getRightKey(), id++, player.getColor(), player.getName()));
             }
             entities.Add(new EntityEnemy(Console.WindowWidth / 3 + 10, 2));
+            entities.Add(new EntityShooter(Console.WindowWidth / 3 + 15, 2));
 
             Library.score = new Dictionary<OptionPlayer, int>();
             Library.score.Clear();
@@ -74,8 +76,12 @@ namespace HazardMan
                 
                 kill = new List<Entity>();
 
+                while (blockThread) { }
+
                 foreach (Entity entity in entities)
                 {
+                    if (blockThread)
+                        break;
                     entity.Update();
                 }
 
@@ -101,7 +107,7 @@ namespace HazardMan
                     tickWorld = false;
                 }
 
-                Thread.Sleep(25);
+                Thread.Sleep(50);
             }
         }
 
@@ -159,6 +165,19 @@ namespace HazardMan
             entities.Clear();
             Library.score.Clear();
             kill.Clear();
+        }
+
+        public static bool spawnEntityInWorld(Entity entity)
+        {
+            if (entity != null)
+            {
+                blockThread = true;
+                Thread.Sleep(10);
+                entities.Add(entity);
+                blockThread = false;
+                return true;
+            }
+            return false;
         }
     }
 }

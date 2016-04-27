@@ -25,6 +25,8 @@ namespace HazardMan
 
         public virtual void Update()
         {
+            onGround = false;
+
             if (health > maxHealth)
             {
                 health = maxHealth;
@@ -63,8 +65,18 @@ namespace HazardMan
                 onGround = true;
             }
 
-            if (!(posX > 1 && posX < 119 && posY > -1 && posY < 30))
+            if (!(posX > 1 && posY > -1 && posY < 30))
             {
+                setDead();
+            }
+
+            if (!(posX < 119))
+            {
+                if(this is EntityPlayer)
+                {
+                    /////////////////////////
+                }
+
                 setDead();
             }
 
