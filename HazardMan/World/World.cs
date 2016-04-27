@@ -36,17 +36,13 @@ namespace HazardMan
             }
             entities.Add(new EntityEnemy(Console.WindowWidth / 3 + 10, 2));
 
-            Library.score = new Dictionary<EntityPlayer, int>();
+            Library.score = new Dictionary<OptionPlayer, int>();
             Library.score.Clear();
 
-            foreach(Entity entity in entities)
+            foreach (OptionPlayer player in Library.players)
             {
-                if (entity is EntityPlayer)
-                {
-                    EntityPlayer player = (EntityPlayer)entity;
-                    if(!Library.score.ContainsKey(player))
-                        Library.score.Add(player, 0);
-                }
+                if (!Library.score.ContainsKey(player))
+                    Library.score.Add(player, 0);
             }
 
             tickWorld = true;
@@ -140,20 +136,15 @@ namespace HazardMan
             int i = 0;
             try
             {
-                foreach (Entity entity in World.entities)
+                foreach (OptionPlayer player in Library.players)
                 {
-                    if (entity is EntityPlayer)
-                    {
-                        EntityPlayer player = (EntityPlayer)entity;
-
-                        Console.BackgroundColor = ConsoleColor.Black;
-                        if (i == 0) Console.SetCursorPosition(0, 29);
-                        else if (i == 1) Console.SetCursorPosition(20, 29);
-                        else if (i == 2) Console.SetCursorPosition(40, 29);
-                        else if (i == 3) Console.SetCursorPosition(60, 29);
-                        Console.Write(player.getName() + " - " + Library.score[player]);
-                        i++;
-                    }
+                    Console.BackgroundColor = ConsoleColor.Black;
+                    if (i == 0) Console.SetCursorPosition(0, 29);
+                    else if (i == 1) Console.SetCursorPosition(20, 29);
+                    else if (i == 2) Console.SetCursorPosition(40, 29);
+                    else if (i == 3) Console.SetCursorPosition(60, 29);
+                    Console.Write(player.getName() + " - " + Library.score[player]);
+                    i++;
                 }
             }
             catch { }

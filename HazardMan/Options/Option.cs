@@ -127,7 +127,7 @@ namespace HazardMan
             Console.WriteLine("Choose a color:");
             List<ConsoleColor> colors = new List<ConsoleColor>();
             colors.Add(ConsoleColor.Red);
-            colors.Add(ConsoleColor.Blue);
+            colors.Add(ConsoleColor.Magenta);
             colors.Add(ConsoleColor.Green);
             colors.Add(ConsoleColor.Yellow);
             foreach (ConsoleColor forcolor in colors)
@@ -151,8 +151,8 @@ namespace HazardMan
                     color = ConsoleColor.Red;
                     break;
 
-                case "BLUE":
-                    color = ConsoleColor.Blue;
+                case "MAGENTA":
+                    color = ConsoleColor.Magenta;
                     break;
 
                 case "GREEN":
