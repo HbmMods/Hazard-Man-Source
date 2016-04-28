@@ -68,15 +68,31 @@ namespace HazardMan
                     }
                 }
 
-                setDead();
+                this.respawn();
             }
+
+            if (World.terrain[((int)posX), ((int)posY)] is TerrainSolid)
+                setDead();
 
             if (renderer == null)
-            {
                 renderer = new RenderPlayer(this);
-            }
+            
 
             base.Update();
+        }
+
+        public void respawn()
+        {
+            base.setDead();
+
+            World.spawnEntity(new EntityPlayer(1, 2, this.up, this.left, this.right, this.getColor(), this.getName()));
+        }
+
+        public override void checkOut()
+        {
+            if (!(posX > 0 && posY > -1 && posY < 30))
+                this.respawn();
+            
         }
     }
 }

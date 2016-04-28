@@ -28,14 +28,10 @@ namespace HazardMan
             onGround = false;
 
             if (health > maxHealth)
-            {
                 health = maxHealth;
-            }
 
             if (health <= 0)
-            {
-                setDead();
-            }
+                setDead();  
 
             lastPosX = posX;
             lastPosY = posY;
@@ -70,19 +66,22 @@ namespace HazardMan
                 this.setDead();
             }
 
-            if (!(posX > 1 && posY > -1 && posY < 30))
-            {
-                setDead();
-            }
+            checkOut();
 
             renderer.renderEntityAt(this);
 
             motionX *= 0.5F;
 
             if (!onGround)
-            {
                 motionY -= 0.1F;
-            }
+            
+        }
+
+        public virtual void checkOut()
+        {
+            if (!(posX > 0 && posY > -1 && posY < 30))
+                setDead();
+            
         }
 
         public void setHealth(int health)

@@ -39,44 +39,13 @@ namespace HazardMan
                         break;
 
                     case ConsoleKey.R:
-                        Console.Write("Enter player name: ");
-                        string uuid = Console.ReadLine().ToUpper();
-
-                        OptionPlayer playerfordelete = null;
-
-                        foreach(OptionPlayer player in Library.players) {
-                            if(uuid.Contains(player.getUUID()))
-                            {
-                                playerfordelete = player;
-                                break;
-                            }
-                        }
-
-                        Console.Clear();
-                        if (playerfordelete != null)
-                        {
-                            Library.players.Remove(playerfordelete);
-                            Console.WriteLine("Succsessfully deleted player!");
-                        }
-                        else
-                        {
-                            Console.WriteLine("There is no player with this name");
-                        }
+                        removePlayer();
 
                         break;
 
                     case ConsoleKey.S:
-                        Console.Clear();
-                        if (Library.isSoundActivated)
-                        {
-                            Library.isSoundActivated = false;
-                            Console.WriteLine("Sounds deactivated");
-                        }
-                        else
-                        {
-                            Library.isSoundActivated = true;
-                            Console.WriteLine("Sounds activated");
-                        }
+                        changeSound();
+
                         break;
 
                     case ConsoleKey.X:
@@ -124,7 +93,7 @@ namespace HazardMan
             Console.Write("Bind right key: ");
             ConsoleKey right = Console.ReadKey(true).Key;
             Console.WriteLine(right.ToString());
-            Console.WriteLine("Choose a color:");
+            Console.WriteLine("Available colors:");
             List<ConsoleColor> colors = new List<ConsoleColor>();
             colors.Add(ConsoleColor.Red);
             colors.Add(ConsoleColor.Magenta);
@@ -144,6 +113,8 @@ namespace HazardMan
 
                 if (!iscolor) Console.WriteLine(" - " + forcolor.ToString());
             }
+            Console.Write("Choose: ");
+
             ConsoleColor color = ConsoleColor.DarkGray;
             switch (Console.ReadLine().ToUpper())
             {
@@ -184,6 +155,49 @@ namespace HazardMan
                 Library.players.Add(new OptionPlayer(name, jump, left, right, color));
                 Console.Clear();
                 Console.WriteLine("Player succsessfully created!");
+            }
+        }
+
+        private static void removePlayer()
+        {
+            Console.Write("Enter player name: ");
+            string uuid = Console.ReadLine().ToUpper();
+
+            OptionPlayer playerfordelete = null;
+
+            foreach (OptionPlayer player in Library.players)
+            {
+                if (uuid.Contains(player.getUUID()))
+                {
+                    playerfordelete = player;
+                    break;
+                }
+            }
+
+            Console.Clear();
+            if (playerfordelete != null)
+            {
+                Library.players.Remove(playerfordelete);
+                Console.WriteLine("Succsessfully deleted player!");
+            }
+            else
+            {
+                Console.WriteLine("There is no player with this name");
+            }
+        }
+
+        private static void changeSound()
+        {
+            Console.Clear();
+            if (Library.isSoundActivated)
+            {
+                Library.isSoundActivated = false;
+                Console.WriteLine("Sounds deactivated");
+            }
+            else
+            {
+                Library.isSoundActivated = true;
+                Console.WriteLine("Sounds activated");
             }
         }
     }

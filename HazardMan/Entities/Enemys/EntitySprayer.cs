@@ -9,7 +9,6 @@ namespace HazardMan
     class EntitySprayer : EntityAI
     {
         Random rand = new Random();
-
         public int step = 0;
 
         public EntitySprayer(float x, float y)
@@ -33,24 +32,22 @@ namespace HazardMan
             EntityFragment frag1 = new EntityFragment(this.posX, this.posY - 1, 0.5F, 0.75F);
             EntityFragment frag2 = new EntityFragment(this.posX, this.posY - 1, 0F, 0.75F);
             EntityFragment frag3 = new EntityFragment(this.posX, this.posY - 1, -0.5F, 0.75F);
-            World.spawnEntityInWorld(frag1);
-            World.spawnEntityInWorld(frag2);
-            World.spawnEntityInWorld(frag3);
+            World.spawnEntity(frag1);
+            World.spawnEntity(frag2);
+            World.spawnEntity(frag3);
             if(rand.Next(5) == 0)
             {
                 EntityFragment frag4 = new EntityFragment(this.posX, this.posY - 1, 0.25F, 0.75F);
                 EntityFragment frag5 = new EntityFragment(this.posX, this.posY - 1, -0.25F, 0.75F);
-                World.spawnEntityInWorld(frag4);
-                World.spawnEntityInWorld(frag5);
+                World.spawnEntity(frag4);
+                World.spawnEntity(frag5);
             }
         }
 
         public override void Update()
         {
             if (renderer == null)
-            {
-                renderer = new RenderSprayer();
-            }
+                renderer = new RenderSprayer();        
 
             base.Update();
         }

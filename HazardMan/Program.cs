@@ -122,6 +122,7 @@ namespace HazardMan
                                         World.StartWorld();
                                         while (World.tickWorld)
                                         { }
+                                        
                                         loop = false;
                                     }   
                                     break;

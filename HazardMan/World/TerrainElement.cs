@@ -16,7 +16,6 @@ namespace HazardMan
 
         public void RenderSelf()
         {
-
             ConsoleColor c1 = Console.ForegroundColor;
             ConsoleColor c2 = Console.BackgroundColor;
 

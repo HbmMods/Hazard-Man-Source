@@ -6,50 +6,45 @@ using System.Threading.Tasks;
 
 namespace HazardMan
 {
-    class EntityFragment : EntityAI
+    class EntityEnemy : EntityAI
     {
-        public EntityFragment(float x, float y, float motionX, float motionY)
+        public EntityEnemy(float x, float y)
         {
             posX = x;
             posY = y;
-            this.motionX = motionX;
-            this.motionY = motionY;
         }
 
         public override bool executeAICheck()
         {
-            foreach (Entity entity in World.entities)
+            foreach(Entity entity in World.entities)
             {
-                if (entity is EntityPlayer)
+                if(entity is EntityPlayer)
                 {
-                    if (entity.posX < posX + 1 && entity.posX > posX - 1 && entity.posY < posY + 1 && entity.posY > posY - 1)
+                    if(entity.posX < posX + 1 && entity.posX > posX - 1 && entity.posY < posY + 1 && entity.posY > posY - 1)
                     {
                         if (Library.isSoundActivated) Console.Beep();
-                        entity.setDead();
+                        ((EntityPlayer)entity).respawn();
+                    }
+
+                    if(entity.posY <= posY && entity.posX < posX + 2 && entity.posX > posX - 2 && onGround)
+                    {
+                        if (Library.isSoundActivated) Console.Beep(250, 200);
                         return true;
                     }
                 }
             }
-
             return false;
         }
 
         public override void executeAITask()
         {
-            setDead();
+            motionY += 1;
         }
 
         public override void Update()
         {
-            motionX *= 2F;
-
-            if (onGround)
-                setDead();
-
             if (renderer == null)
-            {
-                renderer = new RenderFragment();
-            }
+                renderer = new RenderEnemy();      
 
             base.Update();
         }

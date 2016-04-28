@@ -11,7 +11,7 @@ namespace HazardMan
         public static bool isSoundActivated = true;
 
         public static List<OptionPlayer> players = new List<OptionPlayer>();
-        public static Dictionary<OptionPlayer, int> score;
+        public static Dictionary<OptionPlayer, int> score = new Dictionary<OptionPlayer, int>();
 
         public static string s1 = "_//     _//      _/       _/////// _//      _/       _///////    _/////    ";
         public static string s2 = "_//     _//     _/ //            _//       _/ //     _//    _//  _//   _// ";

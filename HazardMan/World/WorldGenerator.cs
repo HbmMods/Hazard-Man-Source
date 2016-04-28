@@ -17,7 +17,6 @@ namespace HazardMan
         {
             Random rand = new Random();
 
-
             for (int i = 0; i < Console.WindowHeight; i++)
             {
                 if(i >= generationHeight)

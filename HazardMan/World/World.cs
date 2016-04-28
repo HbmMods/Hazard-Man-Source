@@ -32,7 +32,7 @@ namespace HazardMan
             mobAI = new Thread(AI);
 
             foreach(OptionPlayer player in Library.players) {
-                entities.Add(new EntityPlayer(Console.WindowWidth / 3, 2, player.getUpKey(), player.getLeftKey(), player.getRightKey(), player.getColor(), player.getName()));
+                spawnEntity(new EntityPlayer(1, 2, player.getUpKey(), player.getLeftKey(), player.getRightKey(), player.getColor(), player.getName()));
             }
 
             switch(rand.Next(3))
@@ -56,10 +56,6 @@ namespace HazardMan
                     entities.Add(new EntitySprayer(Console.WindowWidth / 5 * 4, 2));
                     break;
             }
-
-
-            Library.score = new Dictionary<OptionPlayer, int>();
-            Library.score.Clear();
 
             foreach (OptionPlayer player in Library.players)
             {
@@ -88,22 +84,26 @@ namespace HazardMan
                     return;
                 }
 
-                foreach (Entity entity in kill)
-                {
-                    entity.renderer.delRenderEntity();
-                    entities.Remove(entity);
-                }
+                try {
+                    foreach (Entity entity in kill)
+                    {
+                        entity.renderer.delRenderEntity();
+                        entities.Remove(entity);
+                    }
+                } catch { }
                 
                 kill = new List<Entity>();
 
                 while (blockThread) { }
 
-                foreach (Entity entity in entities)
-                {
-                    if (blockThread)
-                        break;
-                    entity.Update();
-                }
+                try {
+                    foreach (Entity entity in entities)
+                    {
+                        if (blockThread)
+                            break;
+                        entity.Update();
+                    }
+                } catch { }
 
                 scoreUpdate();
 
@@ -178,16 +178,16 @@ namespace HazardMan
 
         public static void StopWorld()
         {
-            updateTicks.Interrupt();
-            keyInput.Interrupt();
-            mobAI.Interrupt();
+            updateTicks.Abort();
+            keyInput.Abort();
+            mobAI.Abort();
 
             entities.Clear();
             Library.score.Clear();
             kill.Clear();
         }
 
-        public static bool spawnEntityInWorld(Entity entity)
+        public static bool spawnEntity(Entity entity)
         {
             if (entity != null)
             {

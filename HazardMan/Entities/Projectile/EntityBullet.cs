@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace HazardMan
 {
-    class EntityBullet : EntityAI
+    class EntityBullet : EntityProjectile
     {
         public EntityBullet(float x, float y, float motionX, float motionY)
         {
@@ -25,7 +25,7 @@ namespace HazardMan
                     if (entity.posX < posX + 1 && entity.posX > posX - 1 && entity.posY < posY + 1 && entity.posY > posY - 1)
                     {
                         if (Library.isSoundActivated) Console.Beep();
-                        entity.setDead();
+                        ((EntityPlayer)entity).respawn();
                         return true;
                     }
                 }
@@ -47,11 +47,13 @@ namespace HazardMan
             if (motionX < 0.1F && motionX > -0.1F)
                 setDead();
 
-            if (renderer == null)
-            {
-                renderer = new RenderBullet();
-            }
+            if(World.terrain[((int)posX), ((int)posY)] is TerrainSolid)
+                setDead();
+            
 
+            if (renderer == null)
+                renderer = new RenderBullet();
+            
             base.Update();
         }
     }
