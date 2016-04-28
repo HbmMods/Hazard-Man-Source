@@ -32,7 +32,7 @@ namespace HazardMan
             mobAI = new Thread(AI);
 
             foreach(OptionPlayer player in Library.players) {
-                spawnEntity(new EntityPlayer(1, 2, player.getUpKey(), player.getLeftKey(), player.getRightKey(), player.getColor(), player.getName()));
+                spawnEntity(new EntityPlayer(1, Console.WindowHeight / 2 - 1, player.getUpKey(), player.getLeftKey(), player.getRightKey(), player.getColor(), player.getName()));
             }
 
             switch(rand.Next(3))
@@ -57,6 +57,7 @@ namespace HazardMan
                     break;
             }
 
+
             foreach (OptionPlayer player in Library.players)
             {
                 if (!Library.score.ContainsKey(player))
@@ -66,6 +67,18 @@ namespace HazardMan
             tickWorld = true;
             Console.Clear();
             WorldGenerator.createNewWorld();
+            WorldGenerator.addSpike(20);
+            WorldGenerator.addSpike(21);
+            WorldGenerator.addSpike(22);
+            WorldGenerator.addSpike(46);
+            WorldGenerator.addSpike(47);
+            WorldGenerator.addSpike(63);
+            WorldGenerator.addSpike(64);
+            WorldGenerator.addSpike(87);
+            WorldGenerator.addSpike(88);
+            WorldGenerator.addSpike(89);
+            WorldGenerator.addSpike(110);
+            WorldGenerator.addSpike(111);
             Renderer.RenderWorld();
             Console.BackgroundColor = ConsoleColor.Blue;
 

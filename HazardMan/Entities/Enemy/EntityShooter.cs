@@ -8,11 +8,12 @@ namespace HazardMan
 {
     class EntityShooter : EntityAI
     {
-        Random rand = new Random();
+        Random rand;
         public int step = 0;
 
         public EntityShooter(float x, float y)
         {
+            rand = new Random();
             posX = x;
             posY = y;
         }

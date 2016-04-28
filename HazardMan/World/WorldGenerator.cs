@@ -16,6 +16,7 @@ namespace HazardMan
         public static void createNewWorld()
         {
             Random rand = new Random();
+            generationHeight = Console.WindowHeight / 2;
 
             for (int i = 0; i < Console.WindowHeight; i++)
             {
@@ -49,6 +50,20 @@ namespace HazardMan
                 {
                     if (j >= generationHeight)
                         World.terrain[i, j] = new TerrainSolid();
+                    else
+                        World.terrain[i, j] = null;
+                }
+            }
+        }
+
+        public static void addSpike(int x)
+        {
+            for (int i = 1; i < World.terrain.GetLength(1) - 1; i++)
+            {
+                if(World.terrain[x, i] == null && World.terrain[x, i + 1] != null)
+                {
+                    World.terrain[x, i] = new TerrainSpike();
+                    break;
                 }
             }
         }

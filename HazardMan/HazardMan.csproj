@@ -48,11 +48,11 @@
     <Compile Include="Entities\EntityAI.cs" />
     <Compile Include="Entities\Projectile\EntityBullet.cs" />
     <Compile Include="Entities\EntityDummy.cs" />
-    <Compile Include="Entities\Enemys\EntityEnemy.cs" />
+    <Compile Include="Entities\Enemy\EntityEnemy.cs" />
     <Compile Include="Entities\Projectile\EntityFragment.cs" />
     <Compile Include="Entities\EntityPlayer.cs" />
-    <Compile Include="Entities\Enemys\EntityShooter.cs" />
-    <Compile Include="Entities\Enemys\EntitySprayer.cs" />
+    <Compile Include="Entities\Enemy\EntityShooter.cs" />
+    <Compile Include="Entities\Enemy\EntitySprayer.cs" />
     <Compile Include="Entities\Projectile\EntityProjectile.cs" />
     <Compile Include="Library.cs" />
     <Compile Include="Options\Option.cs" />
@@ -70,6 +70,7 @@
     <Compile Include="Renderer\Enemy\RenderSprayer.cs" />
     <Compile Include="World\TerrainElement.cs" />
     <Compile Include="World\TerrainSolid.cs" />
+    <Compile Include="World\TerrainSpike.cs" />
     <Compile Include="World\World.cs" />
     <Compile Include="World\WorldGenerator.cs" />
   </ItemGroup>

@@ -74,6 +74,17 @@ namespace HazardMan
 
             if (!onGround)
                 motionY -= 0.1F;
+
+            if(World.terrain[(int)posX, (int)posY + 1] is TerrainSpike && !(this is EntityProjectile))
+            {
+                if(this is EntityPlayer)
+                {
+                    ((EntityPlayer)this).respawn();
+                } else
+                {
+                    setDead();
+                }
+            }
             
         }
 
