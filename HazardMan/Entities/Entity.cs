@@ -52,17 +52,22 @@ namespace HazardMan
                 return;
             }
 
-            if (!(World.terrain[(int)(posX - motionX), (int)(posY - motionY)] != null))
+            try {
+                if (!(World.terrain[(int)(posX - motionX), (int)(posY - motionY)] != null))
+                {
+                    posX -= motionX;
+                    posY -= motionY;
+                    onGround = false;
+                }
+                else
+                {
+                    motionX = 0;
+                    motionY = 0;
+                    onGround = true;
+                }
+            } catch
             {
-                posX -= motionX;
-                posY -= motionY;
-                onGround = false;
-            }
-            else
-            {
-                motionX = 0;
-                motionY = 0;
-                onGround = true;
+                this.setDead();
             }
 
             if (!(posX > 1 && posY > -1 && posY < 30))

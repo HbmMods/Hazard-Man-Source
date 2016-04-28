@@ -34,9 +34,29 @@ namespace HazardMan
             foreach(OptionPlayer player in Library.players) {
                 entities.Add(new EntityPlayer(Console.WindowWidth / 3, 2, player.getUpKey(), player.getLeftKey(), player.getRightKey(), player.getColor(), player.getName()));
             }
-            entities.Add(new EntityEnemy(Console.WindowWidth / 3 + 10, 2));
-            entities.Add(new EntityShooter(Console.WindowWidth / 3 + 15, 2));
-            entities.Add(new EntitySprayer(Console.WindowWidth / 3 + 20, 2));
+
+            switch(rand.Next(3))
+            {
+                case 0:
+                    entities.Add(new EntityEnemy(Console.WindowWidth / 5 * 1, 2));
+                    entities.Add(new EntityEnemy(Console.WindowWidth / 5 * 2, 2));
+                    entities.Add(new EntityEnemy(Console.WindowWidth / 5 * 3, 2));
+                    entities.Add(new EntityEnemy(Console.WindowWidth / 5 * 4, 2));
+                    break;
+                case 1:
+                    entities.Add(new EntityShooter(Console.WindowWidth / 5 * 1, 2));
+                    entities.Add(new EntityShooter(Console.WindowWidth / 5 * 2, 2));
+                    entities.Add(new EntityShooter(Console.WindowWidth / 5 * 3, 2));
+                    entities.Add(new EntityShooter(Console.WindowWidth / 5 * 4, 2));
+                    break;
+                case 2:
+                    entities.Add(new EntitySprayer(Console.WindowWidth / 5 * 1, 2));
+                    entities.Add(new EntitySprayer(Console.WindowWidth / 5 * 2, 2));
+                    entities.Add(new EntitySprayer(Console.WindowWidth / 5 * 3, 2));
+                    entities.Add(new EntitySprayer(Console.WindowWidth / 5 * 4, 2));
+                    break;
+            }
+
 
             Library.score = new Dictionary<OptionPlayer, int>();
             Library.score.Clear();

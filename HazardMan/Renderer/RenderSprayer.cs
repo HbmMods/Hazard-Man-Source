@@ -11,7 +11,7 @@ namespace HazardMan
         public RenderSprayer()
         {
             fg = ConsoleColor.DarkMagenta;
-            renderIcon = '¥';
+            renderIcon = '▓';
         }
     }
 }

@@ -36,6 +36,13 @@ namespace HazardMan
             World.spawnEntityInWorld(frag1);
             World.spawnEntityInWorld(frag2);
             World.spawnEntityInWorld(frag3);
+            if(rand.Next(5) == 0)
+            {
+                EntityFragment frag4 = new EntityFragment(this.posX, this.posY - 1, 0.25F, 0.75F);
+                EntityFragment frag5 = new EntityFragment(this.posX, this.posY - 1, -0.25F, 0.75F);
+                World.spawnEntityInWorld(frag4);
+                World.spawnEntityInWorld(frag5);
+            }
         }
 
         public override void Update()
