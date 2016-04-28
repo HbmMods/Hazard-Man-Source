@@ -32,6 +32,7 @@
     <ErrorReport>prompt</ErrorReport>
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
+  <PropertyGroup />
   <ItemGroup>
     <Reference Include="System" />
     <Reference Include="System.Core" />
@@ -48,8 +49,10 @@
     <Compile Include="Entities\EntityBullet.cs" />
     <Compile Include="Entities\EntityDummy.cs" />
     <Compile Include="Entities\EntityEnemy.cs" />
+    <Compile Include="Entities\EntityFragment.cs" />
     <Compile Include="Entities\EntityPlayer.cs" />
     <Compile Include="Entities\EntityShooter.cs" />
+    <Compile Include="Entities\EntitySprayer.cs" />
     <Compile Include="Library.cs" />
     <Compile Include="Options\Option.cs" />
     <Compile Include="Options\OptionPlayer.cs" />
@@ -60,8 +63,10 @@
     <Compile Include="Renderer\RenderEnemy.cs" />
     <Compile Include="Renderer\RenderEntity.cs" />
     <Compile Include="Renderer\Renderer.cs" />
+    <Compile Include="Renderer\RenderFragment.cs" />
     <Compile Include="Renderer\RenderPlayer.cs" />
     <Compile Include="Renderer\RenderShooter.cs" />
+    <Compile Include="Renderer\RenderSprayer.cs" />
     <Compile Include="World\TerrainElement.cs" />
     <Compile Include="World\TerrainSolid.cs" />
     <Compile Include="World\World.cs" />

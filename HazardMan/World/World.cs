@@ -36,6 +36,7 @@ namespace HazardMan
             }
             entities.Add(new EntityEnemy(Console.WindowWidth / 3 + 10, 2));
             entities.Add(new EntityShooter(Console.WindowWidth / 3 + 15, 2));
+            entities.Add(new EntitySprayer(Console.WindowWidth / 3 + 20, 2));
 
             Library.score = new Dictionary<OptionPlayer, int>();
             Library.score.Clear();
