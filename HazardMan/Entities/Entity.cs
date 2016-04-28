@@ -79,6 +79,7 @@ namespace HazardMan
             {
                 if(this is EntityPlayer)
                 {
+                    Console.Beep();
                     ((EntityPlayer)this).respawn();
                 } else
                 {

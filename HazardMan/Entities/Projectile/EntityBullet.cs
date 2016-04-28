@@ -50,7 +50,6 @@ namespace HazardMan
             if(World.terrain[((int)posX), ((int)posY)] is TerrainSolid)
                 setDead();
             
-
             if (renderer == null)
                 renderer = new RenderBullet();
             
