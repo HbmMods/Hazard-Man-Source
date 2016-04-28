@@ -182,6 +182,7 @@ namespace HazardMan
                     else if (i == 1) Console.SetCursorPosition(20, 29);
                     else if (i == 2) Console.SetCursorPosition(40, 29);
                     else if (i == 3) Console.SetCursorPosition(60, 29);
+                    Console.ForegroundColor = player.getColor();
                     Console.Write(player.getName() + " - " + Library.score[player]);
                     i++;
                 }

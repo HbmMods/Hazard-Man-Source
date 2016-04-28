@@ -178,6 +178,7 @@ namespace HazardMan
             if (playerfordelete != null)
             {
                 Library.players.Remove(playerfordelete);
+                if (Library.score.ContainsKey(playerfordelete)) Library.score.Remove(playerfordelete);
                 Console.WriteLine("Succsessfully deleted player!");
             }
             else
