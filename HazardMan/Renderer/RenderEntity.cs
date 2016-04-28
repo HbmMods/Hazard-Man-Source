@@ -60,17 +60,22 @@ namespace HazardMan
 
         public void delRenderEntity()
         {
-            if (World.terrain[renderPosX, renderPosY] != null)
+            try {
+                if (World.terrain[renderPosX, renderPosY] != null)
+                {
+                    Console.CursorLeft = renderPosX;
+                    Console.CursorTop = renderPosY;
+                    World.terrain[renderPosX, renderPosY].RenderSelf();
+                }
+                else
+                {
+                    Console.CursorLeft = renderPosX;
+                    Console.CursorTop = renderPosY;
+                    Renderer.RenderSky();
+                }
+            } catch
             {
-                Console.CursorLeft = renderPosX;
-                Console.CursorTop = renderPosY;
-                World.terrain[renderPosX, renderPosY].RenderSelf();
-            }
-            else
-            {
-                Console.CursorLeft = renderPosX;
-                Console.CursorTop = renderPosY;
-                Renderer.RenderSky();
+
             }
         }
     }
