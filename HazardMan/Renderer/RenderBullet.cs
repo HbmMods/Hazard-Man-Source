@@ -10,9 +10,10 @@ namespace HazardMan
     {
         public RenderBullet()
         {
-            fg = ConsoleColor.Red;
+            fg = ConsoleColor.Black;
             //renderIcon = '¤';
-            renderIcon = '■';
+            //renderIcon = '■';
+            renderIcon = '─';
         }
     }
 }
