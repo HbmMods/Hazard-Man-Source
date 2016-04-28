@@ -10,9 +10,9 @@ namespace HazardMan
     {
         public TerrainSpike()
         {
-            renderIcon = new char[] { 'I' };
-            color = ConsoleColor.Gray;
-            bg = ConsoleColor.Red;
+            renderIcon = new char[] { '▲' };
+            color = ConsoleColor.DarkGray;
+            bg = ConsoleColor.Blue;
         }
     }
 }
