@@ -96,7 +96,6 @@
     <None Include="App.config" />
   </ItemGroup>
   <ItemGroup>
-    <Content Include="favicon %281%29.ico" />
     <Content Include="hz.ico" />
   </ItemGroup>
   <ItemGroup>

@@ -67,10 +67,5 @@ namespace HazardMan
                 }
             }
         }
-
-        public static void scrollExistingWolrd()
-        {
-
-        }
     }
 }
