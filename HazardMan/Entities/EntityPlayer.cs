@@ -64,15 +64,22 @@ namespace HazardMan
                     if(this.getName() == player.getName())
                     {
                         Library.score[player] += 1;
+                        Library.addLevel();
+                        Library.recreateWorld = true;
+
+                        foreach (Entity entity in World.entities)
+                        {
+                            entity.setDead();
+                        }
+                        
+                        World.tickWorld = false;
                         break;
                     }
                 }
-
-                this.respawn();
             }
 
             if (World.terrain[((int)posX), ((int)posY)] is TerrainSolid)
-                setDead();
+                respawn();
 
             if (renderer == null)
                 renderer = new RenderPlayer(this);
@@ -92,7 +99,6 @@ namespace HazardMan
         {
             if (!(posX > 0 && posY > -1 && posY < 30))
                 this.respawn();
-            
         }
     }
 }

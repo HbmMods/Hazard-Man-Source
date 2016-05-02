@@ -30,6 +30,7 @@ namespace HazardMan
             {
                 loop = true;
                 Console.Clear();
+
                 Console.BackgroundColor = ConsoleColor.Black;
                 Console.ForegroundColor = ConsoleColor.Red;
 
@@ -39,6 +40,16 @@ namespace HazardMan
                     {
                         Console.Write(" ");
                     }
+                }
+
+                if (Library.recreateWorld)
+                {
+                    Library.recreateWorld = false;
+                    World.StartWorld();
+                    while (World.tickWorld)
+                    { }
+
+                    loop = false;
                 }
 
                 DrawText(Library.s1, Console.WindowWidth / 2 - Library.s1.Length / 2, yOffset + 0);
@@ -59,7 +70,8 @@ namespace HazardMan
                 Console.ForegroundColor = ConsoleColor.Gray;
 
                 while (loop)
-                {
+                {             
+
                     if (selection == 0)
                     {
                         Console.ForegroundColor = ConsoleColor.Green;

@@ -13,6 +13,13 @@ namespace HazardMan
         public static List<OptionPlayer> players = new List<OptionPlayer>();
         public static Dictionary<OptionPlayer, int> score = new Dictionary<OptionPlayer, int>();
 
+        private static int level = 1;
+        public static int getLevel() { return level; }
+        public static void addLevel() { level++; }
+        public static void setLevel(int nlevel) { level = nlevel; }
+
+        public static bool recreateWorld = false;
+
         public static string s1 = "_//     _//      _/       _/////// _//      _/       _///////    _/////    ";
         public static string s2 = "_//     _//     _/ //            _//       _/ //     _//    _//  _//   _// ";
         public static string s3 = "_//     _//    _/  _//          _//       _/  _//    _//    _//  _//    _//";

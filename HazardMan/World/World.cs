@@ -19,6 +19,8 @@ namespace HazardMan
         public static Thread mobAI;
         public static bool blockThread = false;
 
+        private static Thread spawnAtStartT;
+
         public static TerrainElement[,] terrain = new TerrainElement[Console.WindowWidth, Console.WindowHeight];
 
         public volatile static bool tickWorld = false;
@@ -37,31 +39,6 @@ namespace HazardMan
                 spawnEntity(new EntityPlayer(1, Console.WindowHeight / 2 - 1, player.getUpKey(), player.getLeftKey(), player.getRightKey(), player.getColor(), player.getName()));
             }
 
-            for(int i = 0; i < 6; i++)
-            {
-                int random = rand.Next(110) + 4;
-                if(alreadyspawned.Equals(random))
-                {
-                    i--;
-                } else
-                {
-                    World.alreadyspawned.Add(random);
-
-                    switch (rand.Next(3))
-                    {
-                        case 0:
-                            spawnEntity(new EntityEnemy(random, 2));
-                            break;
-                        case 1:
-                            spawnEntity(new EntityShooter(random, 2));
-                            break;
-                        case 2:
-                            spawnEntity(new EntitySprayer(random, 2));
-                            break;
-                    }
-                }
-            }
-
             foreach (OptionPlayer player in Library.players)
             {
                 if (!Library.score.ContainsKey(player))
@@ -71,18 +48,9 @@ namespace HazardMan
             tickWorld = true;
             Console.Clear();
             WorldGenerator.createNewWorld();
-            for(int i = 0; i < 10; i++)
-            {
-                int random = rand.Next(110) + 4;
-                if (alreadyspawned.Equals(random))
-                {
-                    i--;
-                }
-                else
-                {
-                    WorldGenerator.addSpike(random);
-                }
-            }
+
+            spawnAtStartT = new Thread(spawnAtStart);
+            spawnAtStartT.Start();
 
             Renderer.RenderWorld();
             Console.BackgroundColor = ConsoleColor.Blue;
@@ -166,10 +134,7 @@ namespace HazardMan
                             }
                         }
                     }
-                } catch 
-                {
-
-                }
+                } catch { }
 
                 Thread.Sleep(50);
             }
@@ -191,6 +156,11 @@ namespace HazardMan
                     Console.Write(player.getName() + " - " + Library.score[player]);
                     i++;
                 }
+
+                Console.BackgroundColor = ConsoleColor.Black;
+                Console.ForegroundColor = ConsoleColor.White;
+                Console.SetCursorPosition(110, 29);
+                Console.Write("Level: " + Library.getLevel());
             }
             catch { }
         }
@@ -204,6 +174,7 @@ namespace HazardMan
             entities.Clear();
             Library.score.Clear();
             kill.Clear();
+            Console.Clear();
         }
 
         public static bool spawnEntity(Entity entity)
@@ -217,6 +188,52 @@ namespace HazardMan
                 return true;
             }
             return false;
+        }
+
+        public static void spawnAtStart()
+        {
+            int forrun = Library.getLevel() * 2;
+            for (int i = 0; i < forrun; i++)
+            {
+                int random = rand.Next(110) + 4;
+                if (alreadyspawned.Contains(random))
+                {
+                    i--;
+                }
+                else
+                {
+                    alreadyspawned.Add(random);
+                    WorldGenerator.addSpike(random);
+                }
+            }
+
+            for (int i = 0; i < Library.getLevel(); i++)
+            {
+                int random = rand.Next(110) + 4;
+                if (alreadyspawned.Contains(random))
+                {
+                    i--;
+                }
+                else
+                {
+                    alreadyspawned.Add(random);
+
+                    switch (rand.Next(3))
+                    {
+                        case 0:
+                            spawnEntity(new EntityEnemy(random, 2));
+                            break;
+                        case 1:
+                            spawnEntity(new EntityShooter(random, 2));
+                            break;
+                        case 2:
+                            spawnEntity(new EntitySprayer(random, 2));
+                            break;
+                    }
+                }
+            }
+
+            spawnAtStartT.Abort();
         }
     }
 }
