@@ -47,7 +47,7 @@ namespace HazardMan
             if (motionX < 0.1F && motionX > -0.1F)
                 setDead();
 
-            if(World.terrain[((int)posX), ((int)posY)] is TerrainSolid)
+            if(World.terrain[((int)posX) + ((int)motionX), ((int)posY)] is TerrainSolid|| World.terrain[((int)posX), ((int)posY)] is TerrainSolid)
                 setDead();
             
             if (renderer == null)

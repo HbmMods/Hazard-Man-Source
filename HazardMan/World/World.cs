@@ -113,7 +113,7 @@ namespace HazardMan
                     tickWorld = false;
                 }
 
-                Thread.Sleep(50);
+                Thread.Sleep(10);
             }
         }
 
@@ -170,6 +170,9 @@ namespace HazardMan
             updateTicks.Abort();
             keyInput.Abort();
             mobAI.Abort();
+            if (updateTicks.IsAlive) updateTicks.Interrupt();
+            if (keyInput.IsAlive) keyInput.Interrupt();
+            if (mobAI.IsAlive) mobAI.Interrupt();
 
             entities.Clear();
             Library.score.Clear();
