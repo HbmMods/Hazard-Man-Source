@@ -28,6 +28,11 @@ namespace HazardMan
 
             while (masterloop)
             {
+                if (World.keyInput != null) World.keyInput.Abort();
+                if (World.updateTicks != null) World.updateTicks.Abort();
+                if (World.mobAI != null) World.mobAI.Abort();
+                if (World.spawnAtStartT != null) World.spawnAtStartT.Abort();
+
                 loop = true;
                 Console.Clear();
 
@@ -48,8 +53,6 @@ namespace HazardMan
                     World.StartWorld();
                     while (World.tickWorld)
                     { }
-
-                    loop = false;
                 }
 
                 DrawText(Library.s1, Console.WindowWidth / 2 - Library.s1.Length / 2, yOffset + 0);
@@ -70,7 +73,7 @@ namespace HazardMan
                 Console.ForegroundColor = ConsoleColor.Gray;
 
                 while (loop)
-                {             
+                {
 
                     if (selection == 0)
                     {

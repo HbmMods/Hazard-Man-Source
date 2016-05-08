@@ -19,7 +19,7 @@ namespace HazardMan
         public static Thread mobAI;
         public static bool blockThread = false;
 
-        private static Thread spawnAtStartT;
+        public static Thread spawnAtStartT;
 
         public static TerrainElement[,] terrain = new TerrainElement[Console.WindowWidth, Console.WindowHeight];
 
@@ -170,9 +170,11 @@ namespace HazardMan
             updateTicks.Abort();
             keyInput.Abort();
             mobAI.Abort();
-            if (updateTicks.IsAlive) updateTicks.Interrupt();
-            if (keyInput.IsAlive) keyInput.Interrupt();
-            if (mobAI.IsAlive) mobAI.Interrupt();
+            spawnAtStartT.Abort();
+            updateTicks.Interrupt();
+            keyInput.Interrupt();
+            mobAI.Interrupt();
+            spawnAtStartT.Interrupt();
 
             entities.Clear();
             Library.score.Clear();
