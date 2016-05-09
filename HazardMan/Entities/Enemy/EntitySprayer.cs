@@ -21,7 +21,7 @@ namespace HazardMan
         {
             step++;
 
-            if (step >= 50)
+            if (step >= 60)
                 step = 0;
 
             return step <= 0;
@@ -32,15 +32,15 @@ namespace HazardMan
             EntityFragment frag1 = new EntityFragment(this.posX, this.posY - 1, 0.5F, 0.75F);
             EntityFragment frag2 = new EntityFragment(this.posX, this.posY - 1, 0F, 0.75F);
             EntityFragment frag3 = new EntityFragment(this.posX, this.posY - 1, -0.5F, 0.75F);
-            World.spawnEntity(frag1);
-            World.spawnEntity(frag2);
-            World.spawnEntity(frag3);
+            new SpawnEntity(frag1);
+            new SpawnEntity(frag2);
+            new SpawnEntity(frag3);
             if(rand.Next(5) == 0)
             {
                 EntityFragment frag4 = new EntityFragment(this.posX, this.posY - 1, 0.25F, 0.75F);
                 EntityFragment frag5 = new EntityFragment(this.posX, this.posY - 1, -0.25F, 0.75F);
-                World.spawnEntity(frag4);
-                World.spawnEntity(frag5);
+                new SpawnEntity(frag4);
+                new SpawnEntity(frag5);
             }
         }
 

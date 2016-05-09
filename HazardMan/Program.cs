@@ -27,12 +27,7 @@ namespace HazardMan
             Library.players.Add(new OptionPlayer("Gregoll", ConsoleKey.W, ConsoleKey.A, ConsoleKey.D, ConsoleColor.Cyan));
 
             while (masterloop)
-            {
-                if (World.keyInput != null) World.keyInput.Abort();
-                if (World.updateTicks != null) World.updateTicks.Abort();
-                if (World.mobAI != null) World.mobAI.Abort();
-                if (World.spawnAtStartT != null) World.spawnAtStartT.Abort();
-
+            {        
                 loop = true;
                 Console.Clear();
 

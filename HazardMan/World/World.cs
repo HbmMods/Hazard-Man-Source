@@ -11,15 +11,7 @@ namespace HazardMan
     {
         public static Random rand = new Random();
 
-        public static List<Entity> entities = new List<Entity>();
-        public static List<Entity> kill = new List<Entity>();
-
-        public static Thread updateTicks;
-        public static Thread keyInput;
-        public static Thread mobAI;
-        public static bool blockThread = false;
-
-        public static Thread spawnAtStartT;
+        public static List<Entity> entities;
 
         public static TerrainElement[,] terrain = new TerrainElement[Console.WindowWidth, Console.WindowHeight];
 
@@ -27,20 +19,21 @@ namespace HazardMan
 
         public static ConsoleKey input;
 
-        public static List<int> alreadyspawned = new List<int>();
+        private static List<int> alreadyspawned = new List<int>();
 
         public static void StartWorld()
         {
-            updateTicks = new Thread(UpdateWorld);
-            keyInput = new Thread(Input);
-            mobAI = new Thread(AI);
+            arrayInit();
+
+            entities = new List<Entity>();
+
+            Library.worldThread = new WorldThread();
+            Library.inputThread = new InputThread();
+            Library.aiThread = new AIThread();
 
             foreach(OptionPlayer player in Library.players) {
-                spawnEntity(new EntityPlayer(1, Console.WindowHeight / 2 - 1, player.getUpKey(), player.getLeftKey(), player.getRightKey(), player.getColor(), player.getName()));
-            }
+                new SpawnEntity(new EntityPlayer(1, Console.WindowHeight / 2 - 1, player.getUpKey(), player.getLeftKey(), player.getRightKey(), player.getColor(), player.getName()));
 
-            foreach (OptionPlayer player in Library.players)
-            {
                 if (!Library.score.ContainsKey(player))
                     Library.score.Add(player, 0);
             }
@@ -49,150 +42,33 @@ namespace HazardMan
             Console.Clear();
             WorldGenerator.createNewWorld();
 
-            spawnAtStartT = new Thread(spawnAtStart);
-            spawnAtStartT.Start();
+            spawnAtStart();
 
             Renderer.RenderWorld();
             Console.BackgroundColor = ConsoleColor.Blue;
 
-            updateTicks.Start();
-            keyInput.Start();
-            mobAI.Start();
-        }
+            Library.worldThread.start();
+            Library.inputThread.start();
+            Library.aiThread.start();
 
-        public static void UpdateWorld()
-        {
-            while (tickWorld)
-            {
-                if (!tickWorld)
-                {
-                    StopWorld();
-                    return;
-                }
 
-                try {
-                    foreach (Entity entity in kill)
-                    {
-                        entity.renderer.delRenderEntity();
-                        entities.Remove(entity);
-                    }
-                } catch { }
-                
-                kill = new List<Entity>();
-
-                while (blockThread) { }
-
-                try {
-                    foreach (Entity entity in entities)
-                    {
-                        if (blockThread)
-                            break;
-                        entity.Update();
-                    }
-                } catch { }
-
-                scoreUpdate();
-
-                Thread.Sleep(50);
-            }
-        }
-
-        public static void Input()
-        {
-            while(tickWorld)
-            {
-                input = Console.ReadKey(true).Key;
-
-                if(input == ConsoleKey.Escape)
-                {
-                    foreach (Entity entity in World.entities)
-                    {
-                        entity.setDead();
-                    }
-
-                    tickWorld = false;
-                }
-
-                Thread.Sleep(10);
-            }
-        }
-
-        public static void AI()
-        {
-            while (tickWorld)
-            {
-                try {
-                    foreach (Entity entity in entities)
-                    {
-                        if (entity is EntityAI)
-                        {
-                            EntityAI entitiyAI = (EntityAI)entity;
-
-                            if (entitiyAI.executeAICheck())
-                            {
-                                entitiyAI.executeAITask();
-                            }
-                        }
-                    }
-                } catch { }
-
-                Thread.Sleep(50);
-            }
-        }
-
-        public static void scoreUpdate()
-        {
-            int i = 0;
-            try
-            {
-                foreach (OptionPlayer player in Library.players)
-                {
-                    Console.BackgroundColor = ConsoleColor.Black;
-                    if (i == 0) Console.SetCursorPosition(0, 29);
-                    else if (i == 1) Console.SetCursorPosition(20, 29);
-                    else if (i == 2) Console.SetCursorPosition(40, 29);
-                    else if (i == 3) Console.SetCursorPosition(60, 29);
-                    Console.ForegroundColor = player.getColor();
-                    Console.Write(player.getName() + " - " + Library.score[player]);
-                    i++;
-                }
-
-                Console.BackgroundColor = ConsoleColor.Black;
-                Console.ForegroundColor = ConsoleColor.White;
-                Console.SetCursorPosition(110, 29);
-                Console.Write("Level: " + Library.getLevel());
-            }
-            catch { }
         }
 
         public static void StopWorld()
         {
-            updateTicks.Abort();
-            keyInput.Abort();
-            mobAI.Abort();
-            spawnAtStartT.Abort();
-            updateTicks.Interrupt();
-            keyInput.Interrupt();
-            mobAI.Interrupt();
-            spawnAtStartT.Interrupt();
+            World.tickWorld = false;
+
+            Library.worldThread.stop();
+            Library.inputThread.stop();
+            Library.aiThread.stop();
+
+            Library.inputThread = null;
+            Library.aiThread = null;
+            Library.worldThread = null;
 
             entities.Clear();
             Library.score.Clear();
-            kill.Clear();
             Console.Clear();
-        }
-
-        public static bool spawnEntity(Entity entity)
-        {
-            if (entity != null)
-            {
-                blockThread = true;
-                Thread.Sleep(10);
-                entities.Add(entity);
-                blockThread = false;
-                return true;
-            }
-            return false;
         }
 
         public static void spawnAtStart()
@@ -226,19 +102,82 @@ namespace HazardMan
                     switch (rand.Next(3))
                     {
                         case 0:
-                            spawnEntity(new EntityEnemy(random, 2));
+                            new SpawnEntity(new EntityEnemy(random, 2));
                             break;
                         case 1:
-                            spawnEntity(new EntityShooter(random, 2));
+                            new SpawnEntity(new EntityShooter(random, 2));
                             break;
                         case 2:
-                            spawnEntity(new EntitySprayer(random, 2));
+                            new SpawnEntity(new EntitySprayer(random, 2));
                             break;
                     }
                 }
+            } 
+        }
+
+        //--------------------Critical Section Manager------------------
+
+        public static int process_wt = 0;
+        public static int process_se = 1;
+        public static int process_de = 2;
+        public static int process_ait = 3;
+        public static int process_ef = 4;
+        public static int process_eb = 5;
+        public static int process_ee = 6;
+
+        static int threads = 7;
+        static int[] ticket = new int[threads];
+        static bool[] entering = new bool[threads];
+
+        public static void doLock(int pid)
+        {
+            for (int i = 0; i < threads; i++)
+            {
+                ticket[i] = 0;
+                entering[i] = false;
+            }
+            entering[pid] = true;
+
+            int max = 0;
+
+            for (int i = 0; i < threads; i++)
+            {
+                if (ticket[i] > ticket[max]) { max = i; }
             }
 
-            spawnAtStartT.Abort();
+            ticket[pid] = 1 + max;
+            entering[pid] = false;
+
+
+            for (int i = 0; i < threads; ++i)
+            {
+                if (i != pid)
+                {
+                    while (entering[i])
+                    {
+                        Thread.Yield();
+                    }
+                    while (ticket[i] != 0 && (ticket[pid] > ticket[i] ||
+                              (ticket[pid] == ticket[i] && pid > i)))
+                    {
+                        Thread.Yield();
+                    }
+                }
+            }
+        }
+
+        public static void unlock(int pid)
+        {
+            ticket[pid] = 0;
+        }
+
+        public static void arrayInit()
+        {
+            for (int i = 0; i < threads; i++)
+            {
+                ticket[i] = 0;
+                entering[i] = false;
+            }
         }
     }
 }

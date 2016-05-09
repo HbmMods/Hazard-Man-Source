@@ -20,6 +20,10 @@ namespace HazardMan
 
         public static bool recreateWorld = false;
 
+        public static InputThread inputThread;
+        public static AIThread aiThread;
+        public static WorldThread worldThread;
+
         public static string s1 = "_//     _//      _/       _/////// _//      _/       _///////    _/////    ";
         public static string s2 = "_//     _//     _/ //            _//       _/ //     _//    _//  _//   _// ";
         public static string s3 = "_//     _//    _/  _//          _//       _/  _//    _//    _//  _//    _//";

@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using System.Threading;
 
 namespace HazardMan
 {
@@ -113,8 +114,16 @@ namespace HazardMan
 
         public void setDead()
         {
-            World.kill.Add(this);
-            this.health = 0;
+            new Thread(runDie).Start();
+        }
+
+        private void runDie()
+        {
+            World.doLock(World.process_de);
+
+            WorldThread.wantToDie.Add(this);
+
+            World.unlock(World.process_de);
         }
     }
 }

@@ -22,7 +22,7 @@ namespace HazardMan
         {
             step++;
 
-            if (step >= 25)
+            if (step >= 30)
                 step = 0;
 
             return step <= 0;
@@ -31,7 +31,7 @@ namespace HazardMan
         public override void executeAITask()
         {
             EntityBullet bullet = new EntityBullet(this.posX, this.posY, rand.Next(2) == 0 ? 1 : -1, 0);
-            World.spawnEntity(bullet);
+            new SpawnEntity(bullet);
         }
 
         public override void Update()

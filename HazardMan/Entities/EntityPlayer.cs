@@ -67,12 +67,7 @@ namespace HazardMan
                         Library.addLevel();
                         Library.recreateWorld = true;
 
-                        foreach (Entity entity in World.entities)
-                        {
-                            entity.setDead();
-                        }
-                        
-                        World.tickWorld = false;
+                        World.StopWorld();
                         break;
                     }
                 }
@@ -92,7 +87,7 @@ namespace HazardMan
         {
             base.setDead();
 
-            World.spawnEntity(new EntityPlayer(1, Console.WindowHeight / 2 - 1, this.up, this.left, this.right, this.getColor(), this.getName()));
+            new SpawnEntity(new EntityPlayer(1, Console.WindowHeight / 2 - 1, this.up, this.left, this.right, this.getColor(), this.getName()));
         }
 
         public override void checkOut()

@@ -18,6 +18,8 @@ namespace HazardMan
 
         public override bool executeAICheck()
         {
+            World.doLock(World.process_ef);
+
             foreach (Entity entity in World.entities)
             {
                 if (entity is EntityPlayer)
@@ -26,10 +28,13 @@ namespace HazardMan
                     {
                         if (Library.isSoundActivated) Console.Beep();
                         ((EntityPlayer)entity).respawn();
+                        World.unlock(World.process_ef);
                         return true;
                     }
                 }
             }
+
+            World.unlock(World.process_ef);
 
             return false;
         }

@@ -86,6 +86,10 @@
     <Compile Include="Renderer\RenderPlayer.cs" />
     <Compile Include="Renderer\Enemy\RenderShooter.cs" />
     <Compile Include="Renderer\Enemy\RenderSprayer.cs" />
+    <Compile Include="Threads\AIThread.cs" />
+    <Compile Include="Threads\InputThread.cs" />
+    <Compile Include="Threads\SpawnEntity.cs" />
+    <Compile Include="Threads\WorldThread.cs" />
     <Compile Include="World\TerrainElement.cs" />
     <Compile Include="World\TerrainSolid.cs" />
     <Compile Include="World\TerrainSpike.cs" />
