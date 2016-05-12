@@ -22,6 +22,8 @@ namespace HazardMan
         private int health = 10;
         public int maxHealth = 10;
 
+        private bool isDead = false;
+
         public RenderEntity renderer;
 
         public virtual void Update()
@@ -64,7 +66,7 @@ namespace HazardMan
                 }
             } catch
             {
-                this.setDead();
+                
             }
 
             checkOut();
@@ -114,7 +116,11 @@ namespace HazardMan
 
         public void setDead()
         {
-            new Thread(runDie).Start();
+            if (!isDead)
+            {
+                isDead = true;
+                new Thread(runDie).Start();
+            }
         }
 
         private void runDie()

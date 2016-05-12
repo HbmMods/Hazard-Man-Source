@@ -14,6 +14,8 @@ namespace HazardMan
         private ConsoleColor color;
         private string name;
 
+        private bool isRespawned = false;
+
         public EntityPlayer(float x, float y, ConsoleKey up, ConsoleKey left, ConsoleKey right, ConsoleColor color, string name)
         {
             posX = x;
@@ -85,9 +87,14 @@ namespace HazardMan
 
         public void respawn()
         {
-            base.setDead();
+            if (!isRespawned)
+            {
+                isRespawned = true;
 
-            new SpawnEntity(new EntityPlayer(1, Console.WindowHeight / 2 - 1, this.up, this.left, this.right, this.getColor(), this.getName()));
+                base.setDead();
+
+                new SpawnEntity(new EntityPlayer(1, Console.WindowHeight / 2 - 1, this.up, this.left, this.right, this.getColor(), this.getName()));
+            }
         }
 
         public override void checkOut()

@@ -56,12 +56,14 @@ namespace HazardMan
                         entity.renderer.delRenderEntity();
                         World.entities.Remove(entity);
                     }
+
+                    wantToDie = new List<Entity>();
                 }
                 catch { }
 
                 World.unlock(World.process_wt);
 
-                wantToDie = new List<Entity>();
+               
 
                 scoreUpdate();
 
