@@ -99,7 +99,7 @@ namespace HazardMan
                 {
                     alreadyspawned.Add(random);
 
-                    switch (rand.Next(3))
+                    switch (rand.Next(4))
                     {
                         case 0:
                             new SpawnEntity(new EntityEnemy(random, 2));
@@ -110,9 +110,20 @@ namespace HazardMan
                         case 2:
                             new SpawnEntity(new EntitySprayer(random, 2));
                             break;
+                        case 3:
+                            new SpawnEntity(new EntityBomb(random, 2));
+                            break;
                     }
                 }
             } 
+        }
+
+        public static void changeTerrainElement(int x, int y, TerrainElement element)
+        {
+            try {
+                terrain[x, y] = element;
+                Renderer.rerenderAtPos(x, y);
+            } catch { }
         }
 
         //--------------------Critical Section Manager------------------

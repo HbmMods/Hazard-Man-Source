@@ -26,6 +26,19 @@ namespace HazardMan
             }
         }
 
+        public static void rerenderAtPos(int i, int j)
+        {
+            Console.SetCursorPosition(i, j);
+            if (World.terrain[i, j] != null)
+            {
+                World.terrain[i, j].RenderSelf();
+            }
+            else
+            {
+                RenderSky();
+            }
+        }
+
         public static void RenderSky()
         {
             ConsoleColor c1 = Console.ForegroundColor;
