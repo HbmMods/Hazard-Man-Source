@@ -19,11 +19,10 @@ namespace HazardMan
 
         private void run()
         {
-            World.doLock(World.process_se);
-
-            World.entities.Add(entity);
-
-            World.unlock(World.process_se);
+            lock(World.entities)
+            {
+                World.entities.Add(entity);
+            }
         }
     }
 }

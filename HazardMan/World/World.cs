@@ -23,8 +23,6 @@ namespace HazardMan
 
         public static void StartWorld()
         {
-            arrayInit();
-
             entities = new List<Entity>();
 
             Library.worldThread = new WorldThread();
@@ -50,8 +48,6 @@ namespace HazardMan
             Library.worldThread.start();
             Library.inputThread.start();
             Library.aiThread.start();
-
-
         }
 
         public static void StopWorld()
@@ -67,7 +63,6 @@ namespace HazardMan
             Library.worldThread = null;
 
             entities.Clear();
-            Library.score.Clear();
             Console.Clear();
         }
 
@@ -124,71 +119,6 @@ namespace HazardMan
                 terrain[x, y] = element;
                 Renderer.rerenderAtPos(x, y);
             } catch { }
-        }
-
-        //--------------------Critical Section Manager------------------
-
-        public static int process_wt = 0;
-        public static int process_se = 1;
-        public static int process_de = 2;
-        public static int process_ait = 3;
-        public static int process_ef = 4;
-        public static int process_eb = 5;
-        public static int process_ee = 6;
-
-        static int threads = 7;
-        static int[] ticket = new int[threads];
-        static bool[] entering = new bool[threads];
-
-        public static void doLock(int pid)
-        {
-            for (int i = 0; i < threads; i++)
-            {
-                ticket[i] = 0;
-                entering[i] = false;
-            }
-            entering[pid] = true;
-
-            int max = 0;
-
-            for (int i = 0; i < threads; i++)
-            {
-                if (ticket[i] > ticket[max]) { max = i; }
-            }
-
-            ticket[pid] = 1 + max;
-            entering[pid] = false;
-
-
-            for (int i = 0; i < threads; ++i)
-            {
-                if (i != pid)
-                {
-                    while (entering[i])
-                    {
-                        Thread.Yield();
-                    }
-                    while (ticket[i] != 0 && (ticket[pid] > ticket[i] ||
-                              (ticket[pid] == ticket[i] && pid > i)))
-                    {
-                        Thread.Yield();
-                    }
-                }
-            }
-        }
-
-        public static void unlock(int pid)
-        {
-            ticket[pid] = 0;
-        }
-
-        public static void arrayInit()
-        {
-            for (int i = 0; i < threads; i++)
-            {
-                ticket[i] = 0;
-                entering[i] = false;
-            }
-        }
+        }       
     }
 }

@@ -64,10 +64,7 @@ namespace HazardMan
                     motionY = 0;
                     onGround = true;
                 }
-            } catch
-            {
-                
-            }
+            } catch { }
 
             checkOut();
 
@@ -88,8 +85,7 @@ namespace HazardMan
                 {
                     setDead();
                 }
-            }
-            
+            } 
         }
 
         public virtual void checkOut()
@@ -125,11 +121,10 @@ namespace HazardMan
 
         private void runDie()
         {
-            World.doLock(World.process_de);
-
-            WorldThread.wantToDie.Add(this);
-
-            World.unlock(World.process_de);
+            lock(World.entities)
+            {
+                WorldThread.wantToDie.Add(this);
+            }
         }
     }
 }

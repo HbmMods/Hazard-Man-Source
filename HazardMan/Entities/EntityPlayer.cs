@@ -65,7 +65,9 @@ namespace HazardMan
                 {
                     if(this.getName() == player.getName())
                     {
-                        Library.score[player] += 1;
+                        int score = Library.score[player];
+                        score++;
+                        Library.score[player] = score;
                         Library.addLevel();
                         Library.recreateWorld = true;
 

@@ -36,22 +36,23 @@ namespace HazardMan
             {
                 try
                 {
-                    World.doLock(World.process_ait);
-
-                    foreach (Entity entity in World.entities)
+                    lock(World.entities)
                     {
-                        if (entity is EntityAI)
-                        {
-                            EntityAI entitiyAI = (EntityAI)entity;
 
-                            if (entitiyAI.executeAICheck())
+                        foreach (Entity entity in World.entities)
+                        {
+                            if (entity is EntityAI)
                             {
-                                entitiyAI.executeAITask();
+                                EntityAI entitiyAI = (EntityAI)entity;
+
+                                if (entitiyAI.executeAICheck())
+                                {
+                                    entitiyAI.executeAITask();
+                                }
                             }
                         }
-                    }
 
-                    World.unlock(World.process_ait);
+                    }
                 }
                 catch { }
 

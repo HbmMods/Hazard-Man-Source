@@ -18,6 +18,7 @@ namespace HazardMan
             int selection = 0;
             bool loop = true;
             bool masterloop = true;
+            bool wantrecreateloop = false;
             const int yOffset = 2;
             ConsoleKey input;
             Console.CursorVisible = false;
@@ -27,13 +28,15 @@ namespace HazardMan
             Library.players.Add(new OptionPlayer("Gregoll", ConsoleKey.W, ConsoleKey.A, ConsoleKey.D, ConsoleColor.Cyan));
 
             while (masterloop)
-            {        
+            {
+                wantrecreateloop = false;       
                 loop = true;
                 Console.Clear();
 
                 Console.BackgroundColor = ConsoleColor.Black;
                 Console.ForegroundColor = ConsoleColor.Red;
 
+                Console.Clear();
                 for (int i = 0; i < Console.WindowHeight; i++)
                 {
                     for (int j = 0; j < Console.WindowWidth; j++)
@@ -48,24 +51,30 @@ namespace HazardMan
                     World.StartWorld();
                     while (World.tickWorld)
                     { }
+
+                    loop = false;
+                    wantrecreateloop = false;
                 }
 
-                DrawText(Library.s1, Console.WindowWidth / 2 - Library.s1.Length / 2, yOffset + 0);
-                DrawText(Library.s2, Console.WindowWidth / 2 - Library.s2.Length / 2, yOffset + 1);
-                DrawText(Library.s3, Console.WindowWidth / 2 - Library.s3.Length / 2, yOffset + 2);
-                DrawText(Library.s4, Console.WindowWidth / 2 - Library.s4.Length / 2, yOffset + 3);
-                DrawText(Library.s5, Console.WindowWidth / 2 - Library.s5.Length / 2, yOffset + 4);
-                DrawText(Library.s6, Console.WindowWidth / 2 - Library.s6.Length / 2, yOffset + 5);
-                DrawText(Library.s7, Console.WindowWidth / 2 - Library.s7.Length / 2, yOffset + 6);
-                DrawText(Library.s8, Console.WindowWidth / 2 - Library.s8.Length / 2, yOffset + 7);
-                DrawText(Library.s9, Console.WindowWidth / 2 - Library.s9.Length / 2, yOffset + 8);
-                DrawText(Library.s10, Console.WindowWidth / 2 - Library.s10.Length / 2, yOffset + 9);
-                DrawText(Library.s11, Console.WindowWidth / 2 - Library.s11.Length / 2, yOffset + 10);
-                DrawText(Library.s12, Console.WindowWidth / 2 - Library.s12.Length / 2, yOffset + 11);
-                DrawText(Library.s13, Console.WindowWidth / 2 - Library.s13.Length / 2, yOffset + 12);
-                DrawText(Library.s14, Console.WindowWidth / 2 - Library.s14.Length / 2, yOffset + 13);
-                DrawText(Library.s15, Console.WindowWidth / 2 - Library.s15.Length / 2, yOffset + 14);
-                Console.ForegroundColor = ConsoleColor.Gray;
+                if (!wantrecreateloop) {
+
+                    DrawText(Library.s1, Console.WindowWidth / 2 - Library.s1.Length / 2, yOffset + 0);
+                    DrawText(Library.s2, Console.WindowWidth / 2 - Library.s2.Length / 2, yOffset + 1);
+                    DrawText(Library.s3, Console.WindowWidth / 2 - Library.s3.Length / 2, yOffset + 2);
+                    DrawText(Library.s4, Console.WindowWidth / 2 - Library.s4.Length / 2, yOffset + 3);
+                    DrawText(Library.s5, Console.WindowWidth / 2 - Library.s5.Length / 2, yOffset + 4);
+                    DrawText(Library.s6, Console.WindowWidth / 2 - Library.s6.Length / 2, yOffset + 5);
+                    DrawText(Library.s7, Console.WindowWidth / 2 - Library.s7.Length / 2, yOffset + 6);
+                    DrawText(Library.s8, Console.WindowWidth / 2 - Library.s8.Length / 2, yOffset + 7);
+                    DrawText(Library.s9, Console.WindowWidth / 2 - Library.s9.Length / 2, yOffset + 8);
+                    DrawText(Library.s10, Console.WindowWidth / 2 - Library.s10.Length / 2, yOffset + 9);
+                    DrawText(Library.s11, Console.WindowWidth / 2 - Library.s11.Length / 2, yOffset + 10);
+                    DrawText(Library.s12, Console.WindowWidth / 2 - Library.s12.Length / 2, yOffset + 11);
+                    DrawText(Library.s13, Console.WindowWidth / 2 - Library.s13.Length / 2, yOffset + 12);
+                    DrawText(Library.s14, Console.WindowWidth / 2 - Library.s14.Length / 2, yOffset + 13);
+                    DrawText(Library.s15, Console.WindowWidth / 2 - Library.s15.Length / 2, yOffset + 14);
+                    Console.ForegroundColor = ConsoleColor.Gray;
+                }
 
                 while (loop)
                 {

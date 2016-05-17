@@ -18,23 +18,22 @@ namespace HazardMan
 
         public override bool executeAICheck()
         {
-            World.doLock(World.process_ef);
-
-            foreach (Entity entity in World.entities)
+           lock(World.entities)
             {
-                if (entity is EntityPlayer)
+                foreach (Entity entity in World.entities)
                 {
-                    if (entity.posX < posX + 1 && entity.posX > posX - 1 && entity.posY < posY + 1 && entity.posY > posY - 1)
+                    if (entity is EntityPlayer)
                     {
-                        if (Library.isSoundActivated) Console.Beep();
-                        ((EntityPlayer)entity).respawn();
-                        World.unlock(World.process_ef);
-                        return true;
+                        if (entity.posX < posX + 1 && entity.posX > posX - 1 && entity.posY < posY + 1 && entity.posY > posY - 1)
+                        {
+                            if (Library.isSoundActivated) Console.Beep();
+                            ((EntityPlayer)entity).respawn();
+                            
+                            return true;
+                        }
                     }
                 }
             }
-
-            World.unlock(World.process_ef);
 
             return false;
         }

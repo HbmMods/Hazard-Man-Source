@@ -34,7 +34,7 @@ namespace HazardMan
 
         public void run()
         {
-            while(running)
+            while (running)
             {
                 if (!World.tickWorld)
                 {
@@ -42,28 +42,26 @@ namespace HazardMan
                     return;
                 }
 
-                World.doLock(World.process_wt);
-
-                try {
-                    foreach (Entity entity in World.entities)
+                lock (World.entities)
+                {
+                    try
                     {
-                        entity.Update();
-                    }
-                
+                        foreach (Entity entity in World.entities)
+                        {
+                            entity.Update();
+                        }
 
-                    foreach(Entity entity in wantToDie)
-                    {
-                        entity.renderer.delRenderEntity();
-                        World.entities.Remove(entity);
-                    }
 
-                    wantToDie = new List<Entity>();
+                        foreach (Entity entity in wantToDie)
+                        {
+                            entity.renderer.delRenderEntity();
+                            World.entities.Remove(entity);
+                        }
+
+                        wantToDie = new List<Entity>();
+                    }
+                    catch { }
                 }
-                catch { }
-
-                World.unlock(World.process_wt);
-
-               
 
                 scoreUpdate();
 
@@ -85,7 +83,6 @@ namespace HazardMan
                     else if (i == 3) Console.SetCursorPosition(60, 29);
                     Console.ForegroundColor = player.getColor();
                     Console.Write(player.getName() + " - " + Library.score[player]);
-                    i++;
                 }
 
                 Console.BackgroundColor = ConsoleColor.Black;
@@ -95,8 +92,5 @@ namespace HazardMan
             }
             catch { }
         }
-        
     }
-
-
 }
