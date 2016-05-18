@@ -34,39 +34,38 @@ namespace HazardMan
                 health = maxHealth;
 
             if (health <= 0)
-                setDead();  
+            {
+                if (this is EntityPlayer)
+                {
+                    ((EntityPlayer)this).respawn();
+                }
+                else
+                {
+                    this.setDead();
+                }
+            }
 
             lastPosX = posX;
             lastPosY = posY;
 
-            if (posX <= 0)
+            if (isOutOfMap())
             {
-                health = 0;
+                setHealth(0);
                 return;
             }
 
-            if (posX >= World.terrain.GetLength(0) - 1)
+            if (!(World.terrain[(int)(posX - motionX), (int)(posY - motionY)] != null))
             {
-                health = 0;
-                return;
+                posX -= motionX;
+                posY -= motionY;
+                onGround = false;
             }
-
-            try {
-                if (!(World.terrain[(int)(posX - motionX), (int)(posY - motionY)] != null))
-                {
-                    posX -= motionX;
-                    posY -= motionY;
-                    onGround = false;
-                }
-                else
-                {
-                    motionX = 0;
-                    motionY = 0;
-                    onGround = true;
-                }
-            } catch { }
-
-            checkOut();
+            else
+            {
+                motionX = 0;
+                motionY = 0;
+                onGround = true;
+            }
 
             renderer.renderEntityAt(this);
 
@@ -75,24 +74,25 @@ namespace HazardMan
             if (!onGround)
                 motionY -= 0.1F;
 
-            if(World.terrain[(int)posX, (int)posY + 1] is TerrainSpike && !(this is EntityProjectile))
+            if (World.terrain[(int)posX, (int)posY + 1] is TerrainSpike && !(this is EntityProjectile))
             {
-                if(this is EntityPlayer)
-                {
+                if (this is EntityPlayer)
                     Console.Beep();
-                    ((EntityPlayer)this).respawn();
-                } else
-                {
-                    setDead();
-                }
-            } 
+
+                setHealth(0);
+            }
         }
 
-        public virtual void checkOut()
+        private bool isOutOfMap()
         {
-            if (!(posX > 0 && posY > -1 && posY < 30))
-                setDead();
-            
+            if (!((int)(posX - motionX) > 0 && (int)(posX - motionX) < World.terrain.GetLength(0) && posY > -1 && posY < 30))
+            {
+                return true;
+            }
+            else
+            {
+                return false;
+            }
         }
 
         public void setHealth(int health)
@@ -107,7 +107,7 @@ namespace HazardMan
 
         public void damage(int damage)
         {
-            this.health =- damage;
+            setHealth(getHealth() - damage);
         }
 
         public void setDead()
@@ -121,7 +121,7 @@ namespace HazardMan
 
         private void runDie()
         {
-            lock(World.entities)
+            lock (World.entities)
             {
                 WorldThread.wantToDie.Add(this);
             }

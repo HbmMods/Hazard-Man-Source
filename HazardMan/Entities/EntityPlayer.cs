@@ -81,8 +81,7 @@ namespace HazardMan
                 respawn();
 
             if (renderer == null)
-                renderer = new RenderPlayer(this);
-            
+                renderer = new RenderPlayer(this);          
 
             base.Update();
         }
@@ -93,16 +92,12 @@ namespace HazardMan
             {
                 isRespawned = true;
 
-                base.setDead();
+                if (Library.isSoundActivated) Console.Beep();
 
                 new SpawnEntity(new EntityPlayer(1, Console.WindowHeight / 2 - 1, this.up, this.left, this.right, this.getColor(), this.getName()));
-            }
-        }
 
-        public override void checkOut()
-        {
-            if (!(posX > 0 && posY > -1 && posY < 30))
-                this.respawn();
+                base.setDead();
+            }
         }
     }
 }
