@@ -154,6 +154,7 @@ namespace HazardMan
                                 }
                             case 2:
                                 {
+                                    wantrecreateloop = false;
                                     masterloop = false;
                                     loop = false;
                                     break;
@@ -162,6 +163,9 @@ namespace HazardMan
                     }
                 }
             }
+
+            //This close all Threads!
+            Environment.Exit(0);
         }
 
         public static void DrawText(string s, int x, int y)
