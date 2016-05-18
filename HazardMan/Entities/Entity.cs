@@ -35,14 +35,7 @@ namespace HazardMan
 
             if (health <= 0)
             {
-                if (this is EntityPlayer)
-                {
-                    ((EntityPlayer)this).respawn();
-                }
-                else
-                {
-                    this.setDead();
-                }
+                this.setDead();
             }
 
             lastPosX = posX;
@@ -76,16 +69,13 @@ namespace HazardMan
 
             if (World.terrain[(int)posX, (int)posY + 1] is TerrainSpike && !(this is EntityProjectile))
             {
-                if (this is EntityPlayer)
-                    Console.Beep();
-
                 setHealth(0);
             }
         }
 
         private bool isOutOfMap()
         {
-            if (!((int)(posX - motionX) > 0 && (int)(posX - motionX) < World.terrain.GetLength(0) && posY > -1 && posY < 30))
+            if (!((int)(posX - motionX) > 0 && (int)(posX - motionX) < World.terrain.GetLength(0) && (int)(posY - motionY) > -1 && (int)(posY - motionY) < 30))
             {
                 return true;
             }
@@ -110,7 +100,7 @@ namespace HazardMan
             setHealth(getHealth() - damage);
         }
 
-        public void setDead()
+        public virtual void setDead()
         {
             if (!isDead)
             {

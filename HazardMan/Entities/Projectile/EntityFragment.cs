@@ -18,7 +18,7 @@ namespace HazardMan
 
         public override bool executeAICheck()
         {
-           lock(World.entities)
+            lock (World.entities)
             {
                 foreach (Entity entity in World.entities)
                 {
@@ -26,7 +26,7 @@ namespace HazardMan
                     {
                         if (entity.posX < posX + 1 && entity.posX > posX - 1 && entity.posY < posY + 1 && entity.posY > posY - 1)
                         {
-                            if (Library.isSoundActivated) Console.Beep();                                                      
+                            entity.setDead();
                             return true;
                         }
                     }

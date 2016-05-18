@@ -24,7 +24,7 @@ namespace HazardMan
                     {
                         if (entity.posX < posX + 1 && entity.posX > posX - 1 && entity.posY < posY + 1 && entity.posY > posY - 1)
                         {
-                            ((EntityPlayer)entity).respawn();
+                            entity.setDead();
                         }
 
                         if (entity.posY <= posY && entity.posX < posX + 2 && entity.posX > posX - 2 && onGround)

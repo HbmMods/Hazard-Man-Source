@@ -39,7 +39,7 @@ namespace HazardMan
 
                 if (!((int)entity.lastPosX == (int)entity.posX && (int)entity.lastPosY == (int)entity.posY))
                 {
-                    if(World.terrain[(int)entity.lastPosX, (int)entity.lastPosY] != null)
+                    if (World.terrain[(int)entity.lastPosX, (int)entity.lastPosY] != null)
                     {
                         Console.CursorLeft = (int)entity.lastPosX;
                         Console.CursorTop = (int)entity.lastPosY;
@@ -60,22 +60,17 @@ namespace HazardMan
 
         public void delRenderEntity()
         {
-            try {
-                if (World.terrain[renderPosX, renderPosY] != null)
-                {
-                    Console.CursorLeft = renderPosX;
-                    Console.CursorTop = renderPosY;
-                    World.terrain[renderPosX, renderPosY].RenderSelf();
-                }
-                else
-                {
-                    Console.CursorLeft = renderPosX;
-                    Console.CursorTop = renderPosY;
-                    Renderer.RenderSky();
-                }
-            } catch
+            if (World.terrain[renderPosX, renderPosY] != null)
             {
-
+                Console.CursorLeft = renderPosX;
+                Console.CursorTop = renderPosY;
+                World.terrain[renderPosX, renderPosY].RenderSelf();
+            }
+            else
+            {
+                Console.CursorLeft = renderPosX;
+                Console.CursorTop = renderPosY;
+                Renderer.RenderSky();
             }
         }
     }

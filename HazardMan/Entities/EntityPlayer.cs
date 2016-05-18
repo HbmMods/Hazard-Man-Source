@@ -78,7 +78,7 @@ namespace HazardMan
             }
 
             if (World.terrain[((int)posX), ((int)posY)] is TerrainSolid)
-                respawn();
+                setDead();
 
             if (renderer == null)
                 renderer = new RenderPlayer(this);          
@@ -86,7 +86,7 @@ namespace HazardMan
             base.Update();
         }
 
-        public void respawn()
+        public override void setDead()
         {
             if (!isRespawned)
             {
@@ -95,9 +95,9 @@ namespace HazardMan
                 if (Library.isSoundActivated) Console.Beep();
 
                 new SpawnEntity(new EntityPlayer(1, Console.WindowHeight / 2 - 1, this.up, this.left, this.right, this.getColor(), this.getName()));
-
-                base.setDead();
             }
+
+            base.setDead();    
         }
     }
 }
