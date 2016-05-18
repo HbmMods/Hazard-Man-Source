@@ -25,11 +25,8 @@ namespace HazardMan
                     if (entity is EntityPlayer)
                     {
                         if (entity.posX < posX + 1 && entity.posX > posX - 1 && entity.posY < posY + 1 && entity.posY > posY - 1)
-                        {
-                            if (Library.isSoundActivated) Console.Beep();
+                        {                          
                             ((EntityPlayer)entity).respawn();
-
-
                             return true;
                         }
                     }

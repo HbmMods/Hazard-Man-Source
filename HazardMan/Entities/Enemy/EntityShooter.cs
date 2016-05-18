@@ -37,7 +37,7 @@ namespace HazardMan
         public override void Update()
         {
             if (renderer == null)
-                renderer = new RenderShooter();     
+                renderer = new RenderShooter();
 
             base.Update();
         }
