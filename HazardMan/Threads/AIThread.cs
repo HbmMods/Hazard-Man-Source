@@ -27,36 +27,30 @@ namespace HazardMan
         public void stop()
         {
             this.running = false;
-            this.thread.Interrupt();
+            this.thread.Abort();
         }
 
         private void run()
         {
-            while(running)
+            while (running)
             {
-                try
+                lock (World.entities)
                 {
-                    lock(World.entities)
+                    foreach (Entity entity in World.entities)
                     {
-
-                        foreach (Entity entity in World.entities)
+                        if (entity is EntityAI)
                         {
-                            if (entity is EntityAI)
-                            {
-                                EntityAI entitiyAI = (EntityAI)entity;
+                            EntityAI entitiyAI = (EntityAI)entity;
 
-                                if (entitiyAI.executeAICheck())
-                                {
-                                    entitiyAI.executeAITask();
-                                }
+                            if (entitiyAI.executeAICheck())
+                            {
+                                entitiyAI.executeAITask();
                             }
                         }
-
                     }
                 }
-                catch { }
 
-                try { Thread.Sleep(50); } catch { }
+                Thread.Sleep(50);
             }
         }
     }

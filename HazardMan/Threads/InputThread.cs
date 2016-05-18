@@ -27,7 +27,7 @@ namespace HazardMan
         public void stop()
         {
             running = false;
-            this.thread.Interrupt();
+            this.thread.Abort();
         }
 
         public void run()
@@ -41,7 +41,7 @@ namespace HazardMan
                     World.StopWorld();
                 }
 
-                try { Thread.Sleep(10); } catch { }
+                Thread.Sleep(10);
             }
         }
     }

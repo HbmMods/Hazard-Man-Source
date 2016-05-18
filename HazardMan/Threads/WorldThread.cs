@@ -29,7 +29,7 @@ namespace HazardMan
         public void stop()
         {
             this.running = false;
-            this.thread.Interrupt();
+            this.thread.Abort();
         }
 
         public void run()
@@ -44,53 +44,45 @@ namespace HazardMan
 
                 lock (World.entities)
                 {
-                    try
+                    foreach (Entity entity in World.entities)
                     {
-                        foreach (Entity entity in World.entities)
-                        {
-                            entity.Update();
-                        }
-
-
-                        foreach (Entity entity in wantToDie)
-                        {
-                            entity.renderer.delRenderEntity();
-                            World.entities.Remove(entity);
-                        }
-
-                        wantToDie = new List<Entity>();
+                        entity.Update();
                     }
-                    catch { }
-                }
 
+                    foreach (Entity entity in wantToDie)
+                    {
+                        entity.renderer.delRenderEntity();
+                        World.entities.Remove(entity);
+                    }
+
+                    wantToDie = new List<Entity>();
+                }
                 scoreUpdate();
 
-                try { Thread.Sleep(50); } catch { }
+                Thread.Sleep(50);
             }
         }
 
         public static void scoreUpdate()
         {
             int i = 0;
-            try
-            {
-                foreach (OptionPlayer player in Library.players)
-                {
-                    Console.BackgroundColor = ConsoleColor.Black;
-                    if (i == 0) Console.SetCursorPosition(0, 29);
-                    else if (i == 1) Console.SetCursorPosition(20, 29);
-                    else if (i == 2) Console.SetCursorPosition(40, 29);
-                    else if (i == 3) Console.SetCursorPosition(60, 29);
-                    Console.ForegroundColor = player.getColor();
-                    Console.Write(player.getName() + " - " + Library.score[player]);
-                }
 
+            foreach (OptionPlayer player in Library.players)
+            {
                 Console.BackgroundColor = ConsoleColor.Black;
-                Console.ForegroundColor = ConsoleColor.White;
-                Console.SetCursorPosition(110, 29);
-                Console.Write("Level: " + Library.getLevel());
+                if (i == 0) Console.SetCursorPosition(0, 29);
+                else if (i == 1) Console.SetCursorPosition(20, 29);
+                else if (i == 2) Console.SetCursorPosition(40, 29);
+                else if (i == 3) Console.SetCursorPosition(60, 29);
+                Console.ForegroundColor = player.getColor();
+                Console.Write(player.getName() + " - " + Library.score[player]);
+                i++;
             }
-            catch { }
+
+            Console.BackgroundColor = ConsoleColor.Black;
+            Console.ForegroundColor = ConsoleColor.White;
+            Console.SetCursorPosition(110, 29);
+            Console.Write("Level: " + Library.getLevel());
         }
     }
 }
