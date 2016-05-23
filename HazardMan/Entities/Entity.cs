@@ -19,10 +19,12 @@ namespace HazardMan
         public float lastPosX;
         public float lastPosY;
 
-        private int health = 10;
-        public int maxHealth = 10;
+        private int health = 2;
+        public int maxHealth = 2;
 
         private bool isDead = false;
+
+        public bool damaged = false;
 
         public RenderEntity renderer;
 
@@ -31,7 +33,9 @@ namespace HazardMan
             onGround = false;
 
             if (health > maxHealth)
+            {
                 health = maxHealth;
+            }
 
             if (health <= 0)
             {
@@ -65,7 +69,9 @@ namespace HazardMan
             motionX *= 0.5F;
 
             if (!onGround)
+            {
                 motionY -= 0.1F;
+            }
 
             if (World.terrain[(int)posX, (int)posY + 1] is TerrainSpike && !(this is EntityProjectile))
             {
@@ -75,7 +81,11 @@ namespace HazardMan
 
         private bool isOutOfMap()
         {
-            if (!((int)(posX - motionX) > 0 && (int)(posX - motionX) < World.terrain.GetLength(0) && (int)(posY - motionY) > -1 && (int)(posY - motionY) < 30))
+            int inMotionPositionX = (int)(posX - motionX);
+            int inMotionPositionY = (int)(posY - motionY);
+
+            if (!(inMotionPositionX >= 0 && inMotionPositionX < World.terrain.GetLength(0) 
+                && inMotionPositionY > 0 && inMotionPositionY < 29))
             {
                 return true;
             }
@@ -95,9 +105,19 @@ namespace HazardMan
             return this.health;
         }
 
+        public int getMaxHealth()
+        {
+            return this.maxHealth;
+        }
+
         public void damage(int damage)
         {
-            setHealth(getHealth() - damage);
+            if (this.damaged == false)
+            {
+                this.damaged = true;
+                new Thread(runSafe).Start();
+                setHealth(getHealth() - damage);
+            }
         }
 
         public virtual void setDead()
@@ -115,6 +135,13 @@ namespace HazardMan
             {
                 WorldThread.wantToDie.Add(this);
             }
+        }
+
+        private void runSafe()
+        { 
+            Thread.Sleep(2000);
+
+            this.damaged = false;
         }
     }
 }
