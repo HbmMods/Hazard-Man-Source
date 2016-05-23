@@ -18,7 +18,7 @@ namespace HazardMan
             int selection = 0;
             bool loop = true;
             bool masterloop = true;
-            bool wantrecreateloop = false;
+            bool goin = true;
             const int yOffset = 2;
             ConsoleKey input;
             Console.CursorVisible = false;
@@ -29,7 +29,7 @@ namespace HazardMan
 
             while (masterloop)
             {
-                wantrecreateloop = false;       
+                goin = true;
                 loop = true;
                 Console.Clear();
 
@@ -53,11 +53,11 @@ namespace HazardMan
                     { }
 
                     loop = false;
-                    wantrecreateloop = false;
+                    goin = false;
                 }
 
-                if (!wantrecreateloop) {
-
+                if (goin)
+                {
                     DrawText(Library.s1, Console.WindowWidth / 2 - Library.s1.Length / 2, yOffset + 0);
                     DrawText(Library.s2, Console.WindowWidth / 2 - Library.s2.Length / 2, yOffset + 1);
                     DrawText(Library.s3, Console.WindowWidth / 2 - Library.s3.Length / 2, yOffset + 2);
@@ -74,91 +74,89 @@ namespace HazardMan
                     DrawText(Library.s14, Console.WindowWidth / 2 - Library.s14.Length / 2, yOffset + 13);
                     DrawText(Library.s15, Console.WindowWidth / 2 - Library.s15.Length / 2, yOffset + 14);
                     Console.ForegroundColor = ConsoleColor.Gray;
-                }
 
-                while (loop)
-                {
-
-                    if (selection == 0)
+                    while (loop)
                     {
-                        Console.ForegroundColor = ConsoleColor.Green;
-                    }
-
-                    DrawText("Play Game", Console.WindowWidth / 2 - "Play Game".Length / 2, yOffset + 18);
-                    Console.ForegroundColor = ConsoleColor.Gray;
-
-                    if (selection == 1)
-                    {
-                        Console.ForegroundColor = ConsoleColor.Green;
-                    }
-
-                    DrawText("Options", Console.WindowWidth / 2 - "Options".Length / 2, yOffset + 20);
-                    Console.ForegroundColor = ConsoleColor.Gray;
-
-                    if (selection == 2)
-                    {
-                        Console.ForegroundColor = ConsoleColor.Green;
-                    }
-
-                    DrawText("Quit", Console.WindowWidth / 2 - "Quit".Length / 2, yOffset + 22);
-                    Console.ForegroundColor = ConsoleColor.Gray;
-
-                    input = Console.ReadKey(true).Key;
-
-                    if (input == ConsoleKey.UpArrow || input == ConsoleKey.W)
-                    {
-                        selection -= 1;
-                    }
-
-                    if (input == ConsoleKey.DownArrow || input == ConsoleKey.S)
-                    {
-                        selection += 1;
-                    }
-
-                    if (selection < 0)
-                    {
-                        selection = 2;
-                    }
-
-                    if (selection > 2)
-                    {
-                        selection = 0;
-                    }
-
-                    if (input == ConsoleKey.Enter || input == ConsoleKey.Spacebar)
-                    {
-                        switch (selection)
+                        if (selection == 0)
                         {
-                            case 0:
-                                {
-                                    if (Library.players.Count == 0)
+                            Console.ForegroundColor = ConsoleColor.Green;
+                        }
+
+                        DrawText("Play Game", Console.WindowWidth / 2 - "Play Game".Length / 2, yOffset + 18);
+                        Console.ForegroundColor = ConsoleColor.Gray;
+
+                        if (selection == 1)
+                        {
+                            Console.ForegroundColor = ConsoleColor.Green;
+                        }
+
+                        DrawText("Options", Console.WindowWidth / 2 - "Options".Length / 2, yOffset + 20);
+                        Console.ForegroundColor = ConsoleColor.Gray;
+
+                        if (selection == 2)
+                        {
+                            Console.ForegroundColor = ConsoleColor.Green;
+                        }
+
+                        DrawText("Quit", Console.WindowWidth / 2 - "Quit".Length / 2, yOffset + 22);
+                        Console.ForegroundColor = ConsoleColor.Gray;
+
+                        input = Console.ReadKey(true).Key;
+
+                        if (input == ConsoleKey.UpArrow || input == ConsoleKey.W)
+                        {
+                            selection -= 1;
+                        }
+
+                        if (input == ConsoleKey.DownArrow || input == ConsoleKey.S)
+                        {
+                            selection += 1;
+                        }
+
+                        if (selection < 0)
+                        {
+                            selection = 2;
+                        }
+
+                        if (selection > 2)
+                        {
+                            selection = 0;
+                        }
+
+                        if (input == ConsoleKey.Enter || input == ConsoleKey.Spacebar)
+                        {
+                            switch (selection)
+                            {
+                                case 0:
                                     {
-                                        Console.SetCursorPosition(1, 28);
-                                        Console.WriteLine("Please create a player at first");
+                                        if (Library.players.Count == 0)
+                                        {
+                                            Console.SetCursorPosition(1, 28);
+                                            Console.WriteLine("Please create a player at first");
+                                        }
+                                        else
+                                        {
+                                            World.StartWorld();
+                                            while (World.tickWorld)
+                                            { }
+
+                                            loop = false;
+                                        }
+                                        break;
                                     }
-                                    else
+                                case 1:
                                     {
-                                        World.StartWorld();
-                                        while (World.tickWorld)
-                                        { }
-                                        
+                                        Option.createOptionMenu();
                                         loop = false;
-                                    }   
-                                    break;
-                                }
-                            case 1:
-                                {
-                                    Option.createOptionMenu();
-                                    loop = false;
-                                    break;
-                                }
-                            case 2:
-                                {
-                                    wantrecreateloop = false;
-                                    masterloop = false;
-                                    loop = false;
-                                    break;
-                                }
+                                        break;
+                                    }
+                                case 2:
+                                    {
+                                        masterloop = false;
+                                        loop = false;
+                                        break;
+                                    }
+                            }
                         }
                     }
                 }

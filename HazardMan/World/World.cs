@@ -62,13 +62,17 @@ namespace HazardMan
             Library.aiThread = null;
             Library.worldThread = null;
 
-            entities.Clear();
+            lock(entities)
+            {
+                entities.Clear();
+            }
             Console.Clear();
         }
 
         public static void spawnAtStart()
         {
             int forrun = Library.getLevel() * 2;
+            int masterzaehler = 0;
             for (int i = 0; i < forrun; i++)
             {
                 int random = rand.Next(110) + 4;
@@ -81,7 +85,13 @@ namespace HazardMan
                     alreadyspawned.Add(random);
                     WorldGenerator.addSpike(random);
                 }
+                masterzaehler++;
+                if (masterzaehler > 60)
+                    break;
+                
             }
+
+            masterzaehler = 0;
 
             for (int i = 0; i < Library.getLevel(); i++)
             {
@@ -110,6 +120,9 @@ namespace HazardMan
                             break;
                     }
                 }
+
+                if (masterzaehler > 60)
+                    break;
             } 
         }
 
