@@ -57,7 +57,7 @@ namespace HazardMan
                         break;
 
                     case ConsoleKey.F4:
-                        haxMode();
+                        Editor.haxMode();
                         break;
 
                     default:
@@ -203,42 +203,6 @@ namespace HazardMan
             {
                 Library.isSoundActivated = true;
                 Console.WriteLine("Sounds activated");
-            }
-        }
-
-        private static void haxMode()
-        {
-            Console.Clear();
-            Console.WriteLine("HaX Mode:");
-            Console.WriteLine(" - Change Level [L]:");
-            //Console.WriteLine(" - Score changer [S]:");
-            Console.WriteLine("");
-            ConsoleKey eingabe;
-            try
-            {
-                eingabe = Console.ReadKey(true).Key;
-            } catch
-            {
-                Console.WriteLine("This is not an available HaX!");
-                return;
-            }
-
-            switch(eingabe)
-            {
-                case ConsoleKey.L:
-                    Console.Write("Change the current level to: ");
-                    try
-                    {
-                        Library.setLevel(Convert.ToInt32(Console.ReadLine()));
-                        Console.Clear();
-                        Console.WriteLine("Changed level");
-                        return;
-                    } catch
-                    {
-                        Console.Clear();
-                        Console.WriteLine("This is not an available number!");
-                        return;
-                    }
             }
         }
     }

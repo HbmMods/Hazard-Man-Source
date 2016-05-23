@@ -75,6 +75,7 @@
     <Compile Include="Entities\Enemy\EntitySprayer.cs" />
     <Compile Include="Entities\Projectile\EntityProjectile.cs" />
     <Compile Include="Library.cs" />
+    <Compile Include="Options\Editor.cs" />
     <Compile Include="Options\Option.cs" />
     <Compile Include="Options\OptionPlayer.cs" />
     <Compile Include="Program.cs" />

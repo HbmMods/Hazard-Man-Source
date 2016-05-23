@@ -59,24 +59,6 @@ namespace HazardMan
                 }
             }
 
-            if (!(posX < World.terrain.GetLength(0)-1))
-            {
-                foreach(OptionPlayer player in Library.players)
-                {
-                    if(this.getName() == player.getName())
-                    {
-                        int score = Library.score[player];
-                        score++;
-                        Library.score[player] = score;
-                        Library.addLevel();
-                        Library.recreateWorld = true;
-
-                        World.StopWorld();
-                        break;
-                    }
-                }
-            }
-
             if (renderer == null)
                 renderer = new RenderPlayer(this);          
 
@@ -95,6 +77,24 @@ namespace HazardMan
             }
 
             base.setDead();    
+        }
+
+        public void win()
+        {
+            foreach (OptionPlayer player in Library.players)
+            {
+                if (this.getName() == player.getName())
+                {
+                    int score = Library.score[player];
+                    score++;
+                    Library.score[player] = score;
+                    Library.addLevel();
+                    Library.recreateWorld = true;
+
+                    World.StopWorld();
+                    break;
+                }
+            }
         }
     }
 }

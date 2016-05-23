@@ -86,9 +86,9 @@ namespace HazardMan
 
                 Console.BackgroundColor = ConsoleColor.Black;
                 if (i == 0) Console.SetCursorPosition(0, 29);
-                else if (i == 1) Console.SetCursorPosition(20, 29);
-                else if (i == 2) Console.SetCursorPosition(40, 29);
-                else if (i == 3) Console.SetCursorPosition(60, 29);
+                else if (i == 1) Console.SetCursorPosition(30, 29);
+                else if (i == 2) Console.SetCursorPosition(60, 29);
+                else if (i == 3) Console.SetCursorPosition(90, 29);
                 Console.ForegroundColor = player.getColor();
                 Console.Write(player.getName() + " - " + Library.score[player] + " ");
 
@@ -102,7 +102,6 @@ namespace HazardMan
                 {
                     Console.Write("  ");
                 }
-
 
                 i++;
             }

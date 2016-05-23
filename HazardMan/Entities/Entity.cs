@@ -19,8 +19,8 @@ namespace HazardMan
         public float lastPosX;
         public float lastPosY;
 
-        private int health = 2;
-        public int maxHealth = 2;
+        private int health = Library.getMaxHealth();
+        public int maxHealth = Library.getMaxHealth();
 
         private bool isDead = false;
 
@@ -87,6 +87,15 @@ namespace HazardMan
             if (!(inMotionPositionX >= 0 && inMotionPositionX < World.terrain.GetLength(0) 
                 && inMotionPositionY > 0 && inMotionPositionY < 29))
             {
+                if(!(inMotionPositionX < World.terrain.GetLength(0)-1))
+                {
+                    if(this is EntityPlayer)
+                    {
+                        ((EntityPlayer)this).win();
+                        return false;
+                    }
+                }
+
                 return true;
             }
             else

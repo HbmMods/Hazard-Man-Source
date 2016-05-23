@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace HazardMan
 {
-    class EntityProjectile : EntityAI
+    abstract class EntityProjectile : EntityAI
     {
         public override bool executeAICheck() { return false; }
 
