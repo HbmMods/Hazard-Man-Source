@@ -10,7 +10,6 @@ namespace HazardMan
     class InputThread
     {
         private Thread thread;
-        private bool running;
 
         public InputThread()
         {
@@ -19,20 +18,17 @@ namespace HazardMan
 
         public void start()
         {
-            running = true;
-            if (running)
-                this.thread.Start();
+            this.thread.Start();
         }
 
         public void stop()
         {
-            running = false;
             this.thread.Abort();
         }
 
         public void run()
         {
-            while(running)
+            while(World.tickWorld)
             {
                 World.input = Console.ReadKey(true).Key;
 
@@ -41,7 +37,7 @@ namespace HazardMan
                     World.StopWorld();
                 }
 
-                Thread.Sleep(10);
+                try { Thread.Sleep(10); } catch { }
             }
         }
     }

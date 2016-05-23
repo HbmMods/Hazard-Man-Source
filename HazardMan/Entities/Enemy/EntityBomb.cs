@@ -37,6 +37,7 @@ namespace HazardMan
         {
             setDead();
             Explosion exp = new Explosion(6, Explosion.explosiontype.ExplosionGeneric, (int)posX, (int)posY);
+            exp.Damage(6, Explosion.explosiontype.ExplosionGeneric, (int)posX, (int)posY);
             exp.Destroy(exp.strength, exp.type, exp.x, exp.y);
         }
 

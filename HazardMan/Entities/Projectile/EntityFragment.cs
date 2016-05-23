@@ -26,7 +26,7 @@ namespace HazardMan
                     {
                         if (entity.posX < posX + 1 && entity.posX > posX - 1 && entity.posY < posY + 1 && entity.posY > posY - 1)
                         {
-                            entity.setDead();
+                            entity.damage(1);
                             return true;
                         }
                     }

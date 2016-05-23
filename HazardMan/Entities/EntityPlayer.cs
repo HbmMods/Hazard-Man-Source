@@ -59,7 +59,7 @@ namespace HazardMan
                 }
             }
 
-            if (!(posX < 119))
+            if (!(posX < World.terrain.GetLength(0)-1))
             {
                 foreach(OptionPlayer player in Library.players)
                 {
@@ -76,9 +76,6 @@ namespace HazardMan
                     }
                 }
             }
-
-            if (World.terrain[((int)posX), ((int)posY)] is TerrainSolid)
-                setDead();
 
             if (renderer == null)
                 renderer = new RenderPlayer(this);          

@@ -9,8 +9,9 @@ namespace HazardMan
 {
     class AIThread
     {
+        public static int tick = 50;
+
         private Thread thread;
-        private bool running;
 
         public AIThread()
         {
@@ -19,23 +20,20 @@ namespace HazardMan
 
         public void start()
         {
-            this.running = true;
-            if (running)
-                this.thread.Start();
+            this.thread.Start();
         }
 
         public void stop()
         {
-            this.running = false;
             this.thread.Abort();
         }
 
         private void run()
         {
-            while (running)
+            while (World.tickWorld)
             {
                 lock (World.entities)
-                {
+                { 
                     foreach (Entity entity in World.entities)
                     {
                         if (entity is EntityAI)
@@ -50,7 +48,7 @@ namespace HazardMan
                     }
                 }
 
-                Thread.Sleep(50);
+                try { Thread.Sleep(tick); } catch { }
             }
         }
     }

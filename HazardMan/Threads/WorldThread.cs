@@ -10,7 +10,6 @@ namespace HazardMan
     class WorldThread
     {
         private Thread thread;
-        private bool running;
 
         public static List<Entity> wantToDie = new List<Entity>();
 
@@ -21,25 +20,24 @@ namespace HazardMan
 
         public void start()
         {
-            this.running = true;
-            if (this.running)
-                this.thread.Start();
+            this.thread.Start();
         }
 
         public void stop()
         {
-            this.running = false;
+
             this.thread.Abort();
         }
 
         public void run()
         {
-            while (running)
+            while (World.tickWorld)
             {
                 if (!World.tickWorld)
                 {
                     World.StopWorld();
-                    return;
+                    break;
+
                 }
 
                 lock (World.entities)
@@ -57,9 +55,10 @@ namespace HazardMan
 
                     wantToDie = new List<Entity>();
                 }
+
                 scoreUpdate();
 
-                Thread.Sleep(50);
+                try { Thread.Sleep(50); } catch { }
             }
         }
 
@@ -69,13 +68,42 @@ namespace HazardMan
 
             foreach (OptionPlayer player in Library.players)
             {
+                EntityPlayer eplayer = null;
+                lock (World.entities)
+                {
+                    foreach (Entity entity in World.entities)
+                    {
+                        if (entity is EntityPlayer)
+                        {
+                            if (player.getName().Contains(((EntityPlayer)entity).getName()))
+                            {
+                                eplayer = (EntityPlayer)entity;
+                                break;
+                            }
+                        }
+                    }
+                }
+
                 Console.BackgroundColor = ConsoleColor.Black;
                 if (i == 0) Console.SetCursorPosition(0, 29);
                 else if (i == 1) Console.SetCursorPosition(20, 29);
                 else if (i == 2) Console.SetCursorPosition(40, 29);
                 else if (i == 3) Console.SetCursorPosition(60, 29);
                 Console.ForegroundColor = player.getColor();
-                Console.Write(player.getName() + " - " + Library.score[player]);
+                Console.Write(player.getName() + " - " + Library.score[player] + " ");
+
+                for (int y = 0; y < eplayer.getHealth(); y++)
+                {
+                    Console.ForegroundColor = ConsoleColor.Red;
+                    Console.Write("♥ ");
+                }
+
+                for (int y = 0; y < eplayer.getMaxHealth(); y++)
+                {
+                    Console.Write("  ");
+                }
+
+
                 i++;
             }
 
@@ -83,6 +111,7 @@ namespace HazardMan
             Console.ForegroundColor = ConsoleColor.White;
             Console.SetCursorPosition(110, 29);
             Console.Write("Level: " + Library.getLevel());
+
         }
     }
 }
