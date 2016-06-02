@@ -85,6 +85,8 @@ namespace HazardMan
             {
                 if (this.getName() == player.getName())
                 {
+                    if (Library.isSoundActivated) Console.Beep(1000, 200);
+
                     int score = Library.score[player];
                     score++;
                     Library.score[player] = score;
