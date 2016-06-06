@@ -9,23 +9,60 @@ namespace HazardMan
     class TerrainElement
     {
         public char[] renderIcon = {'#'};
-        public ConsoleColor color = ConsoleColor.Gray;
-        public ConsoleColor bg = ConsoleColor.Black;
-        public int i = 0;
-        public int j = 0;
+        private ConsoleColor color = ConsoleColor.Gray;
+        private ConsoleColor background = ConsoleColor.Black;
 
-        public void RenderSelf()
+        private int x;
+        private int y;
+
+        public TerrainElement(int x, int y)
         {
-            ConsoleColor c1 = Console.ForegroundColor;
-            ConsoleColor c2 = Console.BackgroundColor;
+            this.x = x;
+            this.y = y;
+        }
+
+        public void renderElement()
+        {
+            ConsoleColor foregroundcolor = Console.ForegroundColor;
+            ConsoleColor backgroundcolor = Console.BackgroundColor;
 
             Console.ForegroundColor = color;
-            Console.BackgroundColor = bg;
+            Console.BackgroundColor = background;
             
             Console.Write(renderIcon[World.rand.Next(renderIcon.Length)]);
 
-            Console.ForegroundColor = c1;
-            Console.BackgroundColor = c2;
+            Console.ForegroundColor = foregroundcolor;
+            Console.BackgroundColor = backgroundcolor;
+        }
+
+        public ConsoleColor getColor()
+        {
+            return color;
+        }
+
+        public ConsoleColor getBackGroundColor()
+        {
+            return background;
+        }
+
+        public void setColor(ConsoleColor color)
+        {
+            this.color = color;
+        }
+
+        public void setBackGroundColor(ConsoleColor color)
+        {
+            this.background = color;
+        }
+
+        public int getX()
+        {
+            return x;
+        }
+
+        public int getY()
+        {
+            return y;
         }
     }
 }

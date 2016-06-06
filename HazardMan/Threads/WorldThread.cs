@@ -49,7 +49,7 @@ namespace HazardMan
 
                     foreach (Entity entity in wantToDie)
                     {
-                        entity.renderer.delRenderEntity();
+                        entity.renderer.delete();
                         World.entities.Remove(entity);
                     }
 

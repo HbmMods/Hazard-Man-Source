@@ -10,8 +10,8 @@ namespace HazardMan
     {
         public RenderSprayer()
         {
-            fg = ConsoleColor.DarkMagenta;
-            renderIcon = '▓';
+            setColor(ConsoleColor.DarkMagenta);
+            setRenderIcon('▓');
         }
     }
 }

@@ -8,7 +8,7 @@ namespace HazardMan
 {
     class Renderer
     {
-        public static void RenderWorld()
+        public static void renderWorld()
         {
             for (int j = 0; j < Console.WindowHeight - 1; j++)
             {
@@ -16,11 +16,11 @@ namespace HazardMan
                 {
                     if (World.terrain[i, j] != null)
                     {
-                        World.terrain[i, j].RenderSelf();
+                        World.terrain[i, j].renderElement();
                     }
                     else
                     {
-                        RenderSky();
+                        renderSky();
                     }
                 }
             }
@@ -31,27 +31,32 @@ namespace HazardMan
             Console.SetCursorPosition(i, j);
             if (World.terrain[i, j] != null)
             {
-                World.terrain[i, j].RenderSelf();
+                World.terrain[i, j].renderElement();
             }
             else
             {
-                RenderSky();
+                renderSky();
             }
         }
 
-        public static void RenderSky()
+        public static void renderSky()
         {
-            ConsoleColor c1 = Console.ForegroundColor;
-            ConsoleColor c2 = Console.BackgroundColor;
+            ConsoleColor foregroundcolor = Console.ForegroundColor;
+            ConsoleColor backgroundcolor = Console.BackgroundColor;
 
             Console.ForegroundColor = ConsoleColor.Gray;
-            Console.BackgroundColor = ConsoleColor.Blue;
+            Console.BackgroundColor = getSkyColor();
 
             Console.Write(" ");
 
-            Console.ForegroundColor = c1;
-            Console.BackgroundColor = c2;
+            Console.ForegroundColor = foregroundcolor;
+            Console.BackgroundColor = backgroundcolor;
 
+        }
+
+        public static ConsoleColor getSkyColor()
+        {
+            return ConsoleColor.Blue;
         }
     }
 }

@@ -3,11 +3,14 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using System.Threading;
 
 namespace HazardMan
 {
     class EntityBomb : EntityAI
     {
+        private bool isRespawned = false;
+
         public EntityBomb(int x, int y)
         {
             posX = x;
@@ -36,6 +39,7 @@ namespace HazardMan
         public override void executeAITask()
         {
             setDead();
+            new Thread(respawn).Start();
             Explosion exp = new Explosion(6, Explosion.explosiontype.ExplosionGeneric, (int)posX, (int)posY);
             exp.Damage(6, Explosion.explosiontype.ExplosionGeneric, (int)posX, (int)posY);
             exp.Destroy(exp.strength, exp.type, exp.x, exp.y);
@@ -47,6 +51,19 @@ namespace HazardMan
                 renderer = new RenderBomb();
 
             base.Update();
+        }
+
+        public void respawn()
+        {
+
+            Thread.Sleep(10*1000);
+
+            if (!isRespawned)
+            {
+                isRespawned = true;
+
+                new SpawnEntity(new EntityBomb((int)posX, ((int)posY + 30)));
+            }    
         }
     }
 }

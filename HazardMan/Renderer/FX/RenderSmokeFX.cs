@@ -10,8 +10,8 @@ namespace HazardMan
     {
         public RenderEntitySmokeFX()
         {
-            fg = ConsoleColor.Gray;
-            renderIcon = '█';
+            setColor(ConsoleColor.Gray);
+            setRenderIcon('█');
         }
     }
 }

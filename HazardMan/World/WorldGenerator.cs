@@ -21,13 +21,13 @@ namespace HazardMan
             for (int i = 0; i < Console.WindowHeight; i++)
             {
                 if(i >= generationHeight)
-                    World.terrain[0, i] = new TerrainSolid();
+                    World.terrain[0, i] = new TerrainSolid(0, i);
 
                 if (i >= generationHeight)
-                    World.terrain[1, i] = new TerrainSolid();
+                    World.terrain[1, i] = new TerrainSolid(1, i);
 
                 if (i >= generationHeight)
-                    World.terrain[2, i] = new TerrainSolid();
+                    World.terrain[2, i] = new TerrainSolid(2, i);
             }
 
             for (int i = 3; i < Console.WindowWidth; i++)
@@ -49,7 +49,7 @@ namespace HazardMan
                 for (int j = 0; j < Console.WindowHeight; j++)
                 {
                     if (j >= generationHeight)
-                        World.terrain[i, j] = new TerrainSolid();
+                        World.terrain[i, j] = new TerrainSolid(i, j);
                     else
                         World.terrain[i, j] = null;
                 }
@@ -62,7 +62,7 @@ namespace HazardMan
             {
                 if(World.terrain[x, i] == null && World.terrain[x, i + 1] != null)
                 {
-                    World.terrain[x, i] = new TerrainSpike();
+                    World.terrain[x, i] = new TerrainSpike(x, i);
                     break;
                 }
             }

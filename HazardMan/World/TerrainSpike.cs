@@ -8,11 +8,11 @@ namespace HazardMan
 {
     class TerrainSpike : TerrainElement
     {
-        public TerrainSpike()
+        public TerrainSpike(int x, int y) : base (x, y)
         {
             renderIcon = new char[] { '▲' };
-            color = ConsoleColor.DarkGray;
-            bg = ConsoleColor.Blue;
+            setColor(ConsoleColor.DarkGray);
+            setBackGroundColor(ConsoleColor.Blue);
         }
     }
 }

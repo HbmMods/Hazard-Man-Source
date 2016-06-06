@@ -48,7 +48,7 @@ namespace HazardMan
                 if (Library.recreateWorld)
                 {
                     Library.recreateWorld = false;
-                    World.StartWorld();
+                    World.startWorld();
                     while (World.tickWorld)
                     { }
 
@@ -136,7 +136,7 @@ namespace HazardMan
                                         }
                                         else
                                         {
-                                            World.StartWorld();
+                                            World.startWorld();
                                             while (World.tickWorld)
                                             { }
 

@@ -10,8 +10,8 @@ namespace HazardMan
     {
         public RenderPlayer(EntityPlayer player)
         {
-            fg = player.getColor();
-            renderIcon = '☻';
+            setColor(player.getColor());
+            setRenderIcon('☻');
         }
     }
 }

@@ -10,68 +10,114 @@ namespace HazardMan
     {
         public int renderPosX;
         public int renderPosY;
-        public char renderIcon = '?';
-        public ConsoleColor fg = ConsoleColor.DarkRed;
+        private char renderIcon = '?';
+        private ConsoleColor color = ConsoleColor.DarkRed;
 
         public void renderEntityAt(Entity entity)
         {
+            // Set render positions
             renderPosX = (int)entity.posX;
             renderPosY = (int)entity.posY;
 
-            ConsoleColor c1 = Console.ForegroundColor;
-            ConsoleColor c2 = Console.BackgroundColor;
+            // Set fore and background colors
+            ConsoleColor foregroundcolor = Console.ForegroundColor;
+            ConsoleColor backgroundcolor = Console.BackgroundColor;
 
-            Console.ForegroundColor = fg;
+            // Get color of this entityw
+            Console.ForegroundColor = getColor();
+
+            // Check if terrain isn't null on render position
             if (World.terrain[renderPosX, renderPosY] != null)
             {
-                Console.BackgroundColor = World.terrain[renderPosX, renderPosY].bg;
+                // Set background color of terrainelement background color
+                Console.BackgroundColor = World.terrain[renderPosX, renderPosY].getBackGroundColor();
             }
             else
             {
-                Console.BackgroundColor = ConsoleColor.Blue;
+                // Set background color of sky
+                Console.BackgroundColor = Renderer.getSkyColor();
             }
 
-            if (entity.posX > -1 && entity.posX < 120 && entity.posY > -1 && entity.posY < 30)
+            // Set postions and last positions
+            int lastPosX = (int)entity.lastPosX;
+            int lastPosY = (int)entity.lastPosY;
+            int posX = (int)entity.posX;
+            int posY = (int)entity.posY;
+
+            // Check if position is in console
+            if (posX > -1 && posY < 120 && entity.posY > -1 && entity.posY < 30)
             {
+                // Set Cursor to render postions
                 Console.CursorLeft = renderPosX;
                 Console.CursorTop = renderPosY;
+
+                // Write renderIcon
                 Console.Write(renderIcon);
 
-                if (!((int)entity.lastPosX == (int)entity.posX && (int)entity.lastPosY == (int)entity.posY))
+                // Check if lastPos changed, if changed rerender
+                if (!(lastPosX == posX && lastPosY == posY))
                 {
-                    if (World.terrain[(int)entity.lastPosX, (int)entity.lastPosY] != null)
+                    // Check if terrainelement isn't null
+                    if (World.terrain[lastPosX, lastPosY] != null)
                     {
-                        Console.CursorLeft = (int)entity.lastPosX;
-                        Console.CursorTop = (int)entity.lastPosY;
-                        World.terrain[(int)entity.lastPosX, (int)entity.lastPosY].RenderSelf();
+                        // Set Cursor to last position
+                        Console.CursorLeft = lastPosX;
+                        Console.CursorTop = lastPosY;
+                        World.terrain[lastPosX, lastPosY].renderElement();
                     }
                     else
                     {
-                        Console.CursorLeft = (int)entity.lastPosX;
-                        Console.CursorTop = (int)entity.lastPosY;
-                        Renderer.RenderSky();
+                        // Render sky if terrainelement is null
+                        Console.CursorLeft = lastPosX;
+                        Console.CursorTop = lastPosY;
+                        Renderer.renderSky();
                     }
                 }
             }
 
-            Console.ForegroundColor = c1;
-            Console.BackgroundColor = c2;
+            // Reset foreground and background
+            Console.ForegroundColor = foregroundcolor;
+            Console.BackgroundColor = backgroundcolor;
         }
 
-        public void delRenderEntity()
+        public void delete()
         {
+            // Delete renderer
+
+            // Check if terrain isn't null
             if (World.terrain[renderPosX, renderPosY] != null)
             {
+                // Set cursor positions
                 Console.CursorLeft = renderPosX;
                 Console.CursorTop = renderPosY;
-                World.terrain[renderPosX, renderPosY].RenderSelf();
+
+                // Render element
+                World.terrain[renderPosX, renderPosY].renderElement();
             }
             else
             {
+                // Set cursor positons
                 Console.CursorLeft = renderPosX;
                 Console.CursorTop = renderPosY;
-                Renderer.RenderSky();
+
+                // Render sky
+                Renderer.renderSky();
             }
+        }
+
+        public ConsoleColor getColor()
+        {
+            return color;
+        }
+
+        public void setColor(ConsoleColor color)
+        {
+            this.color = color;
+        }
+
+        public void setRenderIcon(char icon)
+        {
+            this.renderIcon = icon;
         }
     }
 }

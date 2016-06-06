@@ -21,7 +21,7 @@ namespace HazardMan
 
         private static List<int> alreadyspawned = new List<int>();
 
-        public static void StartWorld()
+        public static void startWorld()
         {
             entities = new List<Entity>();
 
@@ -42,7 +42,7 @@ namespace HazardMan
 
             spawnAtStart();
 
-            Renderer.RenderWorld();
+            Renderer.renderWorld();
             Console.BackgroundColor = ConsoleColor.Blue;
 
             Library.worldThread.start();
@@ -71,28 +71,42 @@ namespace HazardMan
 
         public static void spawnAtStart()
         {
+            // Set how many sparks will spawn
             int forrun = Library.getLevel() * 2;
+
+            // Set masterzaehler
             int masterzaehler = 0;
+
+            // Create spikes
             for (int i = 0; i < forrun; i++)
             {
                 int random = rand.Next(110) + 4;
+
+                // Check if spike already spawned at this position
                 if (alreadyspawned.Contains(random))
                 {
                     i--;
                 }
                 else
                 {
+                    // Create Spike
                     alreadyspawned.Add(random);
                     WorldGenerator.addSpike(random);
                 }
+
+                // Add to masterzaehler 1
                 masterzaehler++;
+
+                // IF masterzaehler is to high, break
                 if (masterzaehler > 60)
                     break;
                 
             }
 
+            // Reset masterzaehler
             masterzaehler = 0;
 
+            // Create Enemys
             for (int i = 0; i < Library.getLevel(); i++)
             {
                 int random = rand.Next(110) + 4;

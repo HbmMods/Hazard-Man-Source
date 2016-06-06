@@ -8,11 +8,11 @@ namespace HazardMan
 {
     class TerrainSolid : TerrainElement
     {
-        public TerrainSolid()
+        public TerrainSolid(int x, int y) : base (x, y)
         {
             renderIcon = new char[]{ '*', ',', '.', '´', '`', '"' };
-            color = ConsoleColor.Gray;
-            bg = ConsoleColor.DarkGray;
+            setColor(ConsoleColor.Gray);
+            setBackGroundColor(ConsoleColor.DarkGray);
         }
     }
 }
