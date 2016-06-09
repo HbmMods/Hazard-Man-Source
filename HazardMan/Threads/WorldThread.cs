@@ -60,7 +60,7 @@ namespace HazardMan
                 lock(wantToRender)
                 {
                     foreach (TerrainElement element in wantToRender)
-                    {
+                    {                   
                         if (element is TerrainSolid)
                         {
                             World.changeTerrainElement(element.getX(), element.getY(), ((TerrainSolid)element));

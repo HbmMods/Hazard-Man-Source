@@ -36,6 +36,16 @@ namespace HazardMan
                 {
                     World.StopWorld();
                 }
+                else if (World.input == ConsoleKey.Spacebar)
+                {
+                    lock (World.entities)
+                    {
+                        foreach (Entity entity in World.entities)
+                        {
+                            if (entity is EntityPlayer) entity.setDead();
+                        }
+                    }
+                }
 
                 try { Thread.Sleep(10); } catch { }
             }

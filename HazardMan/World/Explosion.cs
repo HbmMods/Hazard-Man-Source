@@ -44,45 +44,70 @@ namespace HazardMan
                 {
                     if (x * x + y * y <= radius * radius)
                     {
-                        // Check if terrain isn't null
-                        if (World.terrain[posX + x, posY + y] != null)
+                        if (!isOutOfMap(x, y))
                         {
-                            // Check all entiy
-                            foreach (Entity entity in World.entities)
+
+                            // Check if terrain isn't null
+                            if (World.terrain[posX + x, posY + y] != null)
                             {
-                                // Is in radius
-                                if (entity.posX < posX + 4 && entity.posX > posX - 4 && entity.posY < posY + 4 && entity.posY > posY - 4)
+                                // Check all entiy
+                                foreach (Entity entity in World.entities)
                                 {
-                                    // Check EntityBomb
-                                    if (entity is EntityBomb)
+                                    // Is in radius
+                                    if (entity.posX < posX + 4 && entity.posX > posX - 4 && entity.posY < posY + 4 && entity.posY > posY - 4)
                                     {
-                                        // If bomb explode
-                                        ((EntityBomb)entity).executeAITask();
-                                    } 
-                                    else if(entity is EntityPlayer)
-                                    {
-                                        // If Player setDead
-                                        ((EntityPlayer)entity).setDead();
+                                        // Check EntityBomb
+                                        if (entity is EntityBomb)
+                                        {
+                                            // If bomb explode
+                                            ((EntityBomb)entity).executeAITask();
+                                        }
+                                        else if (entity is EntityPlayer)
+                                        {
+                                            // If Player setDead
+                                            ((EntityPlayer)entity).setDead();
+                                        }
+                                        else
+                                        {
+                                            // Else setDead
+                                            entity.setDead();
+                                        }
                                     }
-                                    else
-                                    {
-                                        // Else setDead
-                                        entity.setDead();
-                                    }
-                                }                               
+                                }
+
+                                // Add every block to list
+                                blocks.Add(World.terrain[posX + x, posY + y]);
+
+                                // Change Terrain
+                                World.changeTerrainElement(posX + x, posY + y, null);
                             }
-
-                            // Add every block to list
-                            blocks.Add(World.terrain[posX + x, posY + y]);
-
-                            // Change Terrain
-                            World.changeTerrainElement(posX + x, posY + y, null);
                         }
                     }
                 }
             }
 
             new Thread(remake).Start();
+        }
+
+        private bool isOutOfMap(int x, int y)
+        {
+            int newPosX = (int)(posX + x);
+            int newPosY = (int)(posY + y);
+
+            if (!(newPosX >= 0 && newPosX < World.terrain.GetLength(0)
+                && newPosY > 0 && newPosY < 29))
+            {
+                if (!(newPosX < World.terrain.GetLength(0) - 1))
+                {                       
+                    return false;  
+                }
+
+                return true;
+            }
+            else
+            {
+                return false;
+            }
         }
 
         public void Particle(int strength, explosiontype type, int x, int y)
@@ -132,13 +157,9 @@ namespace HazardMan
                         foreach (Entity entity in World.entities)
                         {
                             // Check if entity is in radius
-                            if (entity.posX < posX + 4 && entity.posX > posX - 4 && entity.posY < posY + 4 && entity.posY > posY - 4)
+                            if (element.getX() < posX + 1 && element.getX() > posX - 1 && element.getY() < posY + 1 && element.getY() > posY - 1)
                             {
-                                if (entity is EntityBomb)
-                                {
-                                    ((EntityBomb)entity).executeAITask();
-                                }
-                                else if (entity is EntityPlayer)
+                                if (entity is EntityPlayer)
                                 {
                                     ((EntityPlayer)entity).setDead();
                                 }
