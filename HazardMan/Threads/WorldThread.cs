@@ -12,6 +12,7 @@ namespace HazardMan
         private Thread thread;
 
         public static List<Entity> wantToDie = new List<Entity>();
+        public static List<TerrainElement> wantToRender = new List<TerrainElement>();
 
         public WorldThread()
         {
@@ -54,6 +55,27 @@ namespace HazardMan
                     }
 
                     wantToDie = new List<Entity>();
+                }
+
+                lock(wantToRender)
+                {
+                    foreach (TerrainElement element in wantToRender)
+                    {
+                        if (element is TerrainSolid)
+                        {
+                            World.changeTerrainElement(element.getX(), element.getY(), ((TerrainSolid)element));
+                        }
+                        else if(element is TerrainSpike)
+                        {
+                            World.changeTerrainElement(element.getX(), element.getY(), ((TerrainSpike)element));
+                        }
+                        else
+                        {
+                            World.changeTerrainElement(element.getX(), element.getY(), ((TerrainSolid)element));
+                        }
+                    }
+
+                    wantToRender = new List<TerrainElement>();
                 }
 
                 scoreUpdate();
@@ -110,7 +132,6 @@ namespace HazardMan
             Console.ForegroundColor = ConsoleColor.White;
             Console.SetCursorPosition(110, 29);
             Console.Write("Level: " + Library.getLevel());
-
         }
     }
 }
