@@ -20,8 +20,11 @@ namespace HazardMan
             bool masterloop = true;
             bool goin = true;
             const int yOffset = 2;
-            ConsoleKey input;
+            ConsoleKey input;   
             Console.CursorVisible = false;
+
+            Console.WindowHeight = 30;
+            Console.WindowWidth = 120;
             Console.BufferHeight = Console.WindowHeight;
             Console.BufferWidth = Console.WindowWidth;
 

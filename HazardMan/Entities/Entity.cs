@@ -142,7 +142,7 @@ namespace HazardMan
         {
             lock (World.entities)
             {
-                WorldThread.wantToDie.Add(this);
+                WorldThread.WantToDie.Add(this);
             }
         }
 

@@ -11,8 +11,8 @@ namespace HazardMan
     {
         private Thread thread;
 
-        public static List<Entity> wantToDie = new List<Entity>();
-        public static List<TerrainElement> wantToRender = new List<TerrainElement>();
+        public static List<Entity> WantToDie = new List<Entity>();
+        public static List<TerrainElement> WantToRender = new List<TerrainElement>();
 
         public WorldThread()
         {
@@ -48,18 +48,18 @@ namespace HazardMan
                         entity.Update();
                     }
 
-                    foreach (Entity entity in wantToDie)
+                    foreach (Entity entity in WantToDie)
                     {
                         entity.renderer.delete();
                         World.entities.Remove(entity);
                     }
 
-                    wantToDie = new List<Entity>();
+                    WantToDie = new List<Entity>();
                 }
 
-                lock(wantToRender)
+                lock(WantToRender)
                 {
-                    foreach (TerrainElement element in wantToRender)
+                    foreach (TerrainElement element in WantToRender)
                     {                   
                         if (element is TerrainSolid)
                         {
@@ -75,16 +75,16 @@ namespace HazardMan
                         }
                     }
 
-                    wantToRender = new List<TerrainElement>();
+                    WantToRender = new List<TerrainElement>();
                 }
 
-                scoreUpdate();
+                ScoreUpdate();
 
                 try { Thread.Sleep(50); } catch { }
             }
         }
 
-        public static void scoreUpdate()
+        public static void ScoreUpdate()
         {
             int i = 0;
 

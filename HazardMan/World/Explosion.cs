@@ -44,7 +44,7 @@ namespace HazardMan
                 {
                     if (x * x + y * y <= radius * radius)
                     {
-                        if (!isOutOfMap(x, y))
+                        if (!IsOutOfMap(x, y))
                         {
 
                             // Check if terrain isn't null
@@ -86,10 +86,10 @@ namespace HazardMan
                 }
             }
 
-            new Thread(remake).Start();
+            new Thread(Remake).Start();
         }
 
-        private bool isOutOfMap(int x, int y)
+        private bool IsOutOfMap(int x, int y)
         {
             int newPosX = (int)(posX + x);
             int newPosY = (int)(posY + y);
@@ -115,7 +115,7 @@ namespace HazardMan
 
         }
 
-        private void remake()
+        private void Remake()
         {
             // Start remake after 2 seconds
             Thread.Sleep(2 * 1000);
@@ -145,10 +145,10 @@ namespace HazardMan
                         willadded = new TerrainSolid(element.getX(), element.getY());
                     }
 
-                    lock(WorldThread.wantToRender)
+                    lock(WorldThread.WantToRender)
                     {
                         // Set willadded to wantToRender, for Render in WorldThread
-                        WorldThread.wantToRender.Add(willadded);
+                        WorldThread.WantToRender.Add(willadded);
                     }
 
                     lock(World.entities)
