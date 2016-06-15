@@ -1,15 +1,12 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using System.Threading;
 
 namespace HazardMan
 {
     class WorldThread
     {
-        private Thread thread;
+        private readonly Thread thread;
 
         public static List<Entity> WantToDie = new List<Entity>();
         public static List<TerrainElement> WantToRender = new List<TerrainElement>();
@@ -69,10 +66,6 @@ namespace HazardMan
                         {
                             World.changeTerrainElement(element.getX(), element.getY(), ((TerrainSpike)element));
                         }
-                        else
-                        {
-                            World.changeTerrainElement(element.getX(), element.getY(), ((TerrainSolid)element));
-                        }
                     }
 
                     WantToRender = new List<TerrainElement>();
@@ -105,6 +98,8 @@ namespace HazardMan
                         }
                     }
                 }
+
+                if(eplayer ==  null) return;
 
                 Console.BackgroundColor = ConsoleColor.Black;
                 if (i == 0) Console.SetCursorPosition(0, 29);
