@@ -10,8 +10,8 @@ namespace HazardMan
     {
         public EntityEnemy(float x, float y)
         {
-            posX = x;
-            posY = y;
+            setX(x);
+            setY(y);
         }
 
         public override bool executeAICheck()
@@ -22,12 +22,12 @@ namespace HazardMan
                 {
                     if (entity is EntityPlayer)
                     {
-                        if (entity.posX < posX + 1 && entity.posX > posX - 1 && entity.posY < posY + 1 && entity.posY > posY - 1)
+                        if (entity.getX() < getX() + 1 && entity.getX() > getX() - 1 && entity.getY() < getY() + 1 && entity.getY() > getY() - 1)
                         {
                             entity.setDead();
                         }
 
-                        if (entity.posY <= posY && entity.posX < posX + 2 && entity.posX > posX - 2 && onGround)
+                        if (entity.getY() <= getY() && entity.getX() < getX() + 2 && entity.getX() > getX() - 2 && onGround)
                         {
                             if (Library.isSoundActivated) Console.Beep(250, 200);
                             return true;

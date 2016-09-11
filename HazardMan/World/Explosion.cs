@@ -8,18 +8,37 @@ namespace HazardMan
         public enum explosiontype { ExplosionGeneric };
         public explosiontype type;
         public int strength;
-        public int radius;
-        public int posX;
-        public int posY;
+        private int posX;
+        private int posY;
 
         private List<TerrainElement> blocks = new List<TerrainElement>();
+
+        public int getX()
+        {
+            return posX;
+        }
+
+        public void setX(int posX)
+        {
+            this.posX = posX;
+        }
+
+        public int getY()
+        {
+            return posY;
+        }
+
+        public void setY(int posY)
+        {
+            this.posY = posY;
+        }
 
         public Explosion(int strength, explosiontype type, int posX, int posY)
         {
             this.strength = strength;
             this.type = type;
-            this.posX = posX;
-            this.posY = posY;
+            this.setX(posX);
+            this.setY(posY);
         }
 
         public void Damage(int strength, explosiontype type)
@@ -29,9 +48,6 @@ namespace HazardMan
 
         public void Destroy(int radius, explosiontype type)
         {
-            // Set radius
-            this.radius = radius;
-
             // For y axe
             for (int y = -radius; y <= radius; y++)
             {
@@ -44,13 +60,13 @@ namespace HazardMan
                         {
 
                             // Check if terrain isn't null
-                            if (World.terrain[posX + x, posY + y] != null)
+                            if (World.terrain[getX() + x, getY() + y] != null)
                             {
                                 // Check all entiy
                                 foreach (Entity entity in World.entities)
                                 {
                                     // Is in radius
-                                    if (entity.posX < posX + 4 && entity.posX > posX - 4 && entity.posY < posY + 4 && entity.posY > posY - 4)
+                                    if (entity.getX() < getX() + 4 && entity.getX() > getX() - 4 && entity.getY() < getY() + 4 && entity.getY() > getY() - 4)
                                     {
                                         // Check EntityBomb
                                         if (entity is EntityBomb)
@@ -72,10 +88,10 @@ namespace HazardMan
                                 }
 
                                 // Add every block to list
-                                blocks.Add(World.terrain[posX + x, posY + y]);
+                                blocks.Add(World.terrain[getX() + x, getY() + y]);
 
                                 // Change Terrain
-                                World.changeTerrainElement(posX + x, posY + y, null);
+                                World.changeTerrainElement(getX() + x, getY() + y, null);
                             }
                         }
                     }
@@ -87,8 +103,8 @@ namespace HazardMan
 
         private bool IsOutOfMap(int x, int y)
         {
-            int newPosX = (int)(posX + x);
-            int newPosY = (int)(posY + y);
+            int newPosX = (int)(getX() + x);
+            int newPosY = (int)(getY() + y);
 
             if (!(newPosX >= 0 && newPosX < World.terrain.GetLength(0)
                 && newPosY > 0 && newPosY < 29))
@@ -153,7 +169,7 @@ namespace HazardMan
                         foreach (Entity entity in World.entities)
                         {
                             // Check if entity is in radius
-                            if (element.getX() < posX + 1 && element.getX() > posX - 1 && element.getY() < posY + 1 && element.getY() > posY - 1)
+                            if (entity.getX() < getX() + 5 && entity.getX() > getX() - 5 && entity.getY() < getY() + 5 && entity.getY() > getY() - 5)
                             {
                                 if (entity is EntityPlayer)
                                 {

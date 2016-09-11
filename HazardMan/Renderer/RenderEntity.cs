@@ -16,8 +16,8 @@ namespace HazardMan
         public void renderEntityAt(Entity entity)
         {
             // Set render positions
-            renderPosX = (int)entity.posX;
-            renderPosY = (int)entity.posY;
+            renderPosX = (int)entity.getX();
+            renderPosY = (int)entity.getY();
 
             // Set fore and background colors
             ConsoleColor foregroundcolor = Console.ForegroundColor;
@@ -41,11 +41,11 @@ namespace HazardMan
             // Set postions and last positions
             int lastPosX = (int)entity.lastPosX;
             int lastPosY = (int)entity.lastPosY;
-            int posX = (int)entity.posX;
-            int posY = (int)entity.posY;
+            int posX = (int)entity.getX();
+            int posY = (int)entity.getY();
 
             // Check if position is in console
-            if (posX > -1 && posY < 120 && entity.posY > -1 && entity.posY < 30)
+            if (posX > -1 && posY < 120 && entity.getY() > -1 && entity.getY() < 30)
             {
                 // Set Cursor to render postions
                 Console.CursorLeft = renderPosX;

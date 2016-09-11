@@ -13,8 +13,8 @@ namespace HazardMan
 
         public EntityBomb(int x, int y)
         {
-            posX = x;
-            posY = y;
+            setX(x);
+            setY(y);
         }
 
         public override bool executeAICheck()
@@ -25,7 +25,7 @@ namespace HazardMan
                 {
                     if (entity is EntityPlayer)
                     {
-                        if (entity.posX < posX + 2 && entity.posX > posX - 2 && entity.posY < posY + 2 && entity.posY > posY - 2)
+                        if (entity.getX() < this.getX() + 2 && entity.getX() > this.getX() - 2 && entity.getY() < this.getY() + 2 && entity.getY() > this.getY() - 2)
                         {
                             if (Library.isSoundActivated) Console.Beep();  
                             return true;
@@ -41,7 +41,7 @@ namespace HazardMan
             if (exp == null)
             {
                 setDead();
-                exp = new Explosion(6, Explosion.explosiontype.ExplosionGeneric, (int)posX, (int)posY);
+                exp = new Explosion(6, Explosion.explosiontype.ExplosionGeneric, (int)this.getX(), (int)this.getY());
                 exp.Damage(6, Explosion.explosiontype.ExplosionGeneric);
                 exp.Destroy(exp.strength, exp.type);
             }

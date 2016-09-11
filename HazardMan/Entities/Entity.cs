@@ -14,8 +14,29 @@ namespace HazardMan
         public float motionX;
         public float motionY;
 
-        public float posX;
-        public float posY;
+        private float posX;
+        private float posY;
+
+        public float getX()
+        {
+            return posX;
+        }
+
+        public void setX(float posX)
+        {
+            this.posX = posX;
+        }
+
+        public float getY()
+        {
+            return posY;
+        }
+
+        public void setY(float posY)
+        {
+            this.posY = posY;
+        }
+
         public float lastPosX;
         public float lastPosY;
 
@@ -51,7 +72,7 @@ namespace HazardMan
                 return;
             }
 
-            if (!(World.terrain[(int)(posX - motionX), (int)(posY - motionY)] != null))
+            if (World.terrain[(int)(posX - motionX), (int)(posY - motionY)] == null)
             {
                 posX -= motionX;
                 posY -= motionY;

@@ -8,10 +8,10 @@ namespace HazardMan
 {
     class EntityFragment : EntityProjectile
     {
-        public EntityFragment(float x, float y, float motionX, float motionY)
+        public EntityFragment(float posX, float posY, float motionX, float motionY)
         {
-            posX = x;
-            posY = y;
+            setX(posX);
+            setY(posY);
             this.motionX = motionX;
             this.motionY = motionY;
         }
@@ -24,7 +24,7 @@ namespace HazardMan
                 {
                     if (entity is EntityPlayer)
                     {
-                        if (entity.posX < posX + 1 && entity.posX > posX - 1 && entity.posY < posY + 1 && entity.posY > posY - 1)
+                        if (entity.getX() < getX() + 1 && entity.getX() > getX() - 1 && entity.getY() < getY() + 1 && entity.getY() > getY() - 1)
                         {
                             entity.damage(1);
                             return true;

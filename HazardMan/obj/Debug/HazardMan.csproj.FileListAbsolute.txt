@@ -17,3 +17,15 @@ G:\Dateien\Progammieren\C#\HazardMan\HazardMan\obj\Debug\HazardMan.pdb
 G:\Dateien\Progammieren\C#\HazardMan\HazardMan\bin\Debug\HazardMan.exe
 G:\Dateien\Progammieren\C#\HazardMan\HazardMan\bin\Debug\HazardMan.pdb
 G:\Dateien\Progammieren\C#\HazardMan\HazardMan\obj\Debug\HazardMan.csprojResolveAssemblyReference.cache
+A:\Progammieren\C#\HazardMan\HazardMan\bin\Debug\HazardMan.exe.config
+A:\Progammieren\C#\HazardMan\HazardMan\bin\Debug\HazardMan.exe
+A:\Progammieren\C#\HazardMan\HazardMan\bin\Debug\HazardMan.pdb
+A:\Progammieren\C#\HazardMan\HazardMan\obj\Debug\HazardMan.csprojResolveAssemblyReference.cache
+A:\Progammieren\C#\HazardMan\HazardMan\obj\Debug\HazardMan.exe
+A:\Progammieren\C#\HazardMan\HazardMan\obj\Debug\HazardMan.pdb
+C:\AllStuff\Progammieren\C#\HazardMan\HazardMan\bin\Debug\HazardMan.exe.config
+C:\AllStuff\Progammieren\C#\HazardMan\HazardMan\obj\Debug\HazardMan.exe
+C:\AllStuff\Progammieren\C#\HazardMan\HazardMan\obj\Debug\HazardMan.pdb
+C:\AllStuff\Progammieren\C#\HazardMan\HazardMan\bin\Debug\HazardMan.exe
+C:\AllStuff\Progammieren\C#\HazardMan\HazardMan\bin\Debug\HazardMan.pdb
+C:\AllStuff\Progammieren\C#\HazardMan\HazardMan\obj\Debug\HazardMan.csprojResolveAssemblyReference.cache

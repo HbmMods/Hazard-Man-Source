@@ -10,8 +10,8 @@ namespace HazardMan
     {
         public EntityDummy(float x, float y)
         {
-            posX = x;
-            posY = y;
+            setX(x);
+            setY(y);
         }
 
         //This is a test

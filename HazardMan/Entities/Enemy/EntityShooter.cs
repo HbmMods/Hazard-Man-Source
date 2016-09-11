@@ -14,8 +14,9 @@ namespace HazardMan
         public EntityShooter(float x, float y)
         {
             rand = new Random();
-            posX = x;
-            posY = y;
+            
+            setX(x);
+            setY(y);
         }
 
         public override bool executeAICheck()
@@ -30,7 +31,7 @@ namespace HazardMan
 
         public override void executeAITask()
         {
-            EntityBullet bullet = new EntityBullet(this.posX, this.posY, rand.Next(2) == 0 ? 1 : -1, 0);
+            EntityBullet bullet = new EntityBullet(this.getX(), this.getY(), rand.Next(2) == 0 ? 1 : -1, 0);
             new SpawnEntity(bullet);
         }
 

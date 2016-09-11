@@ -13,8 +13,8 @@ namespace HazardMan
 
         public EntitySprayer(float x, float y)
         {
-            posX = x;
-            posY = y;
+            setX(x);
+            setY(y);
         }
 
         public override bool executeAICheck()
@@ -29,16 +29,16 @@ namespace HazardMan
 
         public override void executeAITask()
         {
-            EntityFragment frag1 = new EntityFragment(this.posX, this.posY - 1, 0.5F, 0.75F);
-            EntityFragment frag2 = new EntityFragment(this.posX, this.posY - 1, 0F, 0.75F);
-            EntityFragment frag3 = new EntityFragment(this.posX, this.posY - 1, -0.5F, 0.75F);
+            EntityFragment frag1 = new EntityFragment(this.getX(), this.getY() - 1, 0.5F, 0.75F);
+            EntityFragment frag2 = new EntityFragment(this.getX(), this.getY() - 1, 0F, 0.75F);
+            EntityFragment frag3 = new EntityFragment(this.getX(), this.getY() - 1, -0.5F, 0.75F);
             new SpawnEntity(frag1);
             new SpawnEntity(frag2);
             new SpawnEntity(frag3);
             if(rand.Next(5) == 0)
             {
-                EntityFragment frag4 = new EntityFragment(this.posX, this.posY - 1, 0.25F, 0.75F);
-                EntityFragment frag5 = new EntityFragment(this.posX, this.posY - 1, -0.25F, 0.75F);
+                EntityFragment frag4 = new EntityFragment(this.getX(), this.getY() - 1, 0.25F, 0.75F);
+                EntityFragment frag5 = new EntityFragment(this.getX(), this.getY() - 1, -0.25F, 0.75F);
                 new SpawnEntity(frag4);
                 new SpawnEntity(frag5);
             }

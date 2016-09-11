@@ -16,10 +16,10 @@ namespace HazardMan
 
         private bool isRespawned = false;
 
-        public EntityPlayer(float x, float y, ConsoleKey up, ConsoleKey left, ConsoleKey right, ConsoleColor color, string name)
+        public EntityPlayer(float posX, float posY, ConsoleKey up, ConsoleKey left, ConsoleKey right, ConsoleColor color, string name)
         {
-            posX = x;
-            posY = y;
+            setX(posX);
+            setY(posY);
 
             this.up = up;
             this.left = left;
