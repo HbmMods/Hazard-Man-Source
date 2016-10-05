@@ -73,7 +73,7 @@ namespace HazardMan
 
                 if (Library.isSoundActivated) Console.Beep();
 
-                new SpawnEntity(new EntityPlayer(1, Console.WindowHeight / 2 - 1, this.up, this.left, this.right, this.getColor(), this.getName()));
+                new SpawnEntity(new EntityPlayer(1, Console.WindowHeight / 2 - 5, this.up, this.left, this.right, this.getColor(), this.getName()));
             }
 
             base.setDead();    

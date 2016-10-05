@@ -29,11 +29,14 @@ namespace HazardMan
             Library.inputThread = new InputThread();
             Library.aiThread = new AIThread();
 
+            int startleft = 1;
             foreach(OptionPlayer player in Library.players) {
-                new SpawnEntity(new EntityPlayer(1, Console.WindowHeight / 2 - 1, player.getUpKey(), player.getLeftKey(), player.getRightKey(), player.getColor(), player.getName()));
+                new SpawnEntity(new EntityPlayer(startleft, Console.WindowHeight / 2 - 10, player.getUpKey(), player.getLeftKey(), player.getRightKey(), player.getColor(), player.getName()));
 
                 if (!Library.score.ContainsKey(player))
                     Library.score.Add(player, 0);
+
+                startleft++;
             }
 
             tickWorld = true;
