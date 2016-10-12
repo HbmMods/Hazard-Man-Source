@@ -103,8 +103,8 @@ namespace HazardMan
 
         private bool IsOutOfMap(int x, int y)
         {
-            int newPosX = (int)(getX() + x);
-            int newPosY = (int)(getY() + y);
+            int newPosX = getX() + x;
+            int newPosY = getY() + y;
 
             if (!(newPosX >= 0 && newPosX < World.terrain.GetLength(0)
                 && newPosY > 0 && newPosY < 29))
@@ -191,7 +191,14 @@ namespace HazardMan
             // Spawn two new bombs
             for (int i = 0; i < 2; i++) {
                 int random = World.rand.Next(110) + 4;
-                new SpawnEntity(new EntityBomb(random, 2));
+                if (random < 10)
+                {
+                    i--;
+                }
+                else
+                {
+                    new SpawnEntity(new EntityBomb(random, 2));
+                }
             }
         }
     }

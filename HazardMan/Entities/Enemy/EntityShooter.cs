@@ -1,15 +1,11 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace HazardMan
 {
     class EntityShooter : EntityAI
     {
         Random rand;
-        public int step = 0;
+        public int step;
 
         public EntityShooter(float x, float y)
         {

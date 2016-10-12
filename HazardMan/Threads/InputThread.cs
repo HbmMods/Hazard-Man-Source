@@ -47,7 +47,11 @@ namespace HazardMan
                     }
                 }
 
-                try { Thread.Sleep(10); } catch { }
+                try { Thread.Sleep(10); }
+                catch
+                {
+                    // ignored
+                }
             }
         }
     }

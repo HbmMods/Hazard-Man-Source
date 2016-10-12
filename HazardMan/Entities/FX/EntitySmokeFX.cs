@@ -1,14 +1,8 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-
-namespace HazardMan
+﻿namespace HazardMan
 {
     class EntitySmokeFX : Entity
     {
-        int age = 0;
+        int age;
         int maxAge = 20;
 
         public override void Update()

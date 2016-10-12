@@ -5,17 +5,14 @@ namespace HazardMan
 {
     class Program
     {
-        static void Main(string[] args)
+        static void Main()
         {
             //Console Height: 30
             //Console Width: 120
             Console.OutputEncoding = Encoding.UTF8;
             int selection = 0;
-            bool loop = true;
             bool masterloop = true;
-            bool goin = true;
             const int yOffset = 2;
-            ConsoleKey input;   
             Console.CursorVisible = false;
 
             Console.WindowHeight = 30;
@@ -27,8 +24,8 @@ namespace HazardMan
 
             while (masterloop)
             {
-                goin = true;
-                loop = true;
+                var goin = true;
+                var loop = true;
                 Console.Clear();
 
                 Console.BackgroundColor = ConsoleColor.Black;
@@ -99,7 +96,7 @@ namespace HazardMan
                         DrawText("Quit", Console.WindowWidth / 2 - "Quit".Length / 2, yOffset + 22);
                         Console.ForegroundColor = ConsoleColor.Gray;
 
-                        input = Console.ReadKey(true).Key;
+                        var input = Console.ReadKey(true).Key;
 
                         if (input == ConsoleKey.UpArrow || input == ConsoleKey.W)
                         {

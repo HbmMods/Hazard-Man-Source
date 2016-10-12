@@ -73,7 +73,11 @@ namespace HazardMan
 
                 ScoreUpdate();
 
-                try { Thread.Sleep(50); } catch { }
+                try { Thread.Sleep(50); }
+                catch
+                {
+                    // ignored
+                }
             }
         }
 

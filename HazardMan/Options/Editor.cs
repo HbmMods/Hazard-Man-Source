@@ -1,8 +1,4 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace HazardMan
 {
@@ -51,20 +47,21 @@ namespace HazardMan
                 Library.setLevel(Convert.ToInt32(Console.ReadLine()));
                 Console.Clear();
                 Console.WriteLine("Changed level");
-                return;
             }
             catch
             {
                 Console.Clear();
                 Console.WriteLine("This is not an available number!");
-                return;
             }
         }
 
         private static void changeScore()
         {
             Console.Write("Enter player's name: ");
-            string uuid = Console.ReadLine().ToUpper();
+            string luuid = Console.ReadLine();
+            if (luuid == null) return;
+            string uuid = luuid.ToUpper();
+
             foreach (OptionPlayer player in Library.players)
             {
                 if (player.getUUID().Contains(uuid))
@@ -88,7 +85,6 @@ namespace HazardMan
 
             Console.Clear();
             Console.WriteLine("There is no player with this name!");
-            return;
         }
 
         private static void changeMaxHealth()
@@ -99,13 +95,11 @@ namespace HazardMan
                 Library.setMaxHealth(Convert.ToInt32(Console.ReadLine()));
                 Console.Clear();
                 Console.WriteLine("Changed max health");
-                return;
             }
             catch
             {
                 Console.Clear();
                 Console.WriteLine("This is not an available number!");
-                return;
             }
         }
     }

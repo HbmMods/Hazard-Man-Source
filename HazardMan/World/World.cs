@@ -1,9 +1,5 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using System.Threading;
 
 namespace HazardMan
 {
@@ -11,11 +7,11 @@ namespace HazardMan
     {
         public static Random rand = new Random();
 
-        public static List<Entity> entities;
+        public static List<Entity> entities = new List<Entity>();
 
         public static TerrainElement[,] terrain = new TerrainElement[Console.WindowWidth, Console.WindowHeight];
 
-        public volatile static bool tickWorld = false;
+        public static bool tickWorld = false;
 
         public static ConsoleKey input;
 
@@ -23,8 +19,11 @@ namespace HazardMan
 
         public static void startWorld()
         {
-            entities = new List<Entity>();
-
+            lock (entities)
+            {
+                entities = new List<Entity>();
+            }
+            
             Library.worldThread = new WorldThread();
             Library.inputThread = new InputThread();
             Library.aiThread = new AIThread();
@@ -55,7 +54,7 @@ namespace HazardMan
 
         public static void StopWorld()
         {
-            World.tickWorld = false;
+            tickWorld = false;
 
             Library.worldThread.stop();
             Library.inputThread.stop();
@@ -148,7 +147,11 @@ namespace HazardMan
             try {
                 terrain[x, y] = element;
                 Renderer.rerenderAtPos(x, y);
-            } catch { }
+            }
+            catch
+            {
+                // ignored
+            }
         }       
     }
 }

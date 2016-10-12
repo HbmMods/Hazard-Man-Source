@@ -1,15 +1,10 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using System.Threading;
 
 namespace HazardMan
 {
     class EntityBomb : EntityAI
     {
-        private Explosion exp = null;
+        private Explosion exp;
 
         public EntityBomb(int x, int y)
         {

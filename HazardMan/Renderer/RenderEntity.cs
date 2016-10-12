@@ -1,8 +1,4 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace HazardMan
 {
@@ -27,16 +23,7 @@ namespace HazardMan
             Console.ForegroundColor = getColor();
 
             // Check if terrain isn't null on render position
-            if (World.terrain[renderPosX, renderPosY] != null)
-            {
-                // Set background color of terrainelement background color
-                Console.BackgroundColor = World.terrain[renderPosX, renderPosY].getBackGroundColor();
-            }
-            else
-            {
-                // Set background color of sky
-                Console.BackgroundColor = Renderer.getSkyColor();
-            }
+            Console.BackgroundColor = World.terrain[renderPosX, renderPosY] != null ? World.terrain[renderPosX, renderPosY].getBackGroundColor() : Renderer.getSkyColor();
 
             // Set postions and last positions
             int lastPosX = (int)entity.lastPosX;

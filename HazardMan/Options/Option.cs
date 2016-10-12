@@ -1,8 +1,5 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace HazardMan
 {
@@ -11,12 +8,11 @@ namespace HazardMan
         public static void createOptionMenu()
         {
             Console.Clear();
-            ConsoleKey input;
             bool running = true;
 
             while (running)
             {
-                if(!(Library.players.Count == 0)) Console.WriteLine("All players: ");
+                if(Library.players.Count != 0) Console.WriteLine("All players: ");
                 int i = 1;
                 foreach (OptionPlayer player in Library.players)
                 {       
@@ -29,7 +25,7 @@ namespace HazardMan
                 Console.WriteLine("Toggle sounds: [S]");
                 Console.WriteLine("Exit to main menu: [X]");
 
-                input = Console.ReadKey(true).Key;
+                ConsoleKey input = Console.ReadKey(true).Key;
 
                 switch(input)
                 {
@@ -78,6 +74,7 @@ namespace HazardMan
 
             Console.Write("Enter player name: ");
             string name = Console.ReadLine();
+            if (name == null) return;
             foreach (OptionPlayer player in Library.players)
             {
                 if (name.ToUpper().Contains(player.getUUID()))
@@ -119,8 +116,10 @@ namespace HazardMan
             }
             Console.Write("Choose: ");
 
-            ConsoleColor color = ConsoleColor.DarkGray;
-            switch (Console.ReadLine().ToUpper())
+            ConsoleColor color;
+            string read = Console.ReadLine();
+            if (read == null) return;
+            switch (read.ToUpper())
             {
                 case "RED":
                     color = ConsoleColor.Red;
@@ -165,7 +164,9 @@ namespace HazardMan
         private static void removePlayer()
         {
             Console.Write("Enter player name: ");
-            string uuid = Console.ReadLine().ToUpper();
+            string luuid = Console.ReadLine();
+            if (luuid == null) return;
+            string uuid = luuid.ToUpper();
 
             OptionPlayer playerfordelete = null;
 
