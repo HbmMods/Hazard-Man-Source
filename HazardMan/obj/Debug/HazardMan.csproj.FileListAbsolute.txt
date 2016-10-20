@@ -29,3 +29,9 @@ C:\AllStuff\Progammieren\C#\HazardMan\HazardMan\obj\Debug\HazardMan.pdb
 C:\AllStuff\Progammieren\C#\HazardMan\HazardMan\bin\Debug\HazardMan.exe
 C:\AllStuff\Progammieren\C#\HazardMan\HazardMan\bin\Debug\HazardMan.pdb
 C:\AllStuff\Progammieren\C#\HazardMan\HazardMan\obj\Debug\HazardMan.csprojResolveAssemblyReference.cache
+Z:\AllStuff\Progammieren\C#\HazardMan\HazardMan\bin\Debug\HazardMan.exe.config
+Z:\AllStuff\Progammieren\C#\HazardMan\HazardMan\obj\Debug\HazardMan.exe
+Z:\AllStuff\Progammieren\C#\HazardMan\HazardMan\obj\Debug\HazardMan.pdb
+Z:\AllStuff\Progammieren\C#\HazardMan\HazardMan\bin\Debug\HazardMan.exe
+Z:\AllStuff\Progammieren\C#\HazardMan\HazardMan\bin\Debug\HazardMan.pdb
+Z:\AllStuff\Progammieren\C#\HazardMan\HazardMan\obj\Debug\HazardMan.csprojResolveAssemblyReference.cache

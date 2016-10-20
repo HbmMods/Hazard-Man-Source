@@ -106,10 +106,10 @@ namespace HazardMan
                 if(eplayer ==  null) return;
 
                 Console.BackgroundColor = ConsoleColor.Black;
-                if (i == 0) Console.SetCursorPosition(0, 29);
-                else if (i == 1) Console.SetCursorPosition(30, 29);
-                else if (i == 2) Console.SetCursorPosition(60, 29);
-                else if (i == 3) Console.SetCursorPosition(90, 29);
+                if (i == 0) Console.SetCursorPosition(1, Console.WindowHeight - 1);
+                else if (i == 1) Console.SetCursorPosition(31, Console.WindowHeight - 1);
+                else if (i == 2) Console.SetCursorPosition(61, Console.WindowHeight - 1);
+                else if (i == 3) Console.SetCursorPosition(91, Console.WindowHeight - 1);
                 Console.ForegroundColor = player.getColor();
                 Console.Write(player.getName() + " - " + Library.score[player] + " ");
 
@@ -129,7 +129,7 @@ namespace HazardMan
 
             Console.BackgroundColor = ConsoleColor.Black;
             Console.ForegroundColor = ConsoleColor.White;
-            Console.SetCursorPosition(110, 29);
+            Console.SetCursorPosition(Console.WindowWidth-10, Console.WindowHeight - 1);
             Console.Write("Level: " + Library.getLevel());
         }
     }

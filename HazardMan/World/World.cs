@@ -9,7 +9,7 @@ namespace HazardMan
 
         public static List<Entity> entities = new List<Entity>();
 
-        public static TerrainElement[,] terrain = new TerrainElement[Console.WindowWidth, Console.WindowHeight];
+        public static TerrainElement[,] terrain;
 
         public static bool tickWorld = false;
 

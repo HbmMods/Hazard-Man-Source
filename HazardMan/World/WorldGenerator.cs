@@ -11,6 +11,8 @@ namespace HazardMan
 
         public static void createNewWorld()
         {
+            World.terrain = new TerrainElement[Console.WindowWidth, Console.WindowHeight];
+
             Random rand = new Random();
             generationHeight = Console.WindowHeight / 2;
 

@@ -15,8 +15,8 @@ namespace HazardMan
             const int yOffset = 2;
             Console.CursorVisible = false;
 
-            Console.WindowHeight = 30;
-            Console.WindowWidth = 120;
+            Console.WindowHeight = 60;
+            Console.WindowWidth = 240;
             Console.BufferHeight = Console.WindowHeight;
             Console.BufferWidth = Console.WindowWidth;
 

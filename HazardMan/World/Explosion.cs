@@ -1,5 +1,6 @@
 ﻿using System.Collections.Generic;
 using System.Threading;
+using System;
 
 namespace HazardMan
 {
@@ -107,7 +108,7 @@ namespace HazardMan
             int newPosY = getY() + y;
 
             if (!(newPosX >= 0 && newPosX < World.terrain.GetLength(0)
-                && newPosY > 0 && newPosY < 29))
+                && newPosY > 0 && newPosY < Console.WindowHeight))
             {
                 if (!(newPosX < World.terrain.GetLength(0) - 1))
                 {                       

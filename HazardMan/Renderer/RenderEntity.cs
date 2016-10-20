@@ -32,7 +32,7 @@ namespace HazardMan
             int posY = (int)entity.getY();
 
             // Check if position is in console
-            if (posX > -1 && posY < 120 && entity.getY() > -1 && entity.getY() < 30)
+            if (entity.getX() > -1 && entity.getY() < Console.WindowWidth && entity.getY() > -1 && entity.getY() < Console.WindowHeight)
             {
                 // Set Cursor to render postions
                 Console.CursorLeft = renderPosX;

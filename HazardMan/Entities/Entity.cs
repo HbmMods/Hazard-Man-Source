@@ -1,4 +1,5 @@
 ﻿using System.Threading;
+using System;
 
 namespace HazardMan
 {
@@ -101,7 +102,7 @@ namespace HazardMan
             int inMotionPositionY = (int)(posY - motionY);
 
             if (!(inMotionPositionX >= 0 && inMotionPositionX < World.terrain.GetLength(0) 
-                && inMotionPositionY > 0 && inMotionPositionY < 29))
+                && inMotionPositionY > 0 && inMotionPositionY < Console.WindowHeight - 1))
             {
                 if(!(inMotionPositionX < World.terrain.GetLength(0)-1))
                 {
