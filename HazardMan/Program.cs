@@ -7,8 +7,18 @@ namespace HazardMan
     {
         static void Main()
         {
+            //Full HD
             //Console Height: 30
             //Console Width: 120
+
+            //4K
+            //Console Height: 60
+            //Console With: 240
+
+            //1280 x 1024 4:3
+            //Console Height: 50
+            //Console With: 150
+
             Console.OutputEncoding = Encoding.UTF8;
             int selection = 0;
             bool masterloop = true;
@@ -24,8 +34,8 @@ namespace HazardMan
 
             while (masterloop)
             {
-                var goin = true;
-                var loop = true;
+                bool goin = true;
+                bool loop = true;
                 Console.Clear();
 
                 Console.BackgroundColor = ConsoleColor.Black;
